@@ -20,10 +20,6 @@ public class PlayerPoolDisplayerEditor : Editor
         {
             ppd.player.takeDamage(1);
         }
-        if (GUILayout.Button("destroy test"))
-        {
-            Destroy(ppd);
-        }
     }
 
 }

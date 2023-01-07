@@ -19,7 +19,6 @@ public class PlayerPoolDisplayer : MonoBehaviour
     }
     private void OnDisable()
     {
-        Debug.Log("disable called");
         registerDelegates(false);
     }
 
