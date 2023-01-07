@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class DamageSpellEffect : SpellEffect
 {
-    public int damage = 1;
-    public int damagePerFocus = 0;
-
     public override void activate(SpellContext context)
     {
+        int damage = context.getAttribute("damage");
+        int damagePerFocus = context.getAttribute("damagePerFocus");
         context.target.takeDamage(damage + damagePerFocus * context.focusSpent);
     }
 }

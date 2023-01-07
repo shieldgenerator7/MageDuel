@@ -20,6 +20,4 @@ MonoBehaviour:
     attributes:
     - name: damagePerFocus
       value: 1
-    - name: damagePerFocusRampable
-      value: 1
   script: damage
