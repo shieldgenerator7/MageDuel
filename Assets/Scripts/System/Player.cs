@@ -20,4 +20,6 @@ public class Player : Entity
     {
         this.name = name;
     }
+
+    public static implicit operator bool(Player player) => player != null;
 }

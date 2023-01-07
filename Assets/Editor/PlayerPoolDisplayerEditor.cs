@@ -14,11 +14,11 @@ public class PlayerPoolDisplayerEditor : Editor
 
         if (GUILayout.Button("Increase health"))
         {
-            ppd.player.heal(1);
+            ppd.Player.heal(1);
         }
         if (GUILayout.Button("Decrease health"))
         {
-            ppd.player.takeDamage(1);
+            ppd.Player.takeDamage(1);
         }
     }
 

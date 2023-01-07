@@ -3,26 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerPoolDisplayer : MonoBehaviour
+public class PlayerPoolDisplayer : PlayerDisplayUI
 {
-    public Player player;
     public Image healthBar;
     public Image auraBar;
 
-    // Start is called before the first frame update
-    void OnEnable()
-    {
-        player = new Player("player1");//TEST
-        registerDelegates(true);
-        updateHealthBar(player.health);
-        updateAuraBar(player.aura);
-    }
-    private void OnDisable()
-    {
-        registerDelegates(false);
-    }
-
-    void registerDelegates(bool register)
+    protected override void _registerDelegates(bool register)
     {
         player.health.onValueChanged -= updateHealthBar;
         player.aura.onValueChanged -= updateAuraBar;
@@ -31,6 +17,12 @@ public class PlayerPoolDisplayer : MonoBehaviour
             player.health.onValueChanged += updateHealthBar;
             player.aura.onValueChanged += updateAuraBar;
         }
+    }
+
+    public override void forceUpdate()
+    {
+        updateHealthBar(player.health);
+        updateAuraBar(player.aura);
     }
 
     private void updateHealthBar(int health)
