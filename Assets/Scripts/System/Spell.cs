@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 
+[System.Serializable]
 public class Spell
 {
     public string name;
@@ -9,4 +10,5 @@ public class Spell
     public int speed = 3;
     //public int strainCost = 0;
     public List<SpellEffect> effects = new List<SpellEffect>();
+    public List<SpellAttribute> attributes = new List<SpellAttribute>();
 }
