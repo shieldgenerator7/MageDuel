@@ -2,45 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player
+public class Player : Entity
 {
     public string name;
-    public Pool health = new Pool(3);
-    public Pool aura = new Pool(5);
     public Pool focus = new Pool(7);
     public List<Spell> spellList = new List<Spell>();
 
-    public void takeDamage(int damage)
+    public Player(string name) : base(3, 5)
     {
-        if (aura > 0)
-        {
-            int leftOverDamage = damage - aura;
-            aura.Value -= damage;
-            if (leftOverDamage > 0)
-            {
-                health.Value -= leftOverDamage;
-            }
-        }
-        else
-        {
-            health.Value -= damage;
-        }
-    }
-
-    public void heal(int healing)
-    {
-        if (health < health.maxValue)
-        {
-            int leftOverHealing = healing - (health.maxValue - health);
-            health.Value += healing;
-            if (leftOverHealing > 0)
-            {
-                aura.Value += leftOverHealing;
-            }
-        }
-        else
-        {
-            aura.Value += healing;
-        }
+        this.name = name;
     }
 }
