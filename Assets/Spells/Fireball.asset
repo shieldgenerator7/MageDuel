@@ -20,4 +20,5 @@ MonoBehaviour:
     attributes:
     - name: damagePerFocus
       value: 1
+      rampable: 1
   script: damage

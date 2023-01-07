@@ -20,4 +20,5 @@ MonoBehaviour:
     attributes:
     - name: healPerFocus
       value: 1
+      rampable: 1
   script: heal
