@@ -1,7 +1,8 @@
-﻿using System.Drawing;
+﻿using UnityEngine;
 
-public class Element
+[CreateAssetMenu(fileName = "Element", menuName = "Element")]
+public class Element : ScriptableObject
 {
-    public string name;
-    public Color color;
+    public new string name;
+    public Color color = Color.white;
 }
