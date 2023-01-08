@@ -5,22 +5,49 @@ using UnityEngine;
 
 public class PlacematDisplayer : MonoBehaviour
 {
-    public string playerName = "Player1";
-    public Player player;
 
     public List<PlayerDisplayUI> uiElements;
 
+    private Player player;
+
+    public void setPlayer(Player player)
+    {
+        //Unlink from previous player
+        if (this.player)
+        {
+            registerDelegates(false);
+        }
+        //Set player
+        this.player = player;
+        //Link to new player
+        if (this.player)
+        {
+            registerDelegates(true);
+        }
+    }
+
     void OnEnable()
     {
-        player = new Player(playerName);
-        uiElements.ForEach(ui =>
-        {
-            ui.registerDelegates(player);
-            ui.forceUpdate();
-        });
+        registerDelegates(true);
     }
     private void OnDisable()
     {
-        uiElements.ForEach(ui => ui.registerDelegates(player, false));
+        registerDelegates(false);
+    }
+
+    private void registerDelegates(bool register)
+    {
+        if (register)
+        {
+            uiElements.ForEach(ui =>
+            {
+                ui.registerDelegates(player);
+                ui.forceUpdate();
+            });
+        }
+        else
+        {
+            uiElements.ForEach(ui => ui.registerDelegates(player, false));
+        }
     }
 }

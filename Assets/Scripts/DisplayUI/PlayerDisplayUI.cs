@@ -8,6 +8,23 @@ public abstract class PlayerDisplayUI : MonoBehaviour
     protected Player player;
     public Player Player => player;
 
+    private void OnEnable()
+    {
+        if (player)
+        {
+            _registerDelegates(true);
+            forceUpdate();
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (player)
+        {
+            _registerDelegates(false);
+        }
+    }
+
     public void registerDelegates(Player player, bool register = true)
     {
         if (this.player)
