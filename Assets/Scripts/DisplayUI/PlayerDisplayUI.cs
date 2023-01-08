@@ -41,4 +41,18 @@ public abstract class PlayerDisplayUI : MonoBehaviour
     protected abstract void _registerDelegates(bool register);
 
     public abstract void forceUpdate();
+
+
+    protected void callOnDisplayerCreated(PlayerDisplayUI playerDisplayUI)
+    {
+        onDisplayerCreated?.Invoke(playerDisplayUI);
+    }
+    protected void callOnDisplayerDestroyed(PlayerDisplayUI playerDisplayUI)
+    {
+        onDisplayerDestroyed?.Invoke(playerDisplayUI);
+    }
+    public delegate void OnDisplayerChanged(PlayerDisplayUI playerDisplayUI);
+    public event OnDisplayerChanged onDisplayerCreated;
+    public event OnDisplayerChanged onDisplayerDestroyed;
+
 }

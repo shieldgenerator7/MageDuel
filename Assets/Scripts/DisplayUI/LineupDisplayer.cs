@@ -26,20 +26,25 @@ public class LineupDisplayer : PlayerDisplayUI
         spellObjects.ForEach(so => so.forceUpdate());
     }
 
-    private void layoutSpells(List<Spell> spells)
+    private void layoutSpells(List<SpellContext> spells)
     {
         //TODO: rewrite so it reuses gameobjects
         //
-        spellObjects.ForEach(so => Destroy(so.gameObject));
+        spellObjects.ForEach(so =>
+        {
+            callOnDisplayerDestroyed(so);
+            Destroy(so.gameObject);
+        });
         spellObjects.Clear();
         //
         //Create the spell objects
-        foreach (Spell spell in spells)
+        foreach (SpellContext spell in spells)
         {
             GameObject spellObject = Instantiate(spellPrefab, transform);
             SpellDisplayer spellDisplayer = spellObject.GetComponent<SpellDisplayer>();
             spellObjects.Add(spellDisplayer);
             spellDisplayer.init(spell);
+            callOnDisplayerCreated(spellDisplayer);
         }
         //Arrange the spell objects
         int x = -1 * (spellObjects.Count - 1) * buffer / 2;
