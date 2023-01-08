@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2739348292598174506}
   - component: {fileID: 6753133857415937903}
+  - component: {fileID: 492978410693705850}
   - component: {fileID: 6266979255511756460}
   m_Layer: 5
   m_Name: Placemat
@@ -33,6 +34,7 @@ RectTransform:
   - {fileID: 1530780228063238525}
   - {fileID: 5196974923761695217}
   - {fileID: 5306629843656974011}
+  - {fileID: 1465174571414717067}
   m_Father: {fileID: 0}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -54,6 +56,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: Player1
+--- !u!114 &492978410693705850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009843721856784048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90bff3d7c266a1044af2d9bb6926827d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controls:
+  - {fileID: 6928143142016144513}
+  - {fileID: 4455188421154654385}
 --- !u!114 &6266979255511756460
 MonoBehaviour:
   m_ObjectHideFlags: 0

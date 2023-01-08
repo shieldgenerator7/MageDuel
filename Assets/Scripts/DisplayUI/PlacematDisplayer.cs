@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class PlacematDisplayer : MonoBehaviour
 {
 
@@ -28,11 +29,17 @@ public class PlacematDisplayer : MonoBehaviour
 
     void OnEnable()
     {
-        registerDelegates(true);
+        if (this.player)
+        {
+            registerDelegates(true);
+        }
     }
     private void OnDisable()
     {
-        registerDelegates(false);
+        if (this.player)
+        {
+            registerDelegates(false);
+        }
     }
 
     private void registerDelegates(bool register)

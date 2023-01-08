@@ -1,0 +1,16 @@
+{
+    "name": "ControlUI",
+    "rootNamespace": "",
+    "references": [
+        "GUID:06d6a124dffe8a249ac0c7077fb670c1"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
