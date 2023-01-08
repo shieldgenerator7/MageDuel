@@ -10,8 +10,6 @@ public class LineupDisplayer : PlayerDisplayUI
 
     private List<SpellDisplayer> spellObjects = new List<SpellDisplayer>();
 
-    public List<SpellObject> testSpells;
-
     protected override void _registerDelegates(bool register)
     {
         player.onLineupChanged -= layoutSpells;

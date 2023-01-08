@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
-[System.Serializable]
-public class Spell
+[CreateAssetMenu(fileName = "Spell", menuName = "Spell")]
+public class Spell: ScriptableObject
 {
-    public string name;
+    public new string name;
+    [TextArea(2,10)]
     public string description;
     public Element element;
     public int cost;
@@ -11,6 +13,8 @@ public class Spell
     //public int strainCost = 0;
     public List<SpellEffect> effects = new List<SpellEffect>();
     public List<SpellAttribute> attributes = new List<SpellAttribute>();
+    [Multiline(50)]
+    public string script;
 
     public int getAttribute(string attrName)
     {

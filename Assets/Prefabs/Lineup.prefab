@@ -51,6 +51,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buffer: 250
   spellPrefab: {fileID: 6307424361883745361, guid: e10f84a0b03b4e84f804ea9664374ebb, type: 3}
-  testSpells:
-  - {fileID: 11400000, guid: 7a74878fba44fbb41a1bfb3833a28f65, type: 2}
-  - {fileID: 11400000, guid: d3d072d92fb6d1544b13ea10fead0d97, type: 2}
