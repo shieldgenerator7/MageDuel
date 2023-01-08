@@ -31,17 +31,23 @@ public class LineupDisplayer : PlayerDisplayUI
     private void layoutSpells(List<Spell> spells)
     {
         //TODO: rewrite so it reuses gameobjects
+        //
         spellObjects.ForEach(so => Destroy(so.gameObject));
         spellObjects.Clear();
         //
-        int x = 0;
+        //Create the spell objects
         foreach (Spell spell in spells)
         {
             GameObject spellObject = Instantiate(spellPrefab, transform);
             SpellDisplayer spellDisplayer = spellObject.GetComponent<SpellDisplayer>();
             spellObjects.Add(spellDisplayer);
             spellDisplayer.init(spell, player);
-            spellObject.GetComponent<RectTransform>().localPosition = new Vector2(x, 0);
+        }
+        //Arrange the spell objects
+        int x = -1 * (spellObjects.Count - 1) * buffer / 2;
+        foreach (SpellDisplayer so in spellObjects)
+        {
+            so.GetComponent<RectTransform>().localPosition = new Vector2(x, 0);
             x += buffer;
         }
     }
