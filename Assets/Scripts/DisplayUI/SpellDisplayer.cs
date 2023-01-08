@@ -10,10 +10,9 @@ public class SpellDisplayer : PlayerDisplayUI
 
     SpellContext spellContext;
 
-    public void init(Spell spell, Player caster)
+    public void init(SpellContext spellContext)
     {
-        this.player = caster;
-        this.spellContext = new SpellContext(spell, player);
+        this.spellContext = spellContext;
         updateColor();
     }
 

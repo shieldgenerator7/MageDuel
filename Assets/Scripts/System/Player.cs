@@ -14,7 +14,7 @@ public class Player : Entity
     /// <summary>
     /// The spells that the player has in the lineup
     /// </summary>
-    private List<Spell> lineup = new List<Spell>();
+    private List<SpellContext> lineup = new List<SpellContext>();
 
 
     public Player(string name) : base(3, 5)
@@ -24,13 +24,14 @@ public class Player : Entity
 
     public void lineupSpell(Spell spell)
     {
-        lineup.Add(spell);
+        SpellContext context = new SpellContext(spell, this);
+        lineup.Add(context);
         onLineupChanged?.Invoke(lineup);
     }
-    public delegate void OnLineupChanged(List<Spell> spellList);
+    public delegate void OnLineupChanged(List<SpellContext> spellList);
     public event OnLineupChanged onLineupChanged;
 
-    public List<Spell> Lineup => lineup.ToList();
+    public List<SpellContext> Lineup => lineup.ToList();
 
     public static implicit operator bool(Player player) => player != null;
 }

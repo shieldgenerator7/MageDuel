@@ -39,7 +39,7 @@ public class LineupDisplayer : PlayerDisplayUI
             GameObject spellObject = Instantiate(spellPrefab, transform);
             SpellDisplayer spellDisplayer = spellObject.GetComponent<SpellDisplayer>();
             spellObjects.Add(spellDisplayer);
-            spellDisplayer.init(spell, player);
+            spellDisplayer.init(spell);
         }
         //Arrange the spell objects
         int x = -1 * (spellObjects.Count - 1) * buffer / 2;

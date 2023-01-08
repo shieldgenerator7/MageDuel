@@ -5,7 +5,7 @@ using UnityEngine.PlayerLoop;
 
 public abstract class PlayerDisplayUI : MonoBehaviour
 {
-    protected Player player;
+    protected Player player { get; private set; }
     public Player Player => player;
 
     private void OnEnable()
