@@ -21,7 +21,7 @@ public class PageDisplayerUI : PlayerDisplayUI
     {
         imgColors.ForEach(img => img.color = spell.element.color);
         txtName.text = spell.name;
-        txtDescription.text = spell.description;
+        txtDescription.text = spell.Description;
     }
 
 }

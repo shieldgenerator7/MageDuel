@@ -27,4 +27,17 @@ public class Spell: ScriptableObject
         }
         return 0;
     }
+
+    public string Description
+    {
+        get
+        {
+            string desc = this.description;
+            foreach(SpellAttribute attr in attributes)
+            {
+                desc = desc.Replace($"[{attr.name}]", $"{attr.value}");
+            }
+            return desc;
+        }
+    }
 }
