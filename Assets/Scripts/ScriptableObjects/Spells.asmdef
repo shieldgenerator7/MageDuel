@@ -1,9 +1,8 @@
 {
-    "name": "DisplayUI",
+    "name": "Spells",
     "rootNamespace": "",
     "references": [
-        "GUID:06d6a124dffe8a249ac0c7077fb670c1",
-        "GUID:51be8a0e988e442479b4f5b42e248270"
+        "GUID:06d6a124dffe8a249ac0c7077fb670c1"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

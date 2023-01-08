@@ -6,6 +6,12 @@
     public int focusSpent;
     public int auraSpent;
 
+    public SpellContext(Spell spell, Player caster)
+    {
+        this.spell = spell;
+        this.caster = caster;
+    }
+
     public int getAttribute(string attrName)
     {
         int value = spell.getAttribute(attrName);
