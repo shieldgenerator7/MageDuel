@@ -31,4 +31,16 @@ public class SpellContext
         //TODO: modifications from other effects
         return value;
     }
+
+    public void activate()
+    {
+        spell.effects = SpellScriptCompiler.compile(spell.script);
+        spell.effects.ForEach(effect =>
+        {
+            effect.activate(this);
+        });
+        OnSpellResolved?.Invoke(this);
+    }
+    public delegate void OnSpell(SpellContext sc);
+    public event OnSpell OnSpellResolved;
 }

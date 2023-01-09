@@ -8,10 +8,6 @@ public class SpellControllerUI : PlayerControlUI
 
     public override void activate()
     {
-        spellContext.spell.effects = SpellScriptCompiler.compile(spellContext.spell.script);
-        spellContext.spell.effects.ForEach(effect =>
-        {
-            effect.activate(spellContext);
-        });
+        spellContext.activate();
     }
 }

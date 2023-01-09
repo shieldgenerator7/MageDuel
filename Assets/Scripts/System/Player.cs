@@ -28,12 +28,19 @@ public class Player : Entity
     {
         SpellContext context = new SpellContext(spell, this);
         lineup.Add(context);
+        context.OnSpellResolved += removeSpellFromLineup;
         onLineupChanged?.Invoke(lineup);
     }
     public delegate void OnLineupChanged(List<SpellContext> spellList);
     public event OnLineupChanged onLineupChanged;
 
     public List<SpellContext> Lineup => lineup.ToList();
+
+    private void removeSpellFromLineup(SpellContext sc)
+    {
+        lineup.Remove(sc);
+        onLineupChanged?.Invoke(lineup);
+    }
 
     public static implicit operator bool(Player player) => player != null;
 }
