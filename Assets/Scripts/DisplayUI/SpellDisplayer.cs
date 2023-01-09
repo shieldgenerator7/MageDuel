@@ -8,7 +8,7 @@ public class SpellDisplayer : PlayerDisplayUI
 {
     public Image spellImage;
 
-    SpellContext spellContext;
+    public SpellContext spellContext;
 
     public void init(SpellContext spellContext)
     {
