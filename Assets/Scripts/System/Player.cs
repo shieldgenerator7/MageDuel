@@ -16,6 +16,8 @@ public class Player : Entity
     /// </summary>
     private List<SpellContext> lineup = new List<SpellContext>();
 
+    public Player opponent;
+
 
     public Player(string name) : base(3, 5)
     {

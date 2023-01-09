@@ -11,6 +11,8 @@ public class Spell: ScriptableObject
     public int cost;
     public int speed = 3;
     //public int strainCost = 0;
+    public bool autoTargetEnemy = true;
+    public bool autoTargetSelf = false;
     public List<SpellEffect> effects = new List<SpellEffect>();
     public List<SpellAttribute> attributes = new List<SpellAttribute>();
     [Multiline(50)]

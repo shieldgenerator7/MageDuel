@@ -17,6 +17,8 @@ MonoBehaviour:
   element: {fileID: 11400000, guid: 40952c779b37a20498b12735adee2dc5, type: 2}
   cost: 0
   speed: 3
+  autoTargetEnemy: 1
+  autoTargetSelf: 0
   attributes:
   - name: damagePerFocus
     value: 1

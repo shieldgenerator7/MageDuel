@@ -1,4 +1,8 @@
-﻿public class SpellContext
+﻿
+
+using UnityEngine;
+
+public class SpellContext
 {
     public Spell spell;
     public Player target;
@@ -10,6 +14,15 @@
     {
         this.spell = spell;
         this.caster = caster;
+        if (spell.autoTargetEnemy)
+        {
+            this.target = caster.opponent;
+        }
+        else if (spell.autoTargetSelf)
+        {
+            this.target = caster;
+        }
+        this.focusSpent = 1;//test code
     }
 
     public int getAttribute(string attrName)

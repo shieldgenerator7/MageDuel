@@ -7,21 +7,20 @@ using UnityEngine;
 [RequireComponent(typeof(PlacematDisplayer))]
 public class Placemat : MonoBehaviour
 {
-    public string playerName = "Player1";
-    public Player player;
+    private Player player;
 
     private PlacematController placematController;
     private PlacematDisplayer placematDisplayer;
 
     // Start is called before the first frame update
-    void Start()
+    public void setPlayer(Player player)
     {
-        player = new Player(playerName);
+        this.player = player;
         //
-        placematController = GetComponent<PlacematController>();
+        placematController ??= GetComponent<PlacematController>();
         placematController.setPlayer(player);
         //
-        placematDisplayer = GetComponent<PlacematDisplayer>();
+        placematDisplayer ??= GetComponent<PlacematDisplayer>();
         placematDisplayer.setPlayer(player);
     }
 }

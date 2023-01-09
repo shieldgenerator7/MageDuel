@@ -17,6 +17,8 @@ MonoBehaviour:
   element: {fileID: 11400000, guid: 3347f6e73112a8c4ea76271f58b61f16, type: 2}
   cost: 0
   speed: 3
+  autoTargetEnemy: 0
+  autoTargetSelf: 1
   attributes:
   - name: healPerFocus
     value: 1
