@@ -13,6 +13,7 @@ public class PlacematDisplayer : MonoBehaviour
 
     public void setPlayer(Player player)
     {
+        registerUIChanges();
         //Unlink from previous player
         if (this.player)
         {
@@ -29,6 +30,7 @@ public class PlacematDisplayer : MonoBehaviour
 
     void OnEnable()
     {
+        registerUIChanges();
         if (this.player)
         {
             registerDelegates(true);
@@ -55,6 +57,39 @@ public class PlacematDisplayer : MonoBehaviour
         else
         {
             uiElements.ForEach(ui => ui.registerDelegates(player, false));
+        }
+    }
+
+    private void registerUIChanges()
+    {
+        uiElements.ForEach(ui => registerUIChange(ui));
+    }
+    private void registerUIChange(PlayerDisplayUI playerDisplayUI)
+    {
+        playerDisplayUI.onDisplayerCreated -= onUICreated;
+        playerDisplayUI.onDisplayerCreated += onUICreated;
+        playerDisplayUI.onDisplayerDestroyed -= onUIDestroyed;
+        playerDisplayUI.onDisplayerDestroyed += onUIDestroyed;
+    }
+
+    private void onUICreated(PlayerDisplayUI playerDisplayUI)
+    {
+        if (!uiElements.Contains(playerDisplayUI))
+        {
+            uiElements.Add(playerDisplayUI);
+        }
+        registerUIChange(playerDisplayUI);
+        if (player)
+        {
+            playerDisplayUI.registerDelegates(player, true);
+        }
+    }
+    private void onUIDestroyed(PlayerDisplayUI playerDisplayUI)
+    {
+        uiElements.Remove(playerDisplayUI);
+        if (player)
+        {
+            playerDisplayUI.registerDelegates(player, false);
         }
     }
 }
