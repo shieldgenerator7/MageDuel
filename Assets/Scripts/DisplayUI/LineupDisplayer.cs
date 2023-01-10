@@ -5,6 +5,7 @@ using UnityEngine;
 public class LineupDisplayer : PlayerDisplayUI
 {
     public int buffer = 250;
+    public bool flipped = false;
 
     public GameObject mageHoodCoin;
 
@@ -49,13 +50,14 @@ public class LineupDisplayer : PlayerDisplayUI
             callOnDisplayerCreated(spellDisplayer);
         }
         //Arrange the spell objects
-        int x = -1 * (spellObjects.Count) * buffer / 2;
+        int flip = (flipped) ? -1 : 1;
+        int x = flip * -1 * (spellObjects.Count) * buffer / 2;
         mageHoodCoin.GetComponent<RectTransform>().localPosition = new Vector2(x, 0);
-        x += buffer;
+        x += flip * buffer;
         foreach (SpellDisplayer so in spellObjects)
         {
             so.GetComponent<RectTransform>().localPosition = new Vector2(x, 0);
-            x += buffer;
+            x += flip * buffer;
         }
     }
 }
