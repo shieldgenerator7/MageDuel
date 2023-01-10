@@ -7,7 +7,9 @@ using UnityEngine.UI;
 public class SpellDisplayer : PlayerDisplayUI
 {
     public List<Sprite> focusSprites;
+    public List<Sprite> auraSprites;
     public Image imgFocus;
+    public Image imgAura;
     public Image spellImage;
 
     public SpellContext spellContext;
@@ -21,9 +23,11 @@ public class SpellDisplayer : PlayerDisplayUI
     protected override void _registerDelegates(bool register)
     {
         spellContext.onFocusChanged -= updateFocus;
+        spellContext.onAuraChanged -= updateAura;
         if (register)
         {
             spellContext.onFocusChanged += updateFocus;
+            spellContext.onAuraChanged += updateAura;
         }
     }
 
@@ -31,16 +35,25 @@ public class SpellDisplayer : PlayerDisplayUI
     {
         updateColor();
         updateFocus(spellContext.Focus);
+        updateAura(spellContext.Aura);
     }
 
     private void updateColor()
     {
-        spellImage.color = spellContext.element.color;
+        Color color = spellContext.element.color;
+        spellImage.color = color;
+        imgFocus.color = color;
+        imgAura.color = color;
     }
 
     private void updateFocus(int focus)
     {
         imgFocus.sprite = focusSprites[focus];
+    }
+
+    private void updateAura(int aura)
+    {
+        imgAura.sprite = auraSprites[aura];
     }
 
 }
