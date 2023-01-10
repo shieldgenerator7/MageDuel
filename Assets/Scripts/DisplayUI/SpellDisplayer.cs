@@ -35,7 +35,7 @@ public class SpellDisplayer : PlayerDisplayUI
 
     private void updateColor()
     {
-        spellImage.color = spellContext.spell.element.color;
+        spellImage.color = spellContext.element.color;
     }
 
     private void updateFocus(int focus)

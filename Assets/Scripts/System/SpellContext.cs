@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpellContext
 {
-    public Spell spell;
+    private Spell spell;
     public Player target;
     public Player caster;
     private int focusSpent;
@@ -46,9 +46,16 @@ public class SpellContext
     public event OnChargeChanged onFocusChanged;
     public event OnChargeChanged onAuraChanged;
 
+    public Element element => spell.element;
+
     public int getAttribute(string attrName)
     {
-        int value = spell.getAttribute(attrName);
+        SpellAttribute attr = spell.getAttribute(attrName);
+        int value = attr?.value ?? 0;
+        if (attr?.rampable ?? false)
+        {
+            value += auraSpent;
+        }
         //TODO: modifications from other effects
         return value;
     }

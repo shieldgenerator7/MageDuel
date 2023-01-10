@@ -18,16 +18,17 @@ public class Spell: ScriptableObject
     [Multiline(50)]
     public string script;
 
-    public int getAttribute(string attrName)
+    public SpellAttribute getAttribute(string attrName)
     {
         foreach (SpellAttribute attr in attributes)
         {
             if (attr.name == attrName)
             {
-                return attr.value;
+                return attr;
             }
         }
-        return 0;
+        Debug.LogError($"Attribute with name {attrName} not found! spell: {this.name}");
+        return null;
     }
 
     public string Description

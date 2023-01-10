@@ -117,6 +117,7 @@ public class Player : Entity
         {
             State = PlayState.FOCUSING;
             focus.refill();
+            aura.refill();
         }
     }
 
