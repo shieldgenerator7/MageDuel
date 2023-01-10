@@ -19,11 +19,6 @@ public class GameUI : MonoBehaviour
             game.players.Add(p);
             placemats[i].setPlayer(p);
         }
-        game.players.ForEach(p => p.opponent = getOpponent(p));
-    }
-
-    public Player getOpponent(Player p)
-    {
-        return game.players.Find(opp => opp != p);
+        game.startGame();
     }
 }

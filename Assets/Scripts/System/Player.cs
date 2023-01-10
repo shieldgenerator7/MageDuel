@@ -113,14 +113,15 @@ public class Player : Entity
     {
         lineup.Remove(sc);
         onLineupChanged?.Invoke(lineup);
-        if (lineup.Count == 0 && opponent.lineup.Count == 0)
-        {
-            ready();
-            opponent.ready();
-        }
     }
 
-    public void ready()
+    public void clearLineup()
+    {
+        lineup.Clear();
+        onLineupChanged?.Invoke(lineup);
+    }
+
+    public void readyUp()
     {
         State = PlayState.FOCUSING;
         focus.refill();
