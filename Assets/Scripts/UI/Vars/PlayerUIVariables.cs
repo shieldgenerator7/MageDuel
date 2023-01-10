@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-
+using UnityEngine;
 
 public class PlayerUIVariables
 {
@@ -12,7 +12,7 @@ public class PlayerUIVariables
         get => spellBookPage;
         set
         {
-            spellBookPage = value;
+            spellBookPage = Mathf.Clamp(value, 0, player.deck.spellList.Count - 1);
             onSpellBookPaged?.Invoke(spellBookPage);
         }
     }
