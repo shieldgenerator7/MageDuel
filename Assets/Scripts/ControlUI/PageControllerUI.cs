@@ -8,6 +8,9 @@ public class PageControllerUI : PlayerControlUI
 
     public override void activate()
     {
-        player.lineupSpell(spell);
+        if (player.State == Player.PlayState.FOCUSING)
+        {
+            player.lineupSpell(spell);
+        }
     }
 }

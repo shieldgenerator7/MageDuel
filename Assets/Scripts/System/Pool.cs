@@ -36,6 +36,11 @@ public sealed class Pool
         this.value = this.maxValue;
     }
 
+    public void refill()
+    {
+        this.Value = this.maxValue;
+    }
+
     public static implicit operator int(Pool pool) => pool.Value;
     public static int operator +(Pool pool, int value) => pool.Value + value;
     public static int operator +(int value, Pool pool) => value + pool.Value;

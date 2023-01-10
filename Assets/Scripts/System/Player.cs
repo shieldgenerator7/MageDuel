@@ -33,6 +33,11 @@ public class Player : Entity
         {
             playState = value;
             onStateChanged?.Invoke(playState);
+            //prevent softlocks (TEST CODE)
+            if (playState == PlayState.CASTING && lineup.Count == 0)
+            {
+                State = PlayState.FOCUSING;
+            }
         }
     }
     public delegate void OnPlayState(PlayState state);
@@ -84,6 +89,11 @@ public class Player : Entity
     {
         lineup.Remove(sc);
         onLineupChanged?.Invoke(lineup);
+        if (lineup.Count == 0)
+        {
+            State = PlayState.FOCUSING;
+            focus.refill();
+        }
     }
 
     public static implicit operator bool(Player player) => player != null;
