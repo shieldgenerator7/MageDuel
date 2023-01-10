@@ -8,7 +8,7 @@ public class SpellContext
     public Player target;
     public Player caster;
     private int focusSpent;
-    public int auraSpent;
+    private int auraSpent;
 
     public SpellContext(Spell spell, Player caster)
     {

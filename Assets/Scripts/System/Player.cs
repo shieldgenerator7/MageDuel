@@ -49,7 +49,7 @@ public class Player : Entity
         this.name = name;
     }
 
-    public void focusSpell(SpellContext spellContext, int focus, int aura = 0)
+    public void focusSpell(SpellContext spellContext, int focus, int aura = 0, bool toSpell = true)
     {
         if (focus < 0)
         {
@@ -61,15 +61,39 @@ public class Player : Entity
             Debug.LogError($"Aura must be 0 or greater! aura: {aura}");
             return;
         }
-        if (this.focus >= focus)
+        //Focus
+        if (toSpell)
         {
-            this.focus.Value -= focus;
-            spellContext.Focus += focus;
+            if (this.focus >= focus)
+            {
+                this.focus.Value -= focus;
+                spellContext.Focus += focus;
+            }
         }
-        if (this.aura >= aura)
+        else
         {
-            this.aura.Value -= aura;
-            spellContext.auraSpent += aura;
+            if (spellContext.Focus >= focus)
+            {
+                spellContext.Focus -= focus;
+                this.focus.Value += focus;
+            }
+        }
+        //Aura
+        if (toSpell)
+        {
+            if (this.aura >= aura)
+            {
+                this.aura.Value -= aura;
+                spellContext.Aura += aura;
+            }
+        }
+        else
+        {
+            if (spellContext.Aura >= aura)
+            {
+                spellContext.Aura -= aura;
+                this.aura.Value += aura;
+            }
         }
     }
 
