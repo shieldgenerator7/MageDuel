@@ -44,6 +44,7 @@ public class LineupDisplayer : PlayerDisplayUI
         {
             GameObject spellObject = Instantiate(spellPrefab, transform);
             SpellDisplayer spellDisplayer = spellObject.GetComponent<SpellDisplayer>();
+            spellDisplayer.setGame(game);
             spellObjects.Add(spellDisplayer);
             spellDisplayer.init(spell);
             callOnDisplayerCreated(spellDisplayer);

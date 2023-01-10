@@ -12,28 +12,32 @@ public class SpellControllerUI : PlayerControlUI
 
     public override void activate()
     {
-        switch (player.State)
+        switch (game.Phase)
         {
-            case Player.PlayState.READYING:
-            case Player.PlayState.FOCUSING:
-                if (rightClick && !shiftKey && spellContext.Focus == 0)
+            case Game.GamePhase.READYUP:
+                break;
+            case Game.GamePhase.LINEUP:
+                if (player.State == Player.PlayState.FOCUSING)
                 {
-                    //Refund aura spent on it
-                    if (spellContext.Aura > 0)
+                    if (rightClick && !shiftKey && spellContext.Focus == 0)
                     {
-                        spellContext.caster.focusSpell(spellContext, 0, spellContext.Aura, false);
+                        //Refund aura spent on it
+                        if (spellContext.Aura > 0)
+                        {
+                            spellContext.caster.focusSpell(spellContext, 0, spellContext.Aura, false);
+                        }
+                        //Remove spell from lineup
+                        player.removeSpellFromLineup(spellContext);
                     }
-                    //Remove spell from lineup
-                    player.removeSpellFromLineup(spellContext);
-                }
-                else
-                {
-                    int focus = (!shiftKey) ? 1 : 0;
-                    int aura = (shiftKey) ? 1 : 0;
-                    spellContext.caster.focusSpell(spellContext, focus, aura, !rightClick);
+                    else
+                    {
+                        int focus = (!shiftKey) ? 1 : 0;
+                        int aura = (shiftKey) ? 1 : 0;
+                        spellContext.caster.focusSpell(spellContext, focus, aura, !rightClick);
+                    }
                 }
                 break;
-            case Player.PlayState.CASTING:
+            case Game.GamePhase.MATCHUP:
                 if (!rightClick)
                 {
                     spellContext.activate();
@@ -43,9 +47,11 @@ public class SpellControllerUI : PlayerControlUI
                     player.removeSpellFromLineup(spellContext);
                 }
                 break;
-            default:
-                Debug.LogError($"Unknown state! {player.State}");
+            case Game.GamePhase.CLEANUP:
                 break;
+            default:
+                Debug.LogError($"Unknown game phase! phase: {game.Phase}");
+                break;            
         }
     }
 

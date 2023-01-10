@@ -19,6 +19,28 @@ public class GameUI : MonoBehaviour
             game.players.Add(p);
             placemats[i].setPlayer(p, game);
         }
+        game.onPhaseChanged += onPhaseChanged;
         game.startGame();
+    }
+
+    void onPhaseChanged(Game.GamePhase phase)
+    {
+        //depending on phase, go directly into the next phase
+        switch(phase)
+        {
+            case Game.GamePhase.READYUP:
+                game.checkNextPhase();
+                break;
+            case Game.GamePhase.LINEUP:
+                break;
+            case Game.GamePhase.MATCHUP:
+                break;
+            case Game.GamePhase.CLEANUP:
+                game.checkNextPhase();
+                break;
+            default:
+                Debug.LogError($"Unknown game phase! phase: {phase}");
+                break;
+        }
     }
 }

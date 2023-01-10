@@ -20,7 +20,7 @@ public class Game
     public GamePhase Phase
     {
         get => phase;
-        set
+        private set
         {
             phase = value;
             onPhaseChanged.Invoke(phase);
@@ -31,18 +31,19 @@ public class Game
 
     public void startGame()
     {
-        phase = GamePhase.READYUP;
         players.ForEach(player =>
         {
             players.ForEach(p => p.opponent = getOpponent(p));
             player.onStateChanged += onPlayStateChanged;
             player.onLineupChanged += onLineupChanged;
         });
+        roundNumber = 1;
+        Phase = GamePhase.READYUP;
     }
 
     private void nextPhase(GamePhase phase)
     {
-        this.Phase = phase;
+        this.phase = phase;
         switch (phase)
         {
             case GamePhase.READYUP:
@@ -74,6 +75,7 @@ public class Game
                 Debug.LogError($"Unknown phase: {phase}");
                 break;
         }
+        onPhaseChanged?.Invoke(phase);
     }
 
     public void checkNextPhase()
@@ -108,14 +110,14 @@ public class Game
         }
     }
 
-    public void onPlayStateChanged(Player.PlayState playState)
+    private void onPlayStateChanged(Player.PlayState playState)
     {
         if (phase == GamePhase.LINEUP)
         {
             checkNextPhase();
         }
     }
-    public void onLineupChanged(List<SpellContext> spellContexts = null)
+    private void onLineupChanged(List<SpellContext> spellContexts = null)
     {
         if (phase == GamePhase.MATCHUP)
         {
