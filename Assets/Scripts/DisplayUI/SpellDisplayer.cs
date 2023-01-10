@@ -10,6 +10,7 @@ public class SpellDisplayer : PlayerDisplayUI
     public List<Sprite> auraSprites;
     public Image imgFocus;
     public Image imgAura;
+    public GameObject tooltip;
     public List<Image> imagesToColor;
 
     public SpellContext spellContext;
@@ -36,6 +37,7 @@ public class SpellDisplayer : PlayerDisplayUI
         updateColor();
         updateFocus(spellContext.Focus);
         updateAura(spellContext.Aura);
+        showTooltip(false);
     }
 
     private void updateColor()
@@ -52,6 +54,11 @@ public class SpellDisplayer : PlayerDisplayUI
     private void updateAura(int aura)
     {
         imgAura.sprite = auraSprites[aura];
+    }
+
+    public void showTooltip(bool show)
+    {
+        tooltip.SetActive(show);
     }
 
 }
