@@ -105,10 +105,18 @@ PrefabInstance:
       propertyPath: spell
       value: 
       objectReference: {fileID: 11400000, guid: a8f5a8aa088fd834cab9dae2607e3d98, type: 2}
+    - target: {fileID: 613178279088263815, guid: cef48f753701d2846af1d51310a1b6af, type: 3}
+      propertyPath: pageIndex
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4765517026015014228, guid: cef48f753701d2846af1d51310a1b6af, type: 3}
       propertyPath: spell
       value: 
       objectReference: {fileID: 11400000, guid: a8f5a8aa088fd834cab9dae2607e3d98, type: 2}
+    - target: {fileID: 4765517026015014228, guid: cef48f753701d2846af1d51310a1b6af, type: 3}
+      propertyPath: pageIndex
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7756287889678542702, guid: cef48f753701d2846af1d51310a1b6af, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -497,10 +505,18 @@ PrefabInstance:
       propertyPath: spell
       value: 
       objectReference: {fileID: 11400000, guid: 2e64511f3b7bf4146a2ae814bd70f1c6, type: 2}
+    - target: {fileID: 613178279088263815, guid: cef48f753701d2846af1d51310a1b6af, type: 3}
+      propertyPath: pageIndex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4765517026015014228, guid: cef48f753701d2846af1d51310a1b6af, type: 3}
       propertyPath: spell
       value: 
       objectReference: {fileID: 11400000, guid: 2e64511f3b7bf4146a2ae814bd70f1c6, type: 2}
+    - target: {fileID: 4765517026015014228, guid: cef48f753701d2846af1d51310a1b6af, type: 3}
+      propertyPath: pageIndex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7756287889678542702, guid: cef48f753701d2846af1d51310a1b6af, type: 3}
       propertyPath: m_Pivot.x
       value: 0

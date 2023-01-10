@@ -11,7 +11,7 @@ public class Player : Entity
     /// <summary>
     /// The spells that the player knows
     /// </summary>
-    public List<Spell> spellList = new List<Spell>();
+    public Deck deck;
     /// <summary>
     /// The spells that the player has in the lineup
     /// </summary>

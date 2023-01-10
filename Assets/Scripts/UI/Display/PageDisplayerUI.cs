@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class PageDisplayerUI : PlayerDisplayUI
 {
-    public Spell spell;
+    public int pageIndex;
+    private Spell spell;
 
     public List<Image> imgColors;
     public TMP_Text txtName;
@@ -14,7 +15,7 @@ public class PageDisplayerUI : PlayerDisplayUI
 
     protected override void _registerDelegates(bool register)
     {
-        Debug.LogWarning("Not implemented in PageDisplayerUI");
+        spell = player.deck[pageIndex];
     }
 
     public override void forceUpdate()

@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 218687997a49be4409cc3607b8bc0db2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spell: {fileID: 0}
+  pageIndex: 0
 --- !u!114 &613178279088263815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 619db9974a9a1cc4e813f4c9d4437688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spell: {fileID: 0}
+  pageIndex: 0
   imgColors:
   - {fileID: 2486927646221387577}
   - {fileID: 7753436146947166992}
