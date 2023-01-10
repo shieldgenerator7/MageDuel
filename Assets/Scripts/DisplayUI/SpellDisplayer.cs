@@ -10,7 +10,7 @@ public class SpellDisplayer : PlayerDisplayUI
     public List<Sprite> auraSprites;
     public Image imgFocus;
     public Image imgAura;
-    public Image spellImage;
+    public List<Image> imagesToColor;
 
     public SpellContext spellContext;
 
@@ -41,9 +41,7 @@ public class SpellDisplayer : PlayerDisplayUI
     private void updateColor()
     {
         Color color = spellContext.element.color;
-        spellImage.color = color;
-        imgFocus.color = color;
-        imgAura.color = color;
+        imagesToColor.ForEach(img => img.color = color);
     }
 
     private void updateFocus(int focus)
