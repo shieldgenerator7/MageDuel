@@ -6,7 +6,9 @@ using UnityEngine.PlayerLoop;
 public abstract class PlayerDisplayUI : MonoBehaviour
 {
     protected Player player { get; private set; }
+    protected Game game { get; private set; }
     public Player Player => player;
+    public Game Game => game;
 
     private void OnEnable()
     {
@@ -25,6 +27,11 @@ public abstract class PlayerDisplayUI : MonoBehaviour
         }
     }
 
+    public void setGame(Game game)
+    {
+        this.game = game;
+    }
+
     public void registerDelegates(Player player, bool register = true)
     {
         if (this.player)
@@ -33,7 +40,7 @@ public abstract class PlayerDisplayUI : MonoBehaviour
             this.player = null;
         }
         if (register)
-        {            
+        {
             this.player = player;
             _registerDelegates(true);
         }

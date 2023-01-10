@@ -17,7 +17,7 @@ public class Player : Entity
     /// </summary>
     private List<SpellContext> lineup = new List<SpellContext>();
 
-    public Player opponent;
+    public Player opponent;//TODO: remove this (assuming it doesnt need it in the future)
 
     public enum PlayState
     {

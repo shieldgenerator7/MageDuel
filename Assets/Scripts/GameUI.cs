@@ -17,7 +17,7 @@ public class GameUI : MonoBehaviour
         {
             Player p = new Player(playerNames[i]);
             game.players.Add(p);
-            placemats[i].setPlayer(p);
+            placemats[i].setPlayer(p, game);
         }
         game.startGame();
     }

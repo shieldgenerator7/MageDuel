@@ -5,11 +5,13 @@ using UnityEngine.EventSystems;
 
 public abstract class PlayerControlUI : MonoBehaviour, IPointerClickHandler
 {
-    protected Player player;
+    protected Player player { get; private set; }
+    protected Game game { get; private set; }
 
-    public void setPlayer(Player player)
+    public void setPlayer(Player player, Game game)
     {
         this.player = player;
+        this.game = game;
     }
 
     public abstract void activate();

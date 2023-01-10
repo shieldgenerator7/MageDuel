@@ -10,9 +10,17 @@ public class PlacematDisplayer : MonoBehaviour
     public List<PlayerDisplayUI> uiElements;
 
     private Player player;
+    private Game game;
 
-    public void setPlayer(Player player)
+    public void setPlayer(Player player, Game game)
     {
+        //Game
+        this.game = game;
+        uiElements.ForEach(ui =>
+        {
+            ui.setGame(game);
+        });
+        //
         registerUIChanges();
         //Unlink from previous player
         if (this.player)

@@ -8,10 +8,12 @@ public class PlacematController : MonoBehaviour
     public List<PlayerControlUI> controls;
 
     private Player player;
+    private Game game;
 
-    public void setPlayer(Player player)
+    public void setPlayer(Player player, Game game)
     {
         this.player = player;
-        controls.ForEach(c => c.setPlayer(player));
+        this.game = game;
+        controls.ForEach(c => c.setPlayer(player, game));
     }
 }

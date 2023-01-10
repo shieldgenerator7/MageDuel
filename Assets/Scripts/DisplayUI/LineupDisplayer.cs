@@ -20,7 +20,6 @@ public class LineupDisplayer : PlayerDisplayUI
         {
             player.onLineupChanged += layoutSpells;
         }
-        spellObjects.ForEach(so => so.registerDelegates(player, register));
     }
 
     public override void forceUpdate()
