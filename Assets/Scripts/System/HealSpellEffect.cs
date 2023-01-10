@@ -9,6 +9,6 @@ public class HealSpellEffect : SpellEffect
         int heal = context.getAttribute("heal");
         int healPerFocus = context.getAttribute("healPerFocus");
         Debug.Log($"Heal effect: {heal}, {healPerFocus}, {context.target}");
-        context.target.heal(heal + healPerFocus * context.focusSpent);
+        context.target.heal(heal + healPerFocus * context.Focus);
     }
 }

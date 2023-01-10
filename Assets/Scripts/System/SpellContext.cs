@@ -7,7 +7,7 @@ public class SpellContext
     public Spell spell;
     public Player target;
     public Player caster;
-    public int focusSpent;
+    private int focusSpent;
     public int auraSpent;
 
     public SpellContext(Spell spell, Player caster)
@@ -23,6 +23,28 @@ public class SpellContext
             this.target = caster;
         }
     }
+
+    public int Focus
+    {
+        get => focusSpent;
+        set
+        {
+            focusSpent = value;
+            onFocusChanged?.Invoke(focusSpent);
+        }
+    }
+    public int Aura
+    {
+        get => auraSpent;
+        set
+        {
+            auraSpent = value;
+            onAuraChanged?.Invoke(auraSpent);
+        }
+    }
+    public delegate void OnChargeChanged(int value);
+    public event OnChargeChanged onFocusChanged;
+    public event OnChargeChanged onAuraChanged;
 
     public int getAttribute(string attrName)
     {

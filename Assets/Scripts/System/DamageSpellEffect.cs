@@ -9,6 +9,6 @@ public class DamageSpellEffect : SpellEffect
         int damage = context.getAttribute("damage");
         int damagePerFocus = context.getAttribute("damagePerFocus");
         Debug.Log($"Damage effect: {damage}, {damagePerFocus}, {context.target}");
-        context.target.takeDamage(damage + damagePerFocus * context.focusSpent);
+        context.target.takeDamage(damage + damagePerFocus * context.Focus);
     }
 }

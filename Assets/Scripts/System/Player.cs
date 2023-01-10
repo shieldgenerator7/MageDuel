@@ -59,7 +59,7 @@ public class Player : Entity
         if (this.focus >= focus)
         {
             this.focus.Value -= focus;
-            spellContext.focusSpent += focus;
+            spellContext.Focus += focus;
         }
         if (this.aura >= aura)
         {
