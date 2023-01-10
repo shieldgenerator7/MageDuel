@@ -8,6 +8,18 @@ public class SpellControllerUI : PlayerControlUI
 
     public override void activate()
     {
-        spellContext.caster.focusSpell(spellContext, 1);
+        switch (player.State)
+        {
+            case Player.PlayState.READYING:
+            case Player.PlayState.FOCUSING:
+                spellContext.caster.focusSpell(spellContext, 1);
+                break;
+            case Player.PlayState.CASTING:
+                spellContext.activate();
+                break;
+            default:
+                Debug.LogError($"Unknown state! {player.State}");
+                break;
+        }
     }
 }

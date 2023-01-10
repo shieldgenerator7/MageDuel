@@ -22,7 +22,6 @@ public class SpellContext
         {
             this.target = caster;
         }
-        this.focusSpent = 1;//test code
     }
 
     public int getAttribute(string attrName)
