@@ -113,12 +113,18 @@ public class Player : Entity
     {
         lineup.Remove(sc);
         onLineupChanged?.Invoke(lineup);
-        if (lineup.Count == 0)
+        if (lineup.Count == 0 && opponent.lineup.Count == 0)
         {
-            State = PlayState.FOCUSING;
-            focus.refill();
-            aura.refill();
+            ready();
+            opponent.ready();
         }
+    }
+
+    public void ready()
+    {
+        State = PlayState.FOCUSING;
+        focus.refill();
+        aura.refill();
     }
 
     public static implicit operator bool(Player player) => player != null;
