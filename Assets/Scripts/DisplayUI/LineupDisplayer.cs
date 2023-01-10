@@ -6,6 +6,8 @@ public class LineupDisplayer : PlayerDisplayUI
 {
     public int buffer = 250;
 
+    public GameObject mageHoodCoin;
+
     public GameObject spellPrefab;
 
     private List<SpellDisplayer> spellObjects = new List<SpellDisplayer>();
@@ -47,7 +49,9 @@ public class LineupDisplayer : PlayerDisplayUI
             callOnDisplayerCreated(spellDisplayer);
         }
         //Arrange the spell objects
-        int x = -1 * (spellObjects.Count - 1) * buffer / 2;
+        int x = -1 * (spellObjects.Count) * buffer / 2;
+        mageHoodCoin.GetComponent<RectTransform>().localPosition = new Vector2(x, 0);
+        x += buffer;
         foreach (SpellDisplayer so in spellObjects)
         {
             so.GetComponent<RectTransform>().localPosition = new Vector2(x, 0);

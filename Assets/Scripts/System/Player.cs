@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class Player : Entity
@@ -17,6 +18,25 @@ public class Player : Entity
     private List<SpellContext> lineup = new List<SpellContext>();
 
     public Player opponent;
+
+    public enum PlayState
+    {
+        READYING,
+        FOCUSING,
+        CASTING,
+    }
+    private PlayState playState = PlayState.FOCUSING;
+    public PlayState State
+    {
+        get => playState;
+        set
+        {
+            playState = value;
+            onStateChanged?.Invoke(playState);
+        }
+    }
+    public delegate void OnPlayState(PlayState state);
+    public event OnPlayState onStateChanged;
 
 
     public Player(string name) : base(3, 5)
