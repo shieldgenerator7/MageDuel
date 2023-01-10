@@ -10,15 +10,15 @@ public class PlacematDisplayer : MonoBehaviour
     public List<PlayerDisplayUI> uiElements;
 
     private Player player;
-    private Game game;
+    private UIVariables uiVars;
 
-    public void setPlayer(Player player, Game game)
+    public void setPlayer(Player player, UIVariables uiVars)
     {
-        //Game
-        this.game = game;
+        //UIVars
+        this.uiVars = uiVars;
         uiElements.ForEach(ui =>
         {
-            ui.setGame(game);
+            ui.setUIVars(uiVars);
         });
         //
         registerUIChanges();

@@ -8,21 +8,21 @@ using UnityEngine;
 public class Placemat : MonoBehaviour
 {
     private Player player;
-    private Game game;
+    private UIVariables uiVars;
 
     private PlacematController placematController;
     private PlacematDisplayer placematDisplayer;
 
     // Start is called before the first frame update
-    public void setPlayer(Player player, Game game)
+    public void setPlayer(Player player, UIVariables uiVars)
     {
         this.player = player;
-        this.game = game;
+        this.uiVars = uiVars;
         //
         placematController ??= GetComponent<PlacematController>();
-        placematController.setPlayer(player, game);
+        placematController.setPlayer(player, uiVars);
         //
         placematDisplayer ??= GetComponent<PlacematDisplayer>();
-        placematDisplayer.setPlayer(player, game);
+        placematDisplayer.setPlayer(player, uiVars);
     }
 }

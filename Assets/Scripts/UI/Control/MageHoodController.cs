@@ -6,7 +6,7 @@ public class MageHoodController : PlayerControlUI
 {
     public override void activate()
     {
-        if (game.Phase == Game.GamePhase.LINEUP)
+        if (uiVars.game.Phase == Game.GamePhase.LINEUP)
         {
             if (player.Lineup.Count > 0)
             {

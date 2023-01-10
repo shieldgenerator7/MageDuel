@@ -8,19 +8,27 @@ public class GameUI : MonoBehaviour
     public List<Placemat> placemats;
 
     public Game game;
+    private UIVariables uiVars;
 
     // Start is called before the first frame update
     void Start()
     {
+        //Game
         game = new Game();
         for (int i = 0; i < playerNames.Count; i++)
         {
             Player p = new Player(playerNames[i]);
             game.players.Add(p);
-            placemats[i].setPlayer(p, game);
         }
         game.onPhaseChanged += onPhaseChanged;
         game.startGame();
+        //uiVars
+        uiVars = new UIVariables(game);
+        for (int i = 0; i < game.players.Count; i++)
+        {
+            Player p = game.players[i];
+            placemats[i].setPlayer(p, uiVars);
+        }
     }
 
     void onPhaseChanged(Game.GamePhase phase)

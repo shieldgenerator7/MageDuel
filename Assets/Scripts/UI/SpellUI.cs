@@ -11,6 +11,6 @@ public class SpellUI : MonoBehaviour
     void Start()
     {
         spellControllerUI.spellContext = spellDisplayer.spellContext;
-        spellControllerUI.setPlayer(spellDisplayer.Player, spellDisplayer.Game);
+        spellControllerUI.setPlayer(spellDisplayer.Player, spellDisplayer.UIVars);
     }
 }

@@ -6,12 +6,12 @@ using UnityEngine.EventSystems;
 public abstract class PlayerControlUI : MonoBehaviour, IPointerClickHandler
 {
     protected Player player { get; private set; }
-    protected Game game { get; private set; }
+    protected UIVariables uiVars { get; private set; }
 
-    public void setPlayer(Player player, Game game)
+    public void setPlayer(Player player, UIVariables uiVars)
     {
         this.player = player;
-        this.game = game;
+        this.uiVars = uiVars;
     }
 
     public abstract void activate();

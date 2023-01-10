@@ -8,7 +8,7 @@ public class PageControllerUI : PlayerControlUI
 
     public override void activate()
     {
-        if (game.Phase == Game.GamePhase.LINEUP && player.State == Player.PlayState.FOCUSING)
+        if (uiVars.game.Phase == Game.GamePhase.LINEUP && player.State == Player.PlayState.FOCUSING)
         {
             player.lineupSpell(spell);
         }

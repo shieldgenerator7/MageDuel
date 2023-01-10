@@ -1,9 +1,8 @@
 {
-    "name": "UIControl",
+    "name": "UIVariables",
     "rootNamespace": "",
     "references": [
-        "GUID:06d6a124dffe8a249ac0c7077fb670c1",
-        "GUID:18cee5f85ba8c5b45bcb954691ad6f64"
+        "GUID:06d6a124dffe8a249ac0c7077fb670c1"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

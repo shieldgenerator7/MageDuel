@@ -12,7 +12,7 @@ public class SpellControllerUI : PlayerControlUI
 
     public override void activate()
     {
-        switch (game.Phase)
+        switch (uiVars.game.Phase)
         {
             case Game.GamePhase.READYUP:
                 break;
@@ -50,7 +50,7 @@ public class SpellControllerUI : PlayerControlUI
             case Game.GamePhase.CLEANUP:
                 break;
             default:
-                Debug.LogError($"Unknown game phase! phase: {game.Phase}");
+                Debug.LogError($"Unknown game phase! phase: {uiVars.game.Phase}");
                 break;            
         }
     }

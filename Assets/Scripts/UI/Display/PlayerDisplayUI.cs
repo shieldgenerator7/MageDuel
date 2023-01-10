@@ -6,9 +6,9 @@ using UnityEngine.PlayerLoop;
 public abstract class PlayerDisplayUI : MonoBehaviour
 {
     protected Player player { get; private set; }
-    protected Game game { get; private set; }
+    protected UIVariables uiVars { get; private set; }
     public Player Player => player;
-    public Game Game => game;
+    public UIVariables UIVars => uiVars;
 
     private void OnEnable()
     {
@@ -27,9 +27,9 @@ public abstract class PlayerDisplayUI : MonoBehaviour
         }
     }
 
-    public void setGame(Game game)
+    public void setUIVars(UIVariables uiVars)
     {
-        this.game = game;
+        this.uiVars = uiVars;
     }
 
     public void registerDelegates(Player player, bool register = true)

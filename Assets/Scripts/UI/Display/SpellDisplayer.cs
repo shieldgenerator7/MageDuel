@@ -63,7 +63,7 @@ public class SpellDisplayer : PlayerDisplayUI
         {
             tooltip.spellContext = this.spellContext;
             tooltip.registerDelegates(player, true);
-            tooltip.setGame(game);
+            tooltip.setUIVars(uiVars);
             tooltip.forceUpdate();
         }
         tooltip.gameObject.SetActive(show);
