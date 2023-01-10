@@ -109,7 +109,7 @@ public class Player : Entity
 
     public List<SpellContext> Lineup => lineup.ToList();
 
-    private void removeSpellFromLineup(SpellContext sc)
+    public void removeSpellFromLineup(SpellContext sc)
     {
         lineup.Remove(sc);
         onLineupChanged?.Invoke(lineup);

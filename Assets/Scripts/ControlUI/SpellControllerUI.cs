@@ -15,10 +15,24 @@ public class SpellControllerUI : PlayerControlUI
         {
             case Player.PlayState.READYING:
             case Player.PlayState.FOCUSING:
-                spellContext.caster.focusSpell(spellContext, 1, 0, !rightClick);
+                if (rightClick && spellContext.Focus == 0)
+                {
+                    player.removeSpellFromLineup(spellContext);
+                }
+                else
+                {
+                    spellContext.caster.focusSpell(spellContext, 1, 0, !rightClick);
+                }                
                 break;
             case Player.PlayState.CASTING:
-                spellContext.activate();
+                if (!rightClick)
+                {
+                    spellContext.activate();
+                }
+                else
+                {
+                    player.removeSpellFromLineup(spellContext);
+                }
                 break;
             default:
                 Debug.LogError($"Unknown state! {player.State}");
