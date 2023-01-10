@@ -10,8 +10,9 @@ public class SpellDisplayer : PlayerDisplayUI
     public List<Sprite> auraSprites;
     public Image imgFocus;
     public Image imgAura;
-    public GameObject tooltip;
     public List<Image> imagesToColor;
+    //Tooltip
+    public ToolTipDisplayer tooltip;
 
     public SpellContext spellContext;
 
@@ -58,7 +59,14 @@ public class SpellDisplayer : PlayerDisplayUI
 
     public void showTooltip(bool show)
     {
-        tooltip.SetActive(show);
+        if (show)
+        {
+            tooltip.spellContext = this.spellContext;
+            tooltip.registerDelegates(player, true);
+            tooltip.setGame(game);
+            tooltip.forceUpdate();
+        }
+        tooltip.gameObject.SetActive(show);
     }
 
 }

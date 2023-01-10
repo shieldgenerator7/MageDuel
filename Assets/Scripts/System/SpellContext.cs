@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpellContext
 {
-    private Spell spell;
+    public Spell spell;
     public Player target;
     public Player caster;
     private int focusSpent;
@@ -23,6 +23,8 @@ public class SpellContext
             this.target = caster;
         }
     }
+
+    public Spell Spell => spell;
 
     public int Focus
     {
@@ -47,6 +49,20 @@ public class SpellContext
     public event OnChargeChanged onAuraChanged;
 
     public Element element => spell.element;
+
+    public string Description
+    {
+        get
+        {
+            string desc = this.spell.description;
+            foreach (SpellAttribute attr in spell.attributes)
+            {
+                string attrName = attr.name;
+                desc = desc.Replace($"[{attrName}]", $"{getAttribute(attrName)}");
+            }
+            return desc;
+        }
+    }
 
     public int getAttribute(string attrName)
     {
