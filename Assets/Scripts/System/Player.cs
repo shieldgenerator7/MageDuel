@@ -24,6 +24,30 @@ public class Player : Entity
         this.name = name;
     }
 
+    public void focusSpell(SpellContext spellContext, int focus, int aura = 0)
+    {
+        if (focus < 0)
+        {
+            Debug.LogError($"Focus must be 0 or greater! focus: {focus}");
+            return;
+        }
+        if (aura < 0)
+        {
+            Debug.LogError($"Aura must be 0 or greater! aura: {aura}");
+            return;
+        }
+        if (this.focus >= focus)
+        {
+            this.focus.Value -= focus;
+            spellContext.focusSpent += focus;
+        }
+        if (this.aura >= aura)
+        {
+            this.aura.Value -= aura;
+            spellContext.auraSpent += aura;
+        }
+    }
+
     public void lineupSpell(Spell spell)
     {
         SpellContext context = new SpellContext(spell, this);

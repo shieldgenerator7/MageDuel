@@ -7,15 +7,18 @@ public class PlayerPoolDisplayer : PlayerDisplayUI
 {
     public Image healthBar;
     public Image auraBar;
+    public Image focusBar;
 
     protected override void _registerDelegates(bool register)
     {
         player.health.onValueChanged -= updateHealthBar;
         player.aura.onValueChanged -= updateAuraBar;
+        player.focus.onValueChanged -= updateFocusBar;
         if (register)
         {
             player.health.onValueChanged += updateHealthBar;
             player.aura.onValueChanged += updateAuraBar;
+            player.focus.onValueChanged += updateFocusBar;
         }
     }
 
@@ -33,6 +36,11 @@ public class PlayerPoolDisplayer : PlayerDisplayUI
     private void updateAuraBar(int aura)
     {
         auraBar.fillAmount = (float)aura / (float)player.aura.maxValue;
+    }
+
+    private void updateFocusBar(int focus)
+    {
+        focusBar.fillAmount = (float)focus / (float)player.focus.maxValue;
     }
 
 }

@@ -8,6 +8,6 @@ public class SpellControllerUI : PlayerControlUI
 
     public override void activate()
     {
-        spellContext.activate();
+        spellContext.caster.focusSpell(spellContext, 1);
     }
 }
