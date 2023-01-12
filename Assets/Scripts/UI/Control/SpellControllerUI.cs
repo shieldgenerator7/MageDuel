@@ -39,7 +39,7 @@ public class SpellControllerUI : PlayerControlUI
                 break;
             case Game.GamePhase.MATCHUP:
                 //if this is the next spell in the lineup,
-                if (player.Lineup.IndexOf(spellContext) == 0)
+                if (spellContext.canBeCastNext)
                 {
                     //process it
                     if (!rightClick)
@@ -56,7 +56,7 @@ public class SpellControllerUI : PlayerControlUI
                 break;
             default:
                 Debug.LogError($"Unknown game phase! phase: {uiVars.game.Phase}");
-                break;            
+                break;
         }
     }
 

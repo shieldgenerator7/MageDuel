@@ -79,6 +79,10 @@ public class SpellContext
         return value;
     }
 
+    public bool canBeCastNext
+        => caster.Lineup.IndexOf(this) == 0
+        || spell.keywords.Contains(Spell.Keyword.FLASH);
+
     public void activate()
     {
         //If focus cost has been paid,

@@ -19,6 +19,7 @@ MonoBehaviour:
   speed: 3
   autoTargetEnemy: 0
   autoTargetSelf: 1
+  keywords: 
   attributes:
   - name: healPerFocus
     value: 1

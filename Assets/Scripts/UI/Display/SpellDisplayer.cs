@@ -84,12 +84,8 @@ public class SpellDisplayer : PlayerDisplayUI
 
     public void checkShowPulse()
     {
-        if (!this.player)
-        {
-            Debug.LogError($"player is {this.player}!");
-        }
         showPulse(
-            (player && player.Lineup.IndexOf(spellContext) == 0)
+            spellContext.canBeCastNext
             && uiVars.game.Phase == Game.GamePhase.MATCHUP
             );
     }

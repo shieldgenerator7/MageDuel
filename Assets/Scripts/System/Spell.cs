@@ -13,9 +13,19 @@ public class Spell: ScriptableObject
     //public int strainCost = 0;
     public bool autoTargetEnemy = true;
     public bool autoTargetSelf = false;
+    public List<Keyword> keywords;
     public List<SpellAttribute> attributes = new List<SpellAttribute>();
     [Multiline(50)]
     public string script;
+
+    public enum Keyword
+    {
+        FLASH,
+        RECAST, //not needed in the digital version?
+        CHANNEL,
+        PERSISTS,
+        MASTER, //ultimate
+    }
 
     public SpellAttribute getAttribute(string attrName)
     {
