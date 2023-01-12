@@ -1,5 +1,6 @@
 ﻿
 
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SpellContext
@@ -48,6 +49,8 @@ public class SpellContext
     public event OnChargeChanged onFocusChanged;
     public event OnChargeChanged onAuraChanged;
 
+    public bool FocusPaid => focusSpent >= spell.cost;
+
     public Element element => spell.element;
 
     public string Description
@@ -78,11 +81,17 @@ public class SpellContext
 
     public void activate()
     {
-        spell.effects = SpellScriptCompiler.compile(spell.script);
-        spell.effects.ForEach(effect =>
+        //If focus cost has been paid,
+        if (FocusPaid)
         {
-            effect.activate(this);
-        });
+            //Activate spell
+            List<SpellEffect> effects = SpellScriptCompiler.compile(spell.script);
+            effects.ForEach(effect =>
+            {
+                effect.activate(this);
+            });
+        }
+        //Mark this spell resolved regardless
         OnSpellResolved?.Invoke(this);
     }
     public delegate void OnSpell(SpellContext sc);
