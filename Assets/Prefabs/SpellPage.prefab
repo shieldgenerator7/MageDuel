@@ -144,8 +144,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7756287889678542702}
-  - component: {fileID: 4765517026015014228}
-  - component: {fileID: 613178279088263815}
   m_Layer: 5
   m_Name: SpellPage
   m_TagString: Untagged
@@ -178,37 +176,6 @@ RectTransform:
   m_AnchoredPosition: {x: 100, y: 83}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &4765517026015014228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 489896004184757514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 218687997a49be4409cc3607b8bc0db2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pageIndex: 0
---- !u!114 &613178279088263815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 489896004184757514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 619db9974a9a1cc4e813f4c9d4437688, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pageIndex: 0
-  imgColors:
-  - {fileID: 2486927646221387577}
-  - {fileID: 7753436146947166992}
-  txtName: {fileID: 2454011097972440882}
-  txtDescription: {fileID: 1970917938730405615}
 --- !u!1 &4911275807693329898
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,7 +432,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4765517026015014228}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PageControllerUI, ControlUI
         m_MethodName: activate
         m_Mode: 1
