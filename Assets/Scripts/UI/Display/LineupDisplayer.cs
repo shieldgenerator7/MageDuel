@@ -46,7 +46,7 @@ public class LineupDisplayer : PlayerDisplayUI
             SpellDisplayer spellDisplayer = spellObject.GetComponent<SpellDisplayer>();
             spellDisplayer.setUIVars(uiVars);
             spellObjects.Add(spellDisplayer);
-            spellDisplayer.init(spell);
+            spellDisplayer.init(spell, player);
             callOnDisplayerCreated(spellDisplayer);
         }
         //Arrange the spell objects

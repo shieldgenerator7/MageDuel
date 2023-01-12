@@ -124,4 +124,8 @@ public class Player : Entity
     }
 
     public static implicit operator bool(Player player) => player != null;
+    public override string ToString()
+    {
+        return name;
+    }
 }

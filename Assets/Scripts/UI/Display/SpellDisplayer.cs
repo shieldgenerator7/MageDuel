@@ -18,9 +18,10 @@ public class SpellDisplayer : PlayerDisplayUI
 
     public SpellContext spellContext;
 
-    public void init(SpellContext spellContext)
+    public void init(SpellContext spellContext, Player player)
     {
         this.spellContext = spellContext;
+        this.registerDelegates(player, true);
         forceUpdate();
     }
 
@@ -28,10 +29,14 @@ public class SpellDisplayer : PlayerDisplayUI
     {
         spellContext.onFocusChanged -= updateFocus;
         spellContext.onAuraChanged -= updateAura;
+        player.onLineupChanged -= onLineupChanged;
+        uiVars.game.onPhaseChanged -= onGamePhaseChanged;
         if (register)
         {
             spellContext.onFocusChanged += updateFocus;
             spellContext.onAuraChanged += updateAura;
+            player.onLineupChanged += onLineupChanged;
+            uiVars.game.onPhaseChanged += onGamePhaseChanged;
         }
     }
 
@@ -41,6 +46,7 @@ public class SpellDisplayer : PlayerDisplayUI
         updateFocus(spellContext.Focus);
         updateAura(spellContext.Aura);
         showTooltip(false);
+        checkShowPulse();
     }
 
     private void updateColor()
@@ -69,6 +75,32 @@ public class SpellDisplayer : PlayerDisplayUI
             tooltip.forceUpdate();
         }
         tooltip.gameObject.SetActive(show);
+    }
+
+    public void showPulse(bool show)
+    {
+        imgPulse.gameObject.SetActive(show);
+    }
+
+    public void checkShowPulse()
+    {
+        if (!this.player)
+        {
+            Debug.LogError($"player is {this.player}!");
+        }
+        showPulse(
+            (player && player.Lineup.IndexOf(spellContext) == 0)
+            && uiVars.game.Phase == Game.GamePhase.MATCHUP
+            );
+    }
+
+    public void onLineupChanged(List<SpellContext> lineup)
+    {
+        checkShowPulse();
+    }
+    public void onGamePhaseChanged(Game.GamePhase phase)
+    {
+        checkShowPulse();
     }
 
 }
