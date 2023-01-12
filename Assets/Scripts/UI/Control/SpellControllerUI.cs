@@ -38,13 +38,18 @@ public class SpellControllerUI : PlayerControlUI
                 }
                 break;
             case Game.GamePhase.MATCHUP:
-                if (!rightClick)
+                //if this is the next spell in the lineup,
+                if (player.Lineup.IndexOf(spellContext) == 0)
                 {
-                    spellContext.activate();
-                }
-                else
-                {
-                    player.removeSpellFromLineup(spellContext);
+                    //process it
+                    if (!rightClick)
+                    {
+                        spellContext.activate();
+                    }
+                    else
+                    {
+                        player.removeSpellFromLineup(spellContext);
+                    }
                 }
                 break;
             case Game.GamePhase.CLEANUP:
