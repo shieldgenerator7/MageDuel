@@ -13,6 +13,8 @@ public class SpellDisplayer : PlayerDisplayUI
     public List<Image> imagesToColor;
     //Tooltip
     public ToolTipDisplayer tooltip;
+    //Pulse
+    public Image imgPulse;
 
     public SpellContext spellContext;
 
