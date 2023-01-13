@@ -89,9 +89,10 @@ public class SpellContext
         if (FocusPaid)
         {
             //Activate spell
-            List<SpellEffect> effects = SpellScriptCompiler.compile(spell.script, this);
+            List<SpellEffect> effects = SpellScriptCompiler.compile(spell.script);
             effects.ForEach(effect =>
             {
+                effect.init(this);
                 effect.activate();
             });
         }

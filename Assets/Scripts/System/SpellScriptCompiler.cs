@@ -4,20 +4,24 @@ using UnityEngine;
 
 public static class SpellScriptCompiler
 {
-    public static List<SpellEffect> compile(string spellScript, SpellContext spellContext)
+    public static List<SpellEffect> compile(string spellScript)
     {
         List<SpellEffect> spellEffects = new List<SpellEffect>();
         string[] lines = spellScript.Trim().Split('\n');
         foreach (string line in lines)
         {
             string lineT = line.Trim();
-            if (lineT == "damage")
+            if (lineT.StartsWith("damage"))
             {
-                spellEffects.Add(new DamageSpellEffect(spellContext));
+                spellEffects.Add(new DamageSpellEffect());
             }
-            else if (lineT == "heal")
+            else if (lineT.StartsWith("heal"))
             {
-                spellEffects.Add(new HealSpellEffect(spellContext));
+                spellEffects.Add(new HealSpellEffect());
+            }
+            else if (lineT.StartsWith("block"))
+            {
+                spellEffects.Add(new BlockSpellEffect());
             }
             else
             {
