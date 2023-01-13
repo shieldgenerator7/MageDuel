@@ -1,4 +1,6 @@
-﻿public class Entity
+﻿using System;
+
+public class Entity
 {
     public Pool health;
     public Pool aura;
@@ -11,6 +13,13 @@
 
     public void takeDamage(int damage)
     {
+        if (onDamageReceived != null)
+        {
+            foreach (OnDamageReceived odr in onDamageReceived.GetInvocationList())
+            {
+                damage = odr(damage);
+            }
+        }
         if (aura > 0)
         {
             int leftOverDamage = damage - aura;
@@ -25,6 +34,8 @@
             health.Value -= damage;
         }
     }
+    public delegate int OnDamageReceived(int damage);
+    public event OnDamageReceived onDamageReceived;
 
     public void heal(int healing)
     {
