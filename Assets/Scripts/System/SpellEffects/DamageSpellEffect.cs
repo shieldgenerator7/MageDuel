@@ -6,9 +6,8 @@ public class DamageSpellEffect : SpellEffect
 {
     public override void activate()
     {
-        int damage = spellContext.getAttribute("damage");
-        int damagePerFocus = spellContext.getAttribute("damagePerFocus");
-        Debug.Log($"Damage effect: {damage}, {damagePerFocus}, {spellContext.target}");
-        spellContext.target.takeDamage(damage + damagePerFocus * spellContext.Focus);
+        int damage = spellContext.getAttribute(getParameter(0));
+        Debug.Log($"Damage effect: {damage}, {spellContext.target}");
+        spellContext.target.takeDamage(damage);
     }
 }

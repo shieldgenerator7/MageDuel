@@ -24,4 +24,6 @@ MonoBehaviour:
   - name: damagePerFocus
     value: 1
     rampable: 1
-  script: damage
+  script: 'focusRamp (damagePerFocus, damage)
+
+    damage (damage)'

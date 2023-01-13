@@ -15,7 +15,7 @@ public class Spell: ScriptableObject
     public bool autoTargetSelf = false;
     public List<Keyword> keywords;
     public List<SpellAttribute> attributes = new List<SpellAttribute>();
-    [Multiline(50)]
+    [TextArea(5, 50)]
     public string script;
 
     public enum Keyword

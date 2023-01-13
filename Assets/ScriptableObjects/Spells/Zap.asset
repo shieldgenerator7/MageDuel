@@ -24,4 +24,4 @@ MonoBehaviour:
   - name: damage
     value: 2
     rampable: 0
-  script: damage
+  script: damage (damage)

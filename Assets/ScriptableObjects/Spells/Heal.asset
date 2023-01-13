@@ -24,4 +24,6 @@ MonoBehaviour:
   - name: healPerFocus
     value: 1
     rampable: 1
-  script: heal
+  script: 'focusRamp (healPerFocus, heal)
+
+    heal (heal)'

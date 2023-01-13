@@ -1,9 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public static class SpellScriptCompiler
 {
+    private static Dictionary<string, Type> spellEffectTypes = new Dictionary<string, Type>(){
+        { "damage", typeof(DamageSpellEffect) },
+        { "heal", typeof(HealSpellEffect) },
+        { "block", typeof(BlockSpellEffect) },
+    };
+
+
     public static List<SpellEffect> compile(string spellScript)
     {
         List<SpellEffect> spellEffects = new List<SpellEffect>();
@@ -11,23 +19,34 @@ public static class SpellScriptCompiler
         foreach (string line in lines)
         {
             string lineT = line.Trim();
-            if (lineT.StartsWith("damage"))
+            int firstParen = lineT.IndexOf('(');
+            string command = (firstParen >= 0) ? lineT.Substring(0, firstParen).Trim() : lineT;
+            int secondParen = lineT.IndexOf(')');
+            if (secondParen < 0)
             {
-                spellEffects.Add(new DamageSpellEffect());
+                secondParen = lineT.Length - 1;
             }
-            else if (lineT.StartsWith("heal"))
+            string[] args = lineT.Substring(firstParen, secondParen - firstParen + 1).Split(',');
+            for (int i = 0; i < args.Length; i++)
             {
-                spellEffects.Add(new HealSpellEffect());
+                args[i] = args[i].Trim();
             }
-            else if (lineT.StartsWith("block"))
-            {
-                spellEffects.Add(new BlockSpellEffect());
-            }
-            else
-            {
-                Debug.LogError($"Unknown command {lineT} in spell script {spellScript}");
-            }
+            spellEffects.Add(createSpellEffect(command, args));
         }
         return spellEffects;
+    }
+
+    private static SpellEffect createSpellEffect(string command, string[] args)
+    {
+        if (!spellEffectTypes.ContainsKey(command))
+        {
+            Debug.LogError($"Unknown command {command}!");
+        }
+        Type spellEffectType = spellEffectTypes[command];
+        SpellEffect spellEffect = (SpellEffect)spellEffectType
+            .GetConstructor(new Type[] { })
+            .Invoke(new object[] { });
+        spellEffect.setArgs(args);
+        return spellEffect;
     }
 }

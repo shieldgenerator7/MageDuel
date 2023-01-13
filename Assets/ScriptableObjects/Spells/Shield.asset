@@ -21,4 +21,4 @@ MonoBehaviour:
   autoTargetSelf: 1
   keywords: 00000000
   attributes: []
-  script: block
+  script: block()
