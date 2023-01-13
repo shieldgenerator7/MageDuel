@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buffer: 250
+  flipped: 0
   mageHoodCoin: {fileID: 1883526245556729773}
   spellPrefab: {fileID: 6307424361883745361, guid: e10f84a0b03b4e84f804ea9664374ebb, type: 3}
 --- !u!1001 &5596804653719292924
