@@ -21,7 +21,8 @@ MonoBehaviour:
   autoTargetSelf: 0
   keywords: 00000000
   attributes:
-  - name: damage
-    value: 2
-    rampable: 0
+    attributes:
+    - name: damage
+      value: 2
+      rampable: 0
   script: damage (damage)

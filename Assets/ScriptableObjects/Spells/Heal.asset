@@ -21,9 +21,10 @@ MonoBehaviour:
   autoTargetSelf: 1
   keywords: 
   attributes:
-  - name: healPerFocus
-    value: 1
-    rampable: 1
+    attributes:
+    - name: healPerFocus
+      value: 1
+      rampable: 1
   script: 'focusRamp (healPerFocus, heal)
 
     heal (heal)'

@@ -14,7 +14,7 @@ public class Spell: ScriptableObject
     public bool autoTargetEnemy = true;
     public bool autoTargetSelf = false;
     public List<Keyword> keywords;
-    public List<SpellAttribute> attributes = new List<SpellAttribute>();
+    public AttributeSet attributes;
     [TextArea(5, 50)]
     public string script;
 
@@ -27,27 +27,23 @@ public class Spell: ScriptableObject
         MASTER, //ultimate
     }
 
-    public SpellAttribute getAttribute(string attrName)
-    {
-        foreach (SpellAttribute attr in attributes)
-        {
-            if (attr.name == attrName)
-            {
-                return attr;
-            }
-        }
-        Debug.LogError($"Attribute with name {attrName} not found! spell: {this.name}");
-        return null;
-    }
-
     public string Description
     {
         get
         {
             string desc = this.description;
-            foreach(SpellAttribute attr in attributes)
+            //Find vars in desc
+            List<string> vars = new List<string>();
+            int startBrak = desc.IndexOf('[');
+            while (startBrak > 0)
             {
-                desc = desc.Replace($"[{attr.name}]", $"{attr.value}");
+                int endBrak = desc.IndexOf(']', startBrak);
+                vars.Add(desc.Substring(startBrak + 1, endBrak - startBrak - 1));
+                startBrak = desc.IndexOf('[', endBrak);
+            }
+            foreach (string attrName in vars)
+            {
+                desc = desc.Replace($"[{attrName}]", $"{attributes.get(attrName)}");
             }
             return desc;
         }

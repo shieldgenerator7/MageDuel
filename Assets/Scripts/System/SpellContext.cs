@@ -11,7 +11,7 @@ public class SpellContext
     private int focusSpent;
     private int auraSpent;
 
-    private Dictionary<string, int> variables = new Dictionary<string, int>();
+    private AttributeSet variables;
 
     public SpellContext(Spell spell, Player caster)
     {
@@ -25,6 +25,7 @@ public class SpellContext
         {
             this.target = caster;
         }
+        variables = new AttributeSet(spell.attributes);
     }
 
     public Spell Spell => spell;
@@ -60,9 +61,17 @@ public class SpellContext
         get
         {
             string desc = this.spell.description;
-            foreach (SpellAttribute attr in spell.attributes)
+            //Find vars in desc
+            List<string> vars = new List<string>();
+            int startBrak = desc.IndexOf('[');
+            while (startBrak > 0)
             {
-                string attrName = attr.name;
+                int endBrak = desc.IndexOf(']', startBrak);
+                vars.Add(desc.Substring(startBrak + 1, endBrak - startBrak - 1));
+                startBrak = desc.IndexOf('[', endBrak);
+            }
+            foreach (string attrName in vars)
+            {
                 desc = desc.Replace($"[{attrName}]", $"{getAttribute(attrName)}");
             }
             return desc;
@@ -71,13 +80,7 @@ public class SpellContext
 
     public int getAttribute(string attrName)
     {
-        //Variable storage
-        if (variables.ContainsKey(attrName))
-        {
-            return variables[attrName];
-        }
-        //Spell Attributes
-        SpellAttribute attr = spell.getAttribute(attrName);
+        SpellAttribute attr = variables.getAttribute(attrName);
         int value = attr.value;
         if (attr.rampable)
         {
@@ -88,11 +91,7 @@ public class SpellContext
     }
     public void setAttribute(string attrName, int value)
     {
-        if (!variables.ContainsKey(attrName))
-        {
-            variables.Add(attrName, value);
-        }
-        variables[attrName] = value;
+        variables.set(attrName, value);
     }
 
     public bool canBeCastNext
