@@ -11,6 +11,8 @@ public class PageDisplayerUI : PlayerDisplayUI
 
     public TMP_Text txtName;
     public TMP_Text txtDescription;
+    public TMP_Text txtCost;
+    public TMP_Text txtSpeed;
     public List<Image> imgColors;
     public List<GameObject> goToggleList;
 
@@ -32,6 +34,8 @@ public class PageDisplayerUI : PlayerDisplayUI
         imgColors.ForEach(img => img.color = spell.element.color);
         txtName.text = spell.name;
         txtDescription.text = spell.Description;
+        txtCost.text = $"{spell.cost}";
+        txtSpeed.text = $"{spell.speed}";
         showToggles(false);
     }
 

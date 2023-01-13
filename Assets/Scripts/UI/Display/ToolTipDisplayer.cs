@@ -11,6 +11,8 @@ public class ToolTipDisplayer : PlayerDisplayUI
     public List<Image> imgColors;
     public TMP_Text txtName;
     public TMP_Text txtDescription;
+    public TMP_Text txtCost;
+    public TMP_Text txtSpeed;
 
     protected override void _registerDelegates(bool register)
     {
@@ -32,6 +34,8 @@ public class ToolTipDisplayer : PlayerDisplayUI
         imgColors.ForEach(img => img.color = spellContext.element.color);
         txtName.text = spellContext.spell.name;
         txtDescription.text = spellContext.Description;
+        txtCost.text = $"{spellContext.spell.cost}";
+        txtSpeed.text = $"{spellContext.spell.speed}";
     }
 
 }
