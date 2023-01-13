@@ -11,6 +11,8 @@ public class SpellContext
     private int focusSpent;
     private int auraSpent;
 
+    private Dictionary<string, int> variables = new Dictionary<string, int>();
+
     public SpellContext(Spell spell, Player caster)
     {
         this.spell = spell;
@@ -69,14 +71,28 @@ public class SpellContext
 
     public int getAttribute(string attrName)
     {
+        //Variable storage
+        if (variables.ContainsKey(attrName))
+        {
+            return variables[attrName];
+        }
+        //Spell Attributes
         SpellAttribute attr = spell.getAttribute(attrName);
-        int value = attr?.value ?? 0;
-        if (attr?.rampable ?? false)
+        int value = attr.value;
+        if (attr.rampable)
         {
             value += auraSpent;
         }
         //TODO: modifications from other effects
         return value;
+    }
+    public void setAttribute(string attrName, int value)
+    {
+        if (!variables.ContainsKey(attrName))
+        {
+            variables.Add(attrName, value);
+        }
+        variables[attrName] = value;
     }
 
     public bool canBeCastNext

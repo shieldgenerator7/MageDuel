@@ -9,6 +9,7 @@ public static class SpellScriptCompiler
         { "damage", typeof(DamageSpellEffect) },
         { "heal", typeof(HealSpellEffect) },
         { "block", typeof(BlockSpellEffect) },
+        {"focusRamp",typeof(FocusRamp) },
     };
 
 
@@ -20,13 +21,17 @@ public static class SpellScriptCompiler
         {
             string lineT = line.Trim();
             int firstParen = lineT.IndexOf('(');
+            if (firstParen < 0)
+            {
+                firstParen = lineT.IndexOf(' ');
+            }
             string command = (firstParen >= 0) ? lineT.Substring(0, firstParen).Trim() : lineT;
             int secondParen = lineT.IndexOf(')');
             if (secondParen < 0)
             {
                 secondParen = lineT.Length - 1;
             }
-            string[] args = lineT.Substring(firstParen, secondParen - firstParen + 1).Split(',');
+            string[] args = lineT.Substring(firstParen + 1, secondParen - firstParen - 1).Split(',');
             for (int i = 0; i < args.Length; i++)
             {
                 args[i] = args[i].Trim();
