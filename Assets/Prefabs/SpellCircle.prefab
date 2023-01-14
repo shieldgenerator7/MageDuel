@@ -443,7 +443,15 @@ MonoBehaviour:
   imgPulse: {fileID: 2587589622858697837}
   cmpToDestroyOnResolveList:
   - {fileID: 1520018061600339590}
+  - {fileID: 1326746934694706954}
+  imgToRecolorOnResolve:
+  - {fileID: 5659987826768671834}
+  - {fileID: 198320778810806175}
   resolveColor: {r: 0.2924528, g: 0.2924528, b: 0.2924528, a: 0.76862746}
+  imgToTransparent:
+  - {fileID: 4015669567752887459}
+  - {fileID: 6497443175054586662}
+  resolveAlpha: 0.25
 --- !u!114 &5217958241107660545
 MonoBehaviour:
   m_ObjectHideFlags: 0

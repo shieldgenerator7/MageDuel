@@ -110,8 +110,8 @@ public class SpellContext
     public event OnBinDran onBinDran;
 
     public bool canBeCastNext
-        => binDran
-        || spell.keywords.Contains(Spell.Keyword.FLASH);
+        => !Resolved && (binDran 
+        || spell.keywords.Contains(Spell.Keyword.FLASH));
 
     public void activate()
     {

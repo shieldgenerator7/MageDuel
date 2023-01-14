@@ -17,7 +17,11 @@ public class SpellDisplayer : PlayerDisplayUI
     public Image imgPulse;
     //OnResolve
     public List<MonoBehaviour> cmpToDestroyOnResolveList;
+    public List<Image> imgToRecolorOnResolve;
     public Color resolveColor = Color.white;
+    public List<Image> imgToTransparent;
+    [Range(0,1)]
+    public float resolveAlpha = 0.5f;
 
     public SpellContext spellContext;
 
@@ -103,10 +107,14 @@ public class SpellDisplayer : PlayerDisplayUI
     public void onSpellResolved(SpellContext spellContext)
     {
         showPulse(false);
-        updateFocus(0);
-        updateAura(0);
         cmpToDestroyOnResolveList.ForEach(cmp => Destroy(cmp));
-        imagesToColor.ForEach(img => img.color = resolveColor);
+        imgToRecolorOnResolve.ForEach(img => img.color = resolveColor);
+        imgToTransparent.ForEach(img =>
+        {
+            Color c = img.color;
+            c.a = resolveAlpha;
+            img.color = c;
+        });
     }
 
 }
