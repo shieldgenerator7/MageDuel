@@ -15,6 +15,9 @@ public class SpellDisplayer : PlayerDisplayUI
     public ToolTipDisplayer tooltip;
     //Pulse
     public Image imgPulse;
+    //OnResolve
+    public List<MonoBehaviour> cmpToDestroyOnResolveList;
+    public Color resolveColor = Color.white;
 
     public SpellContext spellContext;
 
@@ -29,13 +32,15 @@ public class SpellDisplayer : PlayerDisplayUI
     {
         spellContext.onFocusChanged -= updateFocus;
         spellContext.onAuraChanged -= updateAura;
-        player.onLineupChanged -= onLineupChanged;
+        spellContext.onBinDran -= checkShowPulse;
+        spellContext.OnSpellResolved -= onSpellResolved;
         uiVars.game.onPhaseChanged -= onGamePhaseChanged;
         if (register)
         {
             spellContext.onFocusChanged += updateFocus;
             spellContext.onAuraChanged += updateAura;
-            player.onLineupChanged += onLineupChanged;
+            spellContext.onBinDran += checkShowPulse;
+            spellContext.OnSpellResolved += onSpellResolved;
             uiVars.game.onPhaseChanged += onGamePhaseChanged;
         }
     }
@@ -82,7 +87,7 @@ public class SpellDisplayer : PlayerDisplayUI
         imgPulse.gameObject.SetActive(show);
     }
 
-    public void checkShowPulse()
+    public void checkShowPulse(bool alwaysTrue = true)
     {
         showPulse(
             spellContext.canBeCastNext
@@ -90,13 +95,18 @@ public class SpellDisplayer : PlayerDisplayUI
             );
     }
 
-    public void onLineupChanged(List<SpellContext> lineup)
-    {
-        checkShowPulse();
-    }
     public void onGamePhaseChanged(Game.GamePhase phase)
     {
         checkShowPulse();
+    }
+
+    public void onSpellResolved(SpellContext spellContext)
+    {
+        showPulse(false);
+        updateFocus(0);
+        updateAura(0);
+        cmpToDestroyOnResolveList.ForEach(cmp => Destroy(cmp));
+        imagesToColor.ForEach(img => img.color = resolveColor);
     }
 
 }

@@ -441,6 +441,9 @@ MonoBehaviour:
   - {fileID: 6497443175054586662}
   tooltip: {fileID: 8984357891534415036}
   imgPulse: {fileID: 2587589622858697837}
+  cmpToDestroyOnResolveList:
+  - {fileID: 1520018061600339590}
+  resolveColor: {r: 0.2924528, g: 0.2924528, b: 0.2924528, a: 0.76862746}
 --- !u!114 &5217958241107660545
 MonoBehaviour:
   m_ObjectHideFlags: 0

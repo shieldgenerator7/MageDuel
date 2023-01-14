@@ -1,5 +1,6 @@
 ﻿
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,8 @@ public class SpellContext
     public Player caster;
     private int focusSpent;
     private int auraSpent;
+    private bool binDran = false;//"ich bin dran" -> "it's my turn"; true: it is now this spell's turn to be cast
+    private bool resolved = false;
 
     private AttributeSet variables;
 
@@ -94,8 +97,20 @@ public class SpellContext
         variables.set(attrName, value);
     }
 
+    public bool BinDran
+    {
+        get => binDran;
+        set
+        {
+            binDran = value;
+            onBinDran?.Invoke(binDran);
+        }
+    }
+    public delegate void OnBinDran(bool binDran);
+    public event OnBinDran onBinDran;
+
     public bool canBeCastNext
-        => caster.Lineup.IndexOf(this) == 0
+        => binDran
         || spell.keywords.Contains(Spell.Keyword.FLASH);
 
     public void activate()
@@ -117,8 +132,17 @@ public class SpellContext
             });
         }
         //Mark this spell resolved regardless
+        resolved = true;
         OnSpellResolved?.Invoke(this);
     }
     public delegate void OnSpell(SpellContext sc);
     public event OnSpell OnSpellResolved;
+
+    public bool Resolved => resolved;
+
+    public void fizzle()
+    {
+        resolved = true;
+        OnSpellResolved?.Invoke(this);
+    }
 }

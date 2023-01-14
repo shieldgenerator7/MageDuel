@@ -96,7 +96,6 @@ public class Player : Entity
     {
         SpellContext context = new SpellContext(spell, this);
         lineup.Add(context);
-        context.OnSpellResolved += removeSpellFromLineup;
         onLineupChanged?.Invoke(lineup);
     }
     public delegate void OnLineupChanged(List<SpellContext> spellList);
