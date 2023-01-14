@@ -12,6 +12,7 @@ public class LineupDisplayer : PlayerDisplayUI
     public GameObject spellPrefab;
 
     private Dictionary<SpellContext, SpellDisplayer> spellGOMap = new Dictionary<SpellContext, SpellDisplayer>();
+    private List<SpellDisplayer> spellGOList = new List<SpellDisplayer>();
 
     protected override void _registerDelegates(bool register)
     {
@@ -25,10 +26,7 @@ public class LineupDisplayer : PlayerDisplayUI
     public override void forceUpdate()
     {
         layoutSpells(player.Lineup);
-        foreach (SpellDisplayer so in spellGOMap.Values)
-        {
-            so.forceUpdate();
-        }
+        spellGOList.ForEach(so => so.forceUpdate());
     }
 
     private void layoutSpells(List<SpellContext> spells)
@@ -48,6 +46,7 @@ public class LineupDisplayer : PlayerDisplayUI
             callOnDisplayerDestroyed(so);
             Destroy(so.gameObject);
             spellGOMap.Remove(spell);
+            spellGOList.Remove(so);
         });
         //
         //Create the new spell objects
@@ -58,6 +57,7 @@ public class LineupDisplayer : PlayerDisplayUI
             SpellDisplayer spellDisplayer = spellObject.GetComponent<SpellDisplayer>();
             spellDisplayer.setUIVars(uiVars);
             spellGOMap.Add(spell, spellDisplayer);
+            spellGOList.Add(spellDisplayer);
             spellDisplayer.init(spell, player);
             callOnDisplayerCreated(spellDisplayer);
         }
@@ -67,7 +67,7 @@ public class LineupDisplayer : PlayerDisplayUI
         int x = flip * -1 * (maxCastingSpeed) * buffer / 2;
         mageHoodCoin.GetComponent<RectTransform>().localPosition = new Vector2(x, 0);
         x += flip * buffer;
-        foreach (SpellDisplayer so in spellGOMap.Values)
+        foreach (SpellDisplayer so in spellGOList)
         {
             so.GetComponent<RectTransform>().localPosition = new Vector2(x, 0);
             x += flip * buffer;
