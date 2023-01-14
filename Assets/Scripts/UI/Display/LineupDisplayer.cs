@@ -51,7 +51,8 @@ public class LineupDisplayer : PlayerDisplayUI
         }
         //Arrange the spell objects
         int flip = (flipped) ? -1 : 1;
-        int x = flip * -1 * (spellObjects.Count) * buffer / 2;
+        int maxCastingSpeed = Mathf.Max(player.castingSpeed, player.opponent.castingSpeed);
+        int x = flip * -1 * (maxCastingSpeed) * buffer / 2;
         mageHoodCoin.GetComponent<RectTransform>().localPosition = new Vector2(x, 0);
         x += flip * buffer;
         foreach (SpellDisplayer so in spellObjects)

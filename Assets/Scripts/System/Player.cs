@@ -16,6 +16,7 @@ public class Player : Entity
     /// The spells that the player has in the lineup
     /// </summary>
     private List<SpellContext> lineup = new List<SpellContext>();
+    public int castingSpeed = 5;//how many spells they can cast per round
 
     public Player opponent;//TODO: remove this (assuming it doesnt need it in the future)
 
@@ -94,6 +95,12 @@ public class Player : Entity
 
     public void lineupSpell(Spell spell)
     {
+        //Early exit: no more room for spell
+        if (lineup.Count >= castingSpeed)
+        {
+            return;
+        }
+        //Put spell in lineup
         SpellContext context = new SpellContext(spell, this);
         lineup.Add(context);
         onLineupChanged?.Invoke(lineup);
