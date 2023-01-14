@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d49c370a0c1c39047b788d86a7e07400, type: 3}
+  m_Name: PowerUp
+  m_EditorClassIdentifier: 
+  name: Heal
+  description: Heal [healPerFocus] per Focus spent
+  element: {fileID: 11400000, guid: 3347f6e73112a8c4ea76271f58b61f16, type: 2}
+  cost: 0
+  speed: 3
+  autoTargetEnemy: 0
+  autoTargetSelf: 1
+  keywords: 
+  attributes:
+    attributes:
+    - name: healPerFocus
+      value: 1
+      rampable: 1
+  script: 'focusRamp (healPerFocus, heal)
+
+    heal (heal)'

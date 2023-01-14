@@ -7,11 +7,7 @@ public class DamageSpellEffect : SpellEffect
     public override void activate()
     {
         //Early exit: no target
-        if (spellContext.target == null)
-        {
-            Debug.Log($"Can't deal damage to target {spellContext.target}");
-            return;
-        }
+        if (!checkTarget()) { return; }
         //Damage target
         int damage = spellContext.getAttribute(getParameter(0));
         Debug.Log($"Damage effect: {damage}, {spellContext.target}");

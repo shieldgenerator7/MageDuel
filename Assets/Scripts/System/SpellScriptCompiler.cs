@@ -10,7 +10,8 @@ public static class SpellScriptCompiler
         { "heal", typeof(HealSpellEffect) },
         { "block", typeof(BlockSpellEffect) },
         {"focusRamp",typeof(FocusRamp) },
-        {"dodge",typeof(Dodge) }
+        {"dodge",typeof(Dodge) },
+        {"aura",typeof(AuraAdjust) },
     };
 
 

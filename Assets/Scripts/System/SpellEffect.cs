@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 public abstract class SpellEffect
 {
@@ -30,5 +31,17 @@ public abstract class SpellEffect
     }
 
     public abstract void activate();
+
+    protected bool checkTarget()
+    {
+        if (spellContext.target != null) { 
+            return true;
+        }
+        else
+        {
+            Debug.Log($"Cannot target player {spellContext.target}");
+            return false;
+        }
+    }
 
 }
