@@ -103,6 +103,11 @@ public class SpellContext
         //If focus cost has been paid,
         if (FocusPaid)
         {
+            //Target player
+            if (target)
+            {
+                caster.targetPlayer(target, this);
+            }
             //Activate spell
             List<SpellEffect> effects = SpellScriptCompiler.compile(spell.script);
             effects.ForEach(effect =>

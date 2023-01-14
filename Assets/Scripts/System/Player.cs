@@ -116,6 +116,15 @@ public class Player : Entity
         onLineupChanged?.Invoke(lineup);
     }
 
+    public void targetPlayer(Player player, SpellContext spellContext)
+    {
+        this.onTargetingPlayer?.Invoke(player, spellContext);
+        player.onTargetedByPlayer?.Invoke(this, spellContext);
+    }
+    public delegate void OnTargetPlayer(Player player, SpellContext spellContext);
+    public event OnTargetPlayer onTargetingPlayer;
+    public event OnTargetPlayer onTargetedByPlayer;
+
     public void readyUp()
     {
         State = PlayState.FOCUSING;
