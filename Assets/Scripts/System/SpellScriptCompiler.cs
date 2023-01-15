@@ -13,6 +13,7 @@ public static class SpellScriptCompiler
         {"dodge",typeof(Dodge) },
         {"aura",typeof(AuraAdjust) },
         {"focusSpell",typeof(FocusSpellSpellEffect) },
+        {"redirect",typeof(Redirect) },
     };
 
 
