@@ -28,12 +28,11 @@ MonoBehaviour:
     - name: toFocus
       value: 1
       rampable: 0
-  script: 'targetSpell (fromTarget)
-
-    targetSpell (toTarget)
-
-
-    focusSpell
-    (fromTarget, fromFocus)
+  spellTargets:
+  - name: fromTarget
+    mustBeOwnedByTargetPlayer: 1
+  - name: toTarget
+    mustBeOwnedByTargetPlayer: 1
+  script: 'focusSpell (fromTarget, fromFocus)
 
     focusSpell (toTarget, toFocus)'

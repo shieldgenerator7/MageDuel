@@ -34,14 +34,24 @@ public abstract class SpellEffect
 
     protected bool checkTarget()
     {
-        if (spellContext.target != null) { 
-            return true;
-        }
-        else
+        //Fail: player target null
+        if (spellContext.target == null)
         {
             Debug.Log($"Cannot target player {spellContext.target}");
             return false;
         }
+        //Fail: spell target(s) null
+        foreach (SpellTarget spellTarget in spellContext.spell.spellTargets)
+        {
+            SpellContext target = spellContext.getTarget(spellTarget.name);
+            if (target == null)
+            {
+                Debug.Log($"Cannot target player ({spellContext.target}) spell {spellTarget.name}: {target}");
+                return false;
+            }
+        }
+        //Success
+        return true;
     }
 
 }
