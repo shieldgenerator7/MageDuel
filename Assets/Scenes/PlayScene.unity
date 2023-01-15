@@ -381,6 +381,72 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1422039455
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1422039458}
+  - component: {fileID: 1422039457}
+  - component: {fileID: 1422039456}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1422039456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422039455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c212a8e81bc7c2a4c8f4b07dbd0e58b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1422039457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422039455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 323dfc5f984a4d64797679af12164b32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultDeck: {fileID: 11400000, guid: 4cb43cdec3376794d83f527ee8b34b9c, type: 2}
+  playerNames:
+  - Player1
+  - Player2
+  placemats:
+  - {fileID: 8005862789927378908}
+  - {fileID: 1546502758}
+  targetArrowDisplayer: {fileID: 147770058800990630}
+  timer: {fileID: 1422039456}
+--- !u!4 &1422039458
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422039455}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1542360249
@@ -1025,7 +1091,7 @@ Transform:
   - {fileID: 1542360250}
   - {fileID: 20621681}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1948631790
 GameObject:
@@ -1039,7 +1105,6 @@ GameObject:
   - component: {fileID: 1948631793}
   - component: {fileID: 1948631792}
   - component: {fileID: 1948631791}
-  - component: {fileID: 1948631795}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1125,33 +1190,13 @@ RectTransform:
   - {fileID: 1546502755}
   - {fileID: 147770058800990631}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1948631795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1948631790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 323dfc5f984a4d64797679af12164b32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultDeck: {fileID: 11400000, guid: 4cb43cdec3376794d83f527ee8b34b9c, type: 2}
-  playerNames:
-  - Player1
-  - Player2
-  placemats:
-  - {fileID: 8005862789927378908}
-  - {fileID: 1546502758}
-  targetArrowDisplayer: {fileID: 147770058800990630}
 --- !u!1 &2048136021
 GameObject:
   m_ObjectHideFlags: 0
@@ -1218,7 +1263,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &147770058800990629
 PrefabInstance:

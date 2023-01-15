@@ -133,10 +133,6 @@ public class Game
                 spell.OnSpellResolved += OnSpellResolved;
             });
         }
-        if (phase == GamePhase.MATCHUP)
-        {
-            checkNextPhase();
-        }
     }
 
     private void OnSpellResolved(SpellContext spellContext)

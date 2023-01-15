@@ -10,6 +10,7 @@ public class GameUI : MonoBehaviour
     public List<Placemat> placemats;
 
     public TargetArrowDisplayer targetArrowDisplayer;
+    public TimerManager timer;
 
     private Game game;
     private UIVariables uiVars;
@@ -44,14 +45,14 @@ public class GameUI : MonoBehaviour
         switch(phase)
         {
             case Game.GamePhase.READYUP:
-                game.checkNextPhase();
+                timer.startTimer(3, game.checkNextPhase);
                 break;
             case Game.GamePhase.LINEUP:
                 break;
             case Game.GamePhase.MATCHUP:
                 break;
             case Game.GamePhase.CLEANUP:
-                game.checkNextPhase();
+                timer.startTimer(3, game.checkNextPhase);
                 break;
             default:
                 Debug.LogError($"Unknown game phase! phase: {phase}");
