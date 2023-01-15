@@ -30,7 +30,7 @@ public class UIVariables
     public delegate void OnCurrentCastingSpellChanged(SpellContext spellContext);
     public event OnCurrentCastingSpellChanged onCurrentCastingSpellChanged;
 
-    private List<Target> validTargets;
+    private List<Target> validTargets = new List<Target>();
     public List<Target> ValidTargets
     {
         get => validTargets;

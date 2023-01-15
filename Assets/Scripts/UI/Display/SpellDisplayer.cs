@@ -39,6 +39,7 @@ public class SpellDisplayer : PlayerDisplayUI
         spellContext.onBinDran -= checkShowPulse;
         spellContext.OnSpellResolved -= onSpellResolved;
         uiVars.game.onPhaseChanged -= onGamePhaseChanged;
+        uiVars.onValidTargetsChanged -= onValidTargetsChanged;
         if (register)
         {
             spellContext.onFocusChanged += updateFocus;
@@ -46,6 +47,7 @@ public class SpellDisplayer : PlayerDisplayUI
             spellContext.onBinDran += checkShowPulse;
             spellContext.OnSpellResolved += onSpellResolved;
             uiVars.game.onPhaseChanged += onGamePhaseChanged;
+            uiVars.onValidTargetsChanged += onValidTargetsChanged;
         }
     }
 
@@ -94,7 +96,7 @@ public class SpellDisplayer : PlayerDisplayUI
     public void checkShowPulse(bool alwaysTrue = true)
     {
         showPulse(
-            spellContext.canBeCastNext
+            (spellContext.canBeCastNext || uiVars.ValidTargets.Contains(spellContext))
             && uiVars.game.Phase == Game.GamePhase.MATCHUP
             );
     }
@@ -115,6 +117,11 @@ public class SpellDisplayer : PlayerDisplayUI
             c.a = resolveAlpha;
             img.color = c;
         });
+    }
+
+    public void onValidTargetsChanged(List<Target> targets)
+    {
+        checkShowPulse();
     }
 
 }
