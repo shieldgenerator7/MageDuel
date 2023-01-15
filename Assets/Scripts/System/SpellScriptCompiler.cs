@@ -12,6 +12,7 @@ public static class SpellScriptCompiler
         {"focusRamp",typeof(FocusRamp) },
         {"dodge",typeof(Dodge) },
         {"aura",typeof(AuraAdjust) },
+        {"focusSpell",typeof(FocusSpellSpellEffect) },
     };
 
 
