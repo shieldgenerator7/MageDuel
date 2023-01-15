@@ -97,9 +97,9 @@ public class SpellDisplayer : PlayerDisplayUI
     {
         showPulse(
             uiVars.game.Phase == Game.GamePhase.MATCHUP
-            && (uiVars.CurrentCastingSpell != null)
+            && ((uiVars.CurrentCastingSpell != null)
                 ? uiVars.ValidTargets.Contains(spellContext)
-                : spellContext.canBeCastNext
+                : spellContext.canBeCastNext)
             );
     }
 

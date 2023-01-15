@@ -78,10 +78,18 @@ public class SpellControllerUI : PlayerControlUI
 
     private void processSpell()
     {
+        //Early exit: not enough focus
+        if (!spellContext.FocusPaid)
+        {
+            spellContext.fizzle();
+            return;
+        }
+        //Activate with targets
         if (spellContext.hasAllTargets())
         {
             spellContext.activate();
         }
+        //Wait for target selection
         else
         {
             StartCoroutine(waitForUserTarget());
