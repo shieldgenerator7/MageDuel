@@ -13,11 +13,12 @@ public class TimerManager : MonoBehaviour
         
     }
 
-    public void startTimer(float duration, Timer.OnTimerFinished callback)
+    public Timer startTimer(float duration, Timer.OnTimerFinished callback)
     {
         Timer timer = new Timer(Time.time, duration);
         timer.onTimerFinished += callback;
         timers.Add(timer);
+        return timer;
     }
 
     // Update is called once per frame
