@@ -57,7 +57,7 @@ public class SpellControllerUI : PlayerControlUI
                     }
                     else
                     {
-                        player.removeSpellFromLineup(spellContext);
+                        spellContext.fizzle();
                     }
                 }
                 break;
