@@ -2,13 +2,15 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Spell", menuName = "Spell")]
-public class Spell: ScriptableObject
+public class Spell : ScriptableObject
 {
     public new string name;
-    [TextArea(2,10)]
+    [TextArea(2, 10)]
     public string description;
     public Element element;
+    [Range(0, 15)]
     public int cost;
+    [Range(0, 5)]
     public int speed = 3;
     //public int strainCost = 0;
     public bool autoTargetEnemy = true;
