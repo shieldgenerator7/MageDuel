@@ -30,9 +30,7 @@ MonoBehaviour:
       rampable: 0
   spellTargets:
   - name: fromTarget
-    mustBeOwnedByTargetPlayer: 1
   - name: toTarget
-    mustBeOwnedByTargetPlayer: 1
   script: 'focusSpell (fromTarget, fromFocus)
 
     focusSpell (toTarget, toFocus)'

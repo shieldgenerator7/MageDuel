@@ -7,5 +7,4 @@ public class SpellTarget
 {
     public string name;
     public SpellContext target;
-    public bool mustBeOwnedByTargetPlayer = true;
 }
