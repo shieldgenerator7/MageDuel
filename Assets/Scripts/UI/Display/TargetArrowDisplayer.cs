@@ -54,10 +54,11 @@ public class TargetArrowDisplayer : MonoBehaviour
 
     private void updatePosition()
     {
-        Vector2 pointer = Input.mousePosition - transform.position;
-        transform.up = pointer;
+        transform.up = Vector3.up;
+        Vector2 pointer = Input.mousePosition - rectTransform.position;
         Vector2 size = rectTransform.sizeDelta;
-        size.y = pointer.magnitude * 2;
+        size.y = pointer.magnitude * 2 * 1920 / Camera.main.pixelWidth;//TODO: get this "1920" from the canvas ref width
         rectTransform.sizeDelta = size;
+        transform.up = pointer;
     }
 }
