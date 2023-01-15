@@ -22,6 +22,9 @@ public class Timer
         {
             return;
         }
+        float percent = (time - startTime) / duration;
+        percent = Mathf.Clamp(percent, 0, 1);
+        onTimerProgressPercent?.Invoke(percent);
         if (time >= startTime + duration)
         {
             running = false;
@@ -30,4 +33,6 @@ public class Timer
     }
     public delegate void OnTimerFinished();
     public event OnTimerFinished onTimerFinished;
+    public delegate void OnTimerProgressPercent(float percent);
+    public event OnTimerProgressPercent onTimerProgressPercent;
 }

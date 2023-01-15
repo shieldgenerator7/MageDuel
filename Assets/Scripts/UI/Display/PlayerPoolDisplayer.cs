@@ -30,12 +30,20 @@ public class PlayerPoolDisplayer : PlayerDisplayUI
 
     private void updateHealthBar(int health)
     {
-        healthBar.fillAmount = (float)health / (float)player.health.maxValue;
+        Managers.Animation.startAnimation(
+            healthBar,
+            (float)health / (float)player.health.maxValue,
+            1
+            );
     }
 
     private void updateAuraBar(int aura)
     {
-        auraBar.fillAmount = (float)aura / (float)player.aura.maxValue;
+        Managers.Animation.startAnimation(
+            auraBar,
+            (float)aura / (float)player.aura.maxValue,
+            1
+            );
     }
 
     private void updateFocusBar(int focus)
