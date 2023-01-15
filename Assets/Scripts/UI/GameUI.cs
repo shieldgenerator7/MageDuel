@@ -9,6 +9,8 @@ public class GameUI : MonoBehaviour
     public List<string> playerNames;
     public List<Placemat> placemats;
 
+    public TargetArrowDisplayer targetArrowDisplayer;
+
     private Game game;
     private UIVariables uiVars;
 
@@ -32,6 +34,8 @@ public class GameUI : MonoBehaviour
             Player p = game.players[i];
             placemats[i].setPlayer(p, uiVars);
         }
+        //Target Arrow Displayer
+        targetArrowDisplayer.uiVars = uiVars;
     }
 
     void onPhaseChanged(Game.GamePhase phase)
