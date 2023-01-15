@@ -94,13 +94,19 @@ public class SpellControllerUI : PlayerControlUI
         foreach (SpellTarget target in spellContext.spell.spellTargets)
         {
             uiVars.ValidTargets = spellContext.target.Lineup
-                .FindAll(spell => !spell.Resolved)
+                .FindAll(spell =>
+                    //Only spells yet to be cast
+                    !spell.Resolved
+                    //Only spells that arent being targeted, or if targeting the same spell twice is allowed
+                    && (!target.requireUnique || !spellContext.isTargetingSpell(spell))
+                )
                 .ConvertAll(spell => (Target)spell);
             while (!spellContext.hasTarget(target.name))
             {
                 yield return target;
             }
         }
+        uiVars.ValidTargets.Clear();
         uiVars.CurrentCastingSpell = null;
         spellContext.activate();
     }

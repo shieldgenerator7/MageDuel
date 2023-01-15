@@ -10,7 +10,6 @@ public class SpellContext : Target
     public Spell spell;
     public Player target;
     public Player caster;
-    public List<SpellContext> targetSpells = new List<SpellContext>();
     private int focusSpent;
     private int auraSpent;
     private bool binDran = false;//"ich bin dran" -> "it's my turn"; true: it is now this spell's turn to be cast
@@ -120,6 +119,10 @@ public class SpellContext : Target
     {
         SpellTarget target = spell.spellTargets.Find(target => !hasTarget(target.name));
         setTarget(target.name, spellContext);
+    }
+    public bool isTargetingSpell(SpellContext spellContext)
+    {
+        return spellTargets.ContainsValue(spellContext);
     }
 
     public bool BinDran

@@ -20,7 +20,7 @@ public class SpellDisplayer : PlayerDisplayUI
     public List<Image> imgToRecolorOnResolve;
     public Color resolveColor = Color.white;
     public List<Image> imgToTransparent;
-    [Range(0,1)]
+    [Range(0, 1)]
     public float resolveAlpha = 0.5f;
 
     public SpellContext spellContext;
@@ -96,8 +96,10 @@ public class SpellDisplayer : PlayerDisplayUI
     public void checkShowPulse(bool alwaysTrue = true)
     {
         showPulse(
-            (spellContext.canBeCastNext || uiVars.ValidTargets.Contains(spellContext))
-            && uiVars.game.Phase == Game.GamePhase.MATCHUP
+            uiVars.game.Phase == Game.GamePhase.MATCHUP
+            && (uiVars.CurrentCastingSpell != null)
+                ? uiVars.ValidTargets.Contains(spellContext)
+                : spellContext.canBeCastNext
             );
     }
 

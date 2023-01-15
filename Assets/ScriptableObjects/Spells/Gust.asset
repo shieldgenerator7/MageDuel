@@ -30,7 +30,9 @@ MonoBehaviour:
       rampable: 0
   spellTargets:
   - name: fromTarget
+    requireUnique: 1
   - name: toTarget
+    requireUnique: 1
   script: 'focusSpell (fromTarget, fromFocus)
 
     focusSpell (toTarget, toFocus)'
