@@ -38,13 +38,22 @@ public class SpellControllerUI : PlayerControlUI
                 }
                 break;
             case Game.GamePhase.MATCHUP:
+                //Early exit: another spell is targeting
+                if (uiVars.CurrentCastingSpell != null)
+                {
+                    if (uiVars.ValidTargets.Contains(spellContext))
+                    {
+                        uiVars.CurrentCastingSpell.acceptTargetAsNext(spellContext);
+                    }
+                    break;
+                }
                 //if this is the next spell in the lineup,
                 if (spellContext.canBeCastNext)
                 {
                     //process it
                     if (!rightClick)
                     {
-                        spellContext.activate();
+                        processSpell();
                     }
                     else
                     {
@@ -65,5 +74,34 @@ public class SpellControllerUI : PlayerControlUI
         rightClick = eventData.button == PointerEventData.InputButton.Right;
         shiftKey = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
         activate();
+    }
+
+    private void processSpell()
+    {
+        if (spellContext.hasAllTargets())
+        {
+            spellContext.activate();
+        }
+        else
+        {
+            StartCoroutine(waitForUserTarget());
+        }
+    }
+
+    private IEnumerator waitForUserTarget()
+    {
+        uiVars.CurrentCastingSpell = spellContext;
+        foreach (SpellTarget target in spellContext.spell.spellTargets)
+        {
+            uiVars.ValidTargets = spellContext.target.Lineup
+                .FindAll(spell => !spell.Resolved)
+                .ConvertAll(spell => (Target)spell);
+            while (!spellContext.hasTarget(target.name))
+            {
+                yield return target;
+            }
+        }
+        uiVars.CurrentCastingSpell = null;
+        spellContext.activate();
     }
 }

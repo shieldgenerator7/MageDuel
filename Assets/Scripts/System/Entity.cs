@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class Entity
+public class Entity : Target
 {
     public Pool health;
     public Pool aura;

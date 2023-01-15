@@ -17,6 +17,7 @@ public class Spell : ScriptableObject
     public bool autoTargetSelf = false;
     public List<Keyword> keywords;
     public AttributeSet attributes;
+    public List<SpellTarget> spellTargets;
     [TextArea(5, 50)]
     public string script;
 

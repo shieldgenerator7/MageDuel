@@ -16,4 +16,30 @@ public class UIVariables
     {
         return playerVars.Find(vars => vars.player == player);
     }
+
+    private SpellContext currentlyCastingSpell = null;
+    public SpellContext CurrentCastingSpell
+    {
+        get => currentlyCastingSpell;
+        set
+        {
+            currentlyCastingSpell = value;
+            onCurrentCastingSpellChanged?.Invoke(currentlyCastingSpell);
+        }
+    }
+    public delegate void OnCurrentCastingSpellChanged(SpellContext spellContext);
+    public event OnCurrentCastingSpellChanged onCurrentCastingSpellChanged;
+
+    private List<Target> validTargets;
+    public List<Target> ValidTargets
+    {
+        get => validTargets;
+        set
+        {
+            validTargets = value;
+            onValidTargetsChanged?.Invoke(validTargets);
+        }
+    }
+    public delegate void OnValidTargetsChanged(List<Target> targets);
+    public event OnValidTargetsChanged onValidTargetsChanged;
 }

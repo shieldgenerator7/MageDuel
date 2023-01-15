@@ -2,19 +2,22 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class SpellContext
+public class SpellContext : Target
 {
     public Spell spell;
     public Player target;
     public Player caster;
+    public List<SpellContext> targetSpells = new List<SpellContext>();
     private int focusSpent;
     private int auraSpent;
     private bool binDran = false;//"ich bin dran" -> "it's my turn"; true: it is now this spell's turn to be cast
     private bool resolved = false;
 
     private AttributeSet variables;
+    private Dictionary<string, SpellContext> spellTargets = new Dictionary<string, SpellContext>();
 
     public SpellContext(Spell spell, Player caster)
     {
@@ -97,6 +100,28 @@ public class SpellContext
         variables.set(attrName, value);
     }
 
+    public bool hasTarget(string name)
+    {
+        return spellTargets.ContainsKey(name);
+    }
+    public SpellContext getTarget(string name)
+    {
+        return (hasTarget(name)) ? spellTargets[name] : null;
+    }
+    public void setTarget(string name, SpellContext spellContext)
+    {
+        spellTargets[name] = spellContext;
+    }
+    public bool hasAllTargets()
+    {
+        return spell.spellTargets.All(target => hasTarget(target.name));
+    }
+    public void acceptTargetAsNext(SpellContext spellContext)
+    {
+        SpellTarget target = spell.spellTargets.Find(target => !hasTarget(target.name));
+        setTarget(target.name, spellContext);
+    }
+
     public bool BinDran
     {
         get => binDran;
@@ -110,7 +135,7 @@ public class SpellContext
     public event OnBinDran onBinDran;
 
     public bool canBeCastNext
-        => !Resolved && (binDran 
+        => !Resolved && (binDran
         || spell.keywords.Contains(Spell.Keyword.FLASH));
 
     public void activate()
