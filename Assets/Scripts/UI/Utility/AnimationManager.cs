@@ -10,8 +10,7 @@ public class AnimationManager : MonoBehaviour
 
     public void startAnimation(Image img, float end, float duration)
     {
-        float start = img.fillAmount;
-        startAnimation(new Animation(img, start, end), duration);
+        startAnimation(new Animation(img, end), duration);
     }
 
     public void startAnimation(Animation animation, float duration)
@@ -19,8 +18,19 @@ public class AnimationManager : MonoBehaviour
         animations.Add(animation);
         Timer timer = Managers.Timer.startTimer(
             duration,
-            () => animations.Remove(animation)
+            () => removeAnimation(animation)
             );
         timer.onTimerProgressPercent += animation.update;
+    }
+
+    private void removeAnimation(Animation animation)
+    {
+        animation.finish();
+        animations.Remove(animation);
+    }
+
+    public Animation getAnimation(Image img)
+    {
+        return animations.Find(anim => anim.Image == img);
     }
 }

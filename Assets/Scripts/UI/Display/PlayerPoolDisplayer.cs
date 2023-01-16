@@ -30,20 +30,47 @@ public class PlayerPoolDisplayer : PlayerDisplayUI
 
     private void updateHealthBar(int health)
     {
-        Managers.Animation.startAnimation(
+        Animation healthAnim = new Animation(
             healthBar,
-            (float)health / (float)player.health.maxValue,
-            1
+            (float)health / (float)player.health.maxValue
             );
+        Animation auraAnim = Managers.Animation.getAnimation(auraBar);
+        //Start the health anim now
+        if (auraAnim == null)
+        {
+            Managers.Animation.startAnimation(healthAnim, 1);
+        }
+        //Start the health anim after the aura anim
+        else
+        {
+            auraAnim.onFinished += () =>
+            {
+                Managers.Animation.startAnimation(healthAnim, 1);
+            };
+        }
     }
 
     private void updateAuraBar(int aura)
     {
-        Managers.Animation.startAnimation(
+        Animation auraAnim = new Animation(
             auraBar,
-            (float)aura / (float)player.aura.maxValue,
-            1
+            (float)aura / (float)player.aura.maxValue
             );
+        Animation healthAnim = Managers.Animation.getAnimation(healthBar);
+        //Start the aura anim now
+        if (healthAnim == null)
+        {
+            Managers.Animation.startAnimation(auraAnim, 1);
+        }
+        //Start the aura anim after the health anim finishes
+        else
+        {
+            healthAnim.onFinished += () =>
+            {
+                Managers.Animation.startAnimation(auraAnim, 1);
+            };
+        }
+
     }
 
     private void updateFocusBar(int focus)
