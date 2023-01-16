@@ -32,7 +32,7 @@ public abstract class SpellEffect
 
     public abstract void activate();
 
-    protected bool checkTarget()
+    protected bool checkTarget(bool checkSpellTargets = false)
     {
         //Fail: player target null
         if (spellContext.target == null)
@@ -41,13 +41,16 @@ public abstract class SpellEffect
             return false;
         }
         //Fail: spell target(s) null
-        foreach (SpellTarget spellTarget in spellContext.spell.spellTargets)
+        if (checkSpellTargets)
         {
-            SpellContext target = spellContext.getTarget(spellTarget.name);
-            if (target == null)
+            foreach (SpellTarget spellTarget in spellContext.spell.spellTargets)
             {
-                Debug.Log($"Cannot target player ({spellContext.target}) spell {spellTarget.name}: {target}");
-                return false;
+                SpellContext target = spellContext.getTarget(spellTarget.name);
+                if (target == null)
+                {
+                    Debug.Log($"Cannot target player ({spellContext.target}) spell {spellTarget.name}: {target}");
+                    return false;
+                }
             }
         }
         //Success
