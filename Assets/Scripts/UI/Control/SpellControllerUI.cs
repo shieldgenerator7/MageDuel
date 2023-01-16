@@ -102,9 +102,9 @@ public class SpellControllerUI : PlayerControlUI
         foreach (SpellTarget target in spellContext.spell.spellTargets)
         {
             uiVars.ValidTargets = spellContext.target.Lineup
-                .FindAll(spell =>
+                .FindAll(spell => spell != null
                     //Only spells yet to be cast
-                    !spell.Resolved
+                    && !spell.Resolved
                     //Only spells that arent being targeted, or if targeting the same spell twice is allowed
                     && (!target.requireUnique || !spellContext.isTargetingSpell(spell))
                 )
