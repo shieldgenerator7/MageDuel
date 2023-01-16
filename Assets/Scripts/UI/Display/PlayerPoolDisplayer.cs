@@ -11,6 +11,8 @@ public class PlayerPoolDisplayer : PlayerDisplayUI
     public Image imgAuraDiff;
     public Image focusBar;
 
+    private Queue<Animation> animationQueue = new Queue<Animation>();
+
     protected override void _registerDelegates(bool register)
     {
         player.health.onValueChanged -= updateHealthBar;
@@ -37,20 +39,7 @@ public class PlayerPoolDisplayer : PlayerDisplayUI
         healthBar.fillAmount = percent;
         //Animation
         Animation healthAnim = new Animation(imgHealthDiff, percent);
-        Animation auraAnim = Managers.Animation.getAnimation(imgAuraDiff);
-        //Start the health anim now
-        if (auraAnim == null)
-        {
-            Managers.Animation.startAnimation(healthAnim, 1);
-        }
-        //Start the health anim after the aura anim
-        else
-        {
-            auraAnim.onFinished += () =>
-            {
-                Managers.Animation.startAnimation(healthAnim, 1);
-            };
-        }
+        queueAnimation(healthAnim);
     }
 
     private void updateAuraBar(int aura)
@@ -60,22 +49,26 @@ public class PlayerPoolDisplayer : PlayerDisplayUI
         auraBar.fillAmount = percent;
         //Animation
         Animation auraAnim = new Animation(imgAuraDiff, percent);
-        Animation healthAnim = Managers.Animation.getAnimation(imgHealthDiff);
-        //Start the aura anim now
-        if (healthAnim == null)
-        {
-            Managers.Animation.startAnimation(auraAnim, 1);
-        }
-        //Start the aura anim after the health anim finishes
-        else
-        {
-            healthAnim.onFinished += () =>
-            {
-                Managers.Animation.startAnimation(auraAnim, 1);
-            };
-        }
-
+        queueAnimation(auraAnim);
     }
+
+    private void queueAnimation(Animation anim)
+    {
+        //Start anim after prev anim finishes
+        if (animationQueue.Count > 0)
+        {//
+            animationQueue.Peek().onFinished += () =>
+                Managers.Animation.startAnimation(anim, 1);
+        }//
+        //Start anim now
+        else//
+        {//
+            Managers.Animation.startAnimation(anim, 1);
+        }//
+        //Put anim in queue
+        animationQueue.Enqueue(anim);
+        anim.onFinished += () => animationQueue.Dequeue();//assumes this anim is at start of queue
+    }//
 
     private void updateFocusBar(int focus)
     {
