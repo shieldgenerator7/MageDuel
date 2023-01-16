@@ -14,6 +14,7 @@ public static class SpellScriptCompiler
         {"aura",typeof(AuraAdjust) },
         {"focusSpell",typeof(FocusSpellSpellEffect) },
         {"redirect",typeof(Redirect) },
+        {"shiftLineup",typeof(ShiftLineUp) },
     };
 
 

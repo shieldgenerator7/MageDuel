@@ -34,7 +34,8 @@ public class Game
     {
         players.ForEach(player =>
         {
-            players.ForEach(p => p.opponent = getOpponent(p));
+            player.game = this;
+            player.opponent = getOpponent(player);
             player.onStateChanged += onPlayStateChanged;
             player.onLineupChanged += onLineupChanged;
         });

@@ -18,6 +18,7 @@ public class Player : Entity
     private List<SpellContext> lineup = new List<SpellContext>();
     public int castingSpeed = 5;//how many spells they can cast per round
 
+    public Game game;
     public Player opponent;//TODO: remove this (assuming it doesnt need it in the future)
 
     public enum PlayState
@@ -93,16 +94,26 @@ public class Player : Entity
         }
     }
 
-    public void lineupSpell(Spell spell)
+    public void lineupSpell(Spell spell, int index = -1)
     {
-        //Early exit: no more room for spell
-        if (lineup.Count >= castingSpeed)
-        {
-            return;
-        }
         //Put spell in lineup
-        SpellContext context = new SpellContext(spell, this);
-        lineup.Add(context);
+        SpellContext context = (spell != null) ? new SpellContext(spell, this) : null;
+        //Insert
+        if (index > 0)
+        {
+            lineup.Insert(index, context);
+        }
+        //Append
+        else
+        {
+            lineup.Add(context);
+        }
+        //Remove extra spells at end
+        while (lineup.Count > castingSpeed)
+        {
+            lineup.RemoveAt(lineup.Count - 1);
+        }
+        //Delegate
         onLineupChanged?.Invoke(lineup);
     }
     public delegate void OnLineupChanged(List<SpellContext> spellList);

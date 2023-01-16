@@ -73,15 +73,27 @@ public class LineupDisplayer : PlayerDisplayUI
             callOnDisplayerCreated(spellDisplayer);
         }
         //Add in tailing nulls
-        int maxCastingSpeed = Mathf.Max(player.castingSpeed, player.opponent.castingSpeed);
-        while (spellGOList.Count < maxCastingSpeed)
+        while (spellGOList.Count < player.castingSpeed)
         {
             GameObject spellObject = Instantiate(emptyPrefab, transform);
             SpellDisplayer spellDisplayer = spellObject.GetComponent<SpellDisplayer>();
             spellGOList.Add(spellDisplayer);
         }
+        //Remove extra spell displayers (in case some got pushed off the edge)
+        while(spellGOList.Count > player.castingSpeed)
+        {
+            SpellDisplayer so = spellGOList[spellGOList.Count - 1];
+            if (so.spellContext != null)
+            {
+                callOnDisplayerDestroyed(so);
+                spellGOMap.Remove(so.spellContext);
+            }
+            Destroy(so.gameObject);
+            spellGOList.Remove(so);
+        }
         //Arrange the spell objects
         int flip = (flipped) ? -1 : 1;
+        int maxCastingSpeed = Mathf.Max(player.castingSpeed, player.opponent.castingSpeed);
         int x = flip * -1 * (maxCastingSpeed) * buffer / 2;
         mageHoodCoin.GetComponent<RectTransform>().localPosition = new Vector2(x, 0);
         x += flip * buffer;

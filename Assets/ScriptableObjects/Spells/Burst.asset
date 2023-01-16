@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d49c370a0c1c39047b788d86a7e07400, type: 3}
+  m_Name: Burst
+  m_EditorClassIdentifier: 
+  name: Burst
+  description: Move target's queue down [shift].
+  element: {fileID: 11400000, guid: 40952c779b37a20498b12735adee2dc5, type: 2}
+  cost: 1
+  speed: 4
+  autoTargetEnemy: 1
+  autoTargetSelf: 0
+  keywords: 00000000
+  attributes:
+    attributes:
+    - name: shift
+      value: 1
+      rampable: 0
+  spellTargets: []
+  script: shiftLineup(shift)

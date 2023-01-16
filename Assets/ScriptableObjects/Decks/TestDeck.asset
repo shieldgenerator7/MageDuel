@@ -15,6 +15,7 @@ MonoBehaviour:
   name: Test
   spellList:
   - {fileID: 11400000, guid: a8f5a8aa088fd834cab9dae2607e3d98, type: 2}
+  - {fileID: 11400000, guid: ea9c87713a0dc7a4b91b30f428c7bc9e, type: 2}
   - {fileID: 11400000, guid: 6aff90cb5971f76459087bbf5a570e51, type: 2}
   - {fileID: 11400000, guid: a5d20484227dbba4d976e0f5f190664e, type: 2}
   - {fileID: 11400000, guid: 147cb360cc758de4bb9f1ab3fb447fdf, type: 2}
