@@ -109,6 +109,10 @@ public class SpellControllerUI : PlayerControlUI
                     && (!target.requireUnique || !spellContext.isTargetingSpell(spell))
                 )
                 .ConvertAll(spell => (Target)spell);
+            if (uiVars.ValidTargets.Count == 0)
+            {
+                break;
+            }
             while (!spellContext.hasTarget(target.name))
             {
                 yield return target;
