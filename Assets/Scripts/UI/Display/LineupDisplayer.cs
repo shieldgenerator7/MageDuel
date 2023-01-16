@@ -14,7 +14,7 @@ public class LineupDisplayer : PlayerDisplayUI
     public GameObject emptyPrefab;
 
     private Dictionary<SpellContext, SpellDisplayer> spellGOMap = new Dictionary<SpellContext, SpellDisplayer>();
-    private List<SpellDisplayer> spellGOList = new List<SpellDisplayer>();
+    private List<SpellDisplayer> empties = new List<SpellDisplayer>();
 
     protected override void _registerDelegates(bool register)
     {
@@ -28,8 +28,10 @@ public class LineupDisplayer : PlayerDisplayUI
     public override void forceUpdate()
     {
         layoutSpells(player.Lineup);
-        spellGOList.FindAll(so => so.spellContext != null)
-            .ForEach(so => so.forceUpdate());
+        foreach (SpellDisplayer so in spellGOMap.Values)
+        {
+            so.forceUpdate();
+        }
     }
 
     private void layoutSpells(List<SpellContext> spells)
@@ -49,47 +51,58 @@ public class LineupDisplayer : PlayerDisplayUI
             callOnDisplayerDestroyed(so);
             Destroy(so.gameObject);
             spellGOMap.Remove(spell);
-            spellGOList.Remove(so);
         });
-        //Remove tailing nulls
-        while (spellGOList.Count > 0
-            && spellGOList[spellGOList.Count - 1].spellContext == null
-            )
-        {
-            SpellDisplayer so = spellGOList[spellGOList.Count - 1];
-            Destroy(so.gameObject);
-            spellGOList.Remove(so);
-        }
+        //Hide empties
+        empties.ForEach(empty => empty.gameObject.SetActive(false));
         //Create the new spell objects
-        List<SpellContext> newSpells = spells.FindAll(spell => !spellGOMap.ContainsKey(spell));
+        List<SpellContext> newSpells = spells.FindAll(spell =>
+            spell != null && !spellGOMap.ContainsKey(spell)
+        );
         foreach (SpellContext spell in newSpells)
         {
             GameObject spellObject = Instantiate(spellPrefab, transform);
             SpellDisplayer spellDisplayer = spellObject.GetComponent<SpellDisplayer>();
             spellDisplayer.setUIVars(uiVars);
             spellGOMap.Add(spell, spellDisplayer);
-            spellGOList.Add(spellDisplayer);
             spellDisplayer.init(spell, player);
             callOnDisplayerCreated(spellDisplayer);
         }
         //Add in tailing nulls
-        while (spellGOList.Count < player.castingSpeed)
+        int emptiesNeeded = player.castingSpeed - spells.Count(spell => spell != null);
+        while (empties.Count < emptiesNeeded)
         {
             GameObject spellObject = Instantiate(emptyPrefab, transform);
             SpellDisplayer spellDisplayer = spellObject.GetComponent<SpellDisplayer>();
-            spellGOList.Add(spellDisplayer);
+            empties.Add(spellDisplayer);
         }
-        //Remove extra spell displayers (in case some got pushed off the edge)
-        while(spellGOList.Count > player.castingSpeed)
+        //Generate list of spells in order
+        int emptyIndex = 0;
+        List<SpellDisplayer> spellGOList = new List<SpellDisplayer>();
+        for (int i = 0; i < player.castingSpeed; i++)
         {
-            SpellDisplayer so = spellGOList[spellGOList.Count - 1];
-            if (so.spellContext != null)
+            //Empty: out of bounds of spells (auto-fill to end with empties)
+            if (i >= spells.Count)
             {
-                callOnDisplayerDestroyed(so);
-                spellGOMap.Remove(so.spellContext);
+                spellGOList.Add(empties[emptyIndex]);
+                emptyIndex++;
+                continue;
             }
-            Destroy(so.gameObject);
-            spellGOList.Remove(so);
+            //
+            SpellContext spell = spells[i];
+            //Empty: current spell is null
+            if (spell == null)
+            {
+                spellGOList.Add(empties[emptyIndex]);
+                emptyIndex++;
+                continue;
+            }
+            //Add spell
+            spellGOList.Add(spellGOMap[spell]);
+        }
+        //Show empties
+        for (int i = 0; i < emptyIndex; i++)
+        {
+            empties[i].gameObject.SetActive(true);
         }
         //Arrange the spell objects
         int flip = (flipped) ? -1 : 1;
