@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Burst
   description: Move target's queue down [shift].
   element: {fileID: 11400000, guid: 40952c779b37a20498b12735adee2dc5, type: 2}
-  cost: 1
+  cost: 2
   speed: 4
   autoTargetEnemy: 1
   autoTargetSelf: 0
