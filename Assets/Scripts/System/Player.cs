@@ -98,6 +98,10 @@ public class Player : Entity
     {
         //Put spell in lineup
         SpellContext context = (spell != null) ? new SpellContext(spell, this) : null;
+        if (context != null)
+        {
+            focusSpell(context, spell.cost);
+        }
         //Insert
         if (index >= 0)
         {
