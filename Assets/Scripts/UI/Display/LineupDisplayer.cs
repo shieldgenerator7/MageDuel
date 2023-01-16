@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LineupDisplayer : PlayerDisplayUI
@@ -10,6 +11,7 @@ public class LineupDisplayer : PlayerDisplayUI
     public GameObject mageHoodCoin;
 
     public GameObject spellPrefab;
+    public GameObject emptyPrefab;
 
     private Dictionary<SpellContext, SpellDisplayer> spellGOMap = new Dictionary<SpellContext, SpellDisplayer>();
     private List<SpellDisplayer> spellGOList = new List<SpellDisplayer>();
@@ -26,7 +28,8 @@ public class LineupDisplayer : PlayerDisplayUI
     public override void forceUpdate()
     {
         layoutSpells(player.Lineup);
-        spellGOList.ForEach(so => so.forceUpdate());
+        spellGOList.FindAll(so => so.spellContext != null)
+            .ForEach(so => so.forceUpdate());
     }
 
     private void layoutSpells(List<SpellContext> spells)
@@ -48,7 +51,15 @@ public class LineupDisplayer : PlayerDisplayUI
             spellGOMap.Remove(spell);
             spellGOList.Remove(so);
         });
-        //
+        //Remove tailing nulls
+        while (spellGOList.Count > 0
+            && spellGOList[spellGOList.Count - 1].spellContext == null
+            )
+        {
+            SpellDisplayer so = spellGOList[spellGOList.Count - 1];
+            Destroy(so.gameObject);
+            spellGOList.Remove(so);
+        }
         //Create the new spell objects
         List<SpellContext> newSpells = spells.FindAll(spell => !spellGOMap.ContainsKey(spell));
         foreach (SpellContext spell in newSpells)
@@ -61,9 +72,16 @@ public class LineupDisplayer : PlayerDisplayUI
             spellDisplayer.init(spell, player);
             callOnDisplayerCreated(spellDisplayer);
         }
+        //Add in tailing nulls
+        int maxCastingSpeed = Mathf.Max(player.castingSpeed, player.opponent.castingSpeed);
+        while (spellGOList.Count < maxCastingSpeed)
+        {
+            GameObject spellObject = Instantiate(emptyPrefab, transform);
+            SpellDisplayer spellDisplayer = spellObject.GetComponent<SpellDisplayer>();
+            spellGOList.Add(spellDisplayer);
+        }
         //Arrange the spell objects
         int flip = (flipped) ? -1 : 1;
-        int maxCastingSpeed = Mathf.Max(player.castingSpeed, player.opponent.castingSpeed);
         int x = flip * -1 * (maxCastingSpeed) * buffer / 2;
         mageHoodCoin.GetComponent<RectTransform>().localPosition = new Vector2(x, 0);
         x += flip * buffer;
