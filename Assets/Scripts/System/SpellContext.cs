@@ -40,7 +40,7 @@ public class SpellContext : Target
         get => focusSpent;
         set
         {
-            focusSpent = value;
+            focusSpent = Mathf.Clamp(value, 0, caster.focus.maxValue);
             onFocusChanged?.Invoke(focusSpent);
         }
     }
@@ -49,7 +49,7 @@ public class SpellContext : Target
         get => auraSpent;
         set
         {
-            auraSpent = value;
+            auraSpent = Mathf.Clamp(value, 0, caster.aura.maxValue); ;
             onAuraChanged?.Invoke(auraSpent);
         }
     }
