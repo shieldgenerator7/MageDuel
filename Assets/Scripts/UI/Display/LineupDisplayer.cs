@@ -61,17 +61,19 @@ public class LineupDisplayer : PlayerDisplayUI
         foreach (SpellContext spell in newSpells)
         {
             GameObject spellObject = Instantiate(spellPrefab, transform);
+            spellObject.transform.up = Vector3.up;
             SpellDisplayer spellDisplayer = spellObject.GetComponent<SpellDisplayer>();
             spellDisplayer.setUIVars(uiVars);
             spellGOMap.Add(spell, spellDisplayer);
             spellDisplayer.init(spell, player);
             callOnDisplayerCreated(spellDisplayer);
         }
-        //Add in tailing nulls
+        //Generate empties
         int emptiesNeeded = player.castingSpeed - spells.Count(spell => spell != null);
         while (empties.Count < emptiesNeeded)
         {
             GameObject spellObject = Instantiate(emptyPrefab, transform);
+            spellObject.transform.up = Vector3.up;
             SpellDisplayer spellDisplayer = spellObject.GetComponent<SpellDisplayer>();
             empties.Add(spellDisplayer);
         }
