@@ -99,7 +99,7 @@ public class Player : Entity
         //Put spell in lineup
         SpellContext context = (spell != null) ? new SpellContext(spell, this) : null;
         //Insert
-        if (index > 0)
+        if (index >= 0)
         {
             lineup.Insert(index, context);
         }
