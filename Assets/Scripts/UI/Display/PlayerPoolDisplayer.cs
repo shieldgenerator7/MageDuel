@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class PlayerPoolDisplayer : PlayerDisplayUI
 {
     public Image healthBar;
+    public Image imgHealthDiff;
     public Image auraBar;
+    public Image imgAuraDiff;
     public Image focusBar;
 
     protected override void _registerDelegates(bool register)
@@ -30,11 +32,12 @@ public class PlayerPoolDisplayer : PlayerDisplayUI
 
     private void updateHealthBar(int health)
     {
-        Animation healthAnim = new Animation(
-            healthBar,
-            (float)health / (float)player.health.maxValue
-            );
-        Animation auraAnim = Managers.Animation.getAnimation(auraBar);
+        float percent = (float)health / (float)player.health.maxValue;
+        //Instant update
+        healthBar.fillAmount = percent;
+        //Animation
+        Animation healthAnim = new Animation(imgHealthDiff, percent);
+        Animation auraAnim = Managers.Animation.getAnimation(imgAuraDiff);
         //Start the health anim now
         if (auraAnim == null)
         {
@@ -52,11 +55,12 @@ public class PlayerPoolDisplayer : PlayerDisplayUI
 
     private void updateAuraBar(int aura)
     {
-        Animation auraAnim = new Animation(
-            auraBar,
-            (float)aura / (float)player.aura.maxValue
-            );
-        Animation healthAnim = Managers.Animation.getAnimation(healthBar);
+        float percent = (float)aura / (float)player.aura.maxValue;
+        //Instant update
+        auraBar.fillAmount = percent;
+        //Animation
+        Animation auraAnim = new Animation(imgAuraDiff, percent);
+        Animation healthAnim = Managers.Animation.getAnimation(imgHealthDiff);
         //Start the aura anim now
         if (healthAnim == null)
         {
