@@ -21,7 +21,7 @@ MonoBehaviour:
   speed: 2
   autoTargetEnemy: 1
   autoTargetSelf: 0
-  keywords: 00000000
+  keywords: 
   attributes:
     attributes:
     - name: damage
