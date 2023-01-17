@@ -153,13 +153,48 @@ public class Game
         {
             spellContexts.ForEach(spell =>
             {
-                spell.OnSpellProcessed -= OnSpellResolved;
-                spell.OnSpellProcessed += OnSpellResolved;
+                spell.onStateChanged -= OnSpellStateChanged;
+                spell.onStateChanged += OnSpellStateChanged;
             });
         }
     }
 
-    private void OnSpellResolved(SpellContext spellContext)
+    private void OnSpellStateChanged(SpellContext.State state)
+    {
+        if (phase == GamePhase.MATCHUP)
+        {
+            if (subphase == GameSubPhase.CASTING)
+            {
+                bool readyToProcess = players.All(player =>
+                {
+                    List<SpellContext> lineup = player.Lineup;
+                    if (matchupIndex >= lineup.Count)
+                    {
+                        return true;
+                    }
+                    SpellContext spell = lineup[matchupIndex];
+                    if (spell == null)
+                    {
+                        return true;
+                    }
+                    return spell.state != SpellContext.State.LINEDUP;
+                });
+                if (readyToProcess)
+                {
+                    SubPhase = GameSubPhase.PROCESSING;
+                    //process all spells //TODO 2022-01-16: move this to game ui
+                    while (castingQueue.Count > 0)
+                    {
+                        processQueue();
+                    }
+                    SubPhase = GameSubPhase.CASTING;
+                    moveToNextMatchUp();
+                }
+            }
+        }
+    }
+
+    private void moveToNextMatchUp()
     {
         bool endPhase = false;
         bool moveToNextMatchup = players.All(player =>
@@ -193,67 +228,17 @@ public class Game
 
     private void setSpellsBinDran()
     {
-        List<SpellContext> currentSpells = new List<SpellContext>();
         foreach (Player player in players)
         {
             List<SpellContext> spells = player.Lineup;
             for (int i = 0; i < spells.Count; i++)
             {
                 SpellContext spell = spells[i];
-                if (spell == null) { continue; }
-                bool binDran = !spell.Processed
-                    && i == matchupIndex;
-                spell.BinDran = binDran;
-                if (binDran)
+                if (spell != null)
                 {
-                    currentSpells.Add(spell);
+                    spell.BinDran = !spell.Processed
+                        && i == matchupIndex;
                 }
-            }
-        }
-        //Resolve ties
-        if (currentSpells.Count > 1)
-        {
-            currentSpells.ForEach(spell => spell.BinDran = false);
-            //Flash spells faster
-            if (currentSpells.Count > 1)
-            {
-                List<SpellContext> flashSpells = currentSpells.FindAll(spell => spell.Flash);
-                if (flashSpells.Count > 0)
-                {
-                    currentSpells = flashSpells;
-                }
-            }
-            //Higher spell speed faster
-            if (currentSpells.Count > 1)
-            {
-                int maxSpeed = currentSpells.Max(spell => spell.spell.speed);
-                currentSpells = currentSpells.FindAll(spell => spell.spell.speed == maxSpeed);
-            }
-            //Lower Focus faster
-            if (currentSpells.Count > 1)
-            {
-                int lowFocus = currentSpells.Min(spell => spell.Focus);
-                currentSpells = currentSpells.FindAll(spell => spell.Focus == lowFocus);
-            }
-            //Higher Aura faster
-            if (currentSpells.Count > 1)
-            {
-                int maxAura = currentSpells.Max(spell => spell.Aura);
-                currentSpells = currentSpells.FindAll(spell => spell.Aura == maxAura);
-            }
-            //Fizzle clashing spells
-            if (currentSpells.Count > 1)
-            {
-                currentSpells.ForEach(spell => spell.fizzle());
-            }
-            //Found final spell
-            else if (currentSpells.Count == 1)
-            {
-                currentSpells.ForEach(spell => spell.BinDran = true);
-            }
-            else
-            {
-                Debug.LogError($"Should not be possible to get here! currentSpell count: {currentSpells.Count}");
             }
         }
     }
@@ -262,23 +247,36 @@ public class Game
     {
         if (queue)
         {
-            spellContext.state = SpellContext.State.CASTING; 
             if (!castingQueue.Contains(spellContext))
             {
                 castingQueue.Add(spellContext);
-                castingQueue.OrderBy(spell => (spell.Flash) ? 0 : 1)
+                castingQueue = castingQueue.OrderBy(spell => (spell.Flash) ? 0 : 1)
                     .ThenByDescending(spell => spell.spell.speed)
                     .ThenBy(spell => spell.Focus)
                     .ThenByDescending(spell => spell.Aura).ToList();
             }
+            spellContext.state = SpellContext.State.CASTING;
         }
         else
         {
-            spellContext.state = SpellContext.State.LINEDUP;
             if (castingQueue.Contains(spellContext))
             {
                 castingQueue.Remove(spellContext);
             }
+            spellContext.state = SpellContext.State.LINEDUP;
+        }
+    }
+
+    /// <summary>
+    /// Processes one spell from the front of the queue
+    /// </summary>
+    public void processQueue()
+    {
+        if (castingQueue.Count > 0)
+        {
+            SpellContext firstSpell = castingQueue[0];
+            firstSpell.activate();
+            castingQueue.Remove(firstSpell);
         }
     }
 
