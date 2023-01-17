@@ -158,6 +158,15 @@ public class Game
                 spell.onStateChanged += OnSpellStateChanged;
             });
         }
+        else if (phase == GamePhase.MATCHUP)
+        {
+            if (subphase == GameSubPhase.PROCESSING)
+            {
+                setSpellsBinDran();
+                castingQueue.FindAll(spell => !spell.canBeCastNext)
+                    .ForEach(spell => queueSpell(spell, false));
+            }
+        }
     }
 
     private void OnSpellStateChanged(SpellContext.State state)
@@ -191,14 +200,14 @@ public class Game
                 {
                     List<SpellContext> lineup = player.Lineup;
                     if (matchupIndex >= lineup.Count)
-                    {//
+                    {
                         return true;
-                    }//
+                    }
                     SpellContext spell = lineup[matchupIndex];
                     if (spell == null)
-                    {//
+                    {
                         return true;
-                    }//
+                    }
                     return spell.Processed;
                 });
                 if (finishedProcessing)
