@@ -42,6 +42,7 @@ public class SpellDisplayer : PlayerDisplayUI
         spellContext.onStateChanged -= checkShowSelectRing;
         spellContext.OnSpellProcessed -= onSpellResolved;
         uiVars.game.onPhaseChanged -= onGamePhaseChanged;
+        uiVars.game.onSubPhaseChanged -= onGameSubPhaseChanged;
         uiVars.onValidTargetsChanged -= onValidTargetsChanged;
         uiVars.onCurrentCastingSpellChanged -= checkShowPulse;
         if (register)
@@ -52,6 +53,7 @@ public class SpellDisplayer : PlayerDisplayUI
             spellContext.onStateChanged += checkShowSelectRing;
             spellContext.OnSpellProcessed += onSpellResolved;
             uiVars.game.onPhaseChanged += onGamePhaseChanged;
+            uiVars.game.onSubPhaseChanged += onGameSubPhaseChanged;
             uiVars.onValidTargetsChanged += onValidTargetsChanged;
             uiVars.onCurrentCastingSpellChanged += checkShowPulse;
         }
@@ -106,7 +108,9 @@ public class SpellDisplayer : PlayerDisplayUI
             uiVars.game.Phase == Game.GamePhase.MATCHUP
             && ((uiVars.CurrentTargetingSpell != null)
                 ? uiVars.ValidTargets?.Contains(spellContext) ?? false
-                : spellContext.canBeCastNext)
+                : uiVars.game.SubPhase == Game.GameSubPhase.CASTING
+                    && spellContext.canBeCastNext
+                )
             );
     }
     public void checkShowPulse(SpellContext spellContext)
@@ -124,6 +128,10 @@ public class SpellDisplayer : PlayerDisplayUI
     }
 
     public void onGamePhaseChanged(Game.GamePhase phase)
+    {
+        checkShowPulse();
+    }
+    public void onGameSubPhaseChanged(Game.GameSubPhase subphase)
     {
         checkShowPulse();
     }

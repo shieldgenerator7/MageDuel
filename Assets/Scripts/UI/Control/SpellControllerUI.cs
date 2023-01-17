@@ -48,6 +48,13 @@ public class SpellControllerUI : PlayerControlUI
                     }
                     break;
                 }
+                //Early exit: dont allow adding more spells during processing
+                //(but allow targeting during processing if needed)
+                //TODO: check to see if theres ever a case where a spell would be targeting during processing (and not during casting)
+                if (uiVars.game.SubPhase== Game.GameSubPhase.PROCESSING)
+                {
+                    break;
+                }
                 //if this is the next spell in the lineup (or has Flash),
                 if (spellContext.canBeCastNext)
                 {
