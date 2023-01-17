@@ -27,7 +27,7 @@ public class TimerManager : MonoBehaviour
         if (timers.Count > 0)
         {
             timers.ToList().ForEach(timer => timer.update(Time.time));
-            timers.RemoveAll(timer => !timer.Running);
+            timers.RemoveAll(timer => timer.Completed);
         }
     }
 }
