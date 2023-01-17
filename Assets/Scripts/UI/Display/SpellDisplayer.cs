@@ -15,6 +15,8 @@ public class SpellDisplayer : PlayerDisplayUI
     public ToolTipDisplayer tooltip;
     //Pulse
     public Image imgPulse;
+    //SelectRing
+    public Image imgSelectRing;
     //OnResolve
     public List<MonoBehaviour> cmpToDestroyOnResolveList;
     public List<Image> imgToRecolorOnResolve;
@@ -37,7 +39,8 @@ public class SpellDisplayer : PlayerDisplayUI
         spellContext.onFocusChanged -= updateFocus;
         spellContext.onAuraChanged -= updateAura;
         spellContext.onBinDran -= checkShowPulse;
-        spellContext.OnSpellResolved -= onSpellResolved;
+        spellContext.onStateChanged -= checkShowSelectRing;
+        spellContext.OnSpellProcessed -= onSpellResolved;
         uiVars.game.onPhaseChanged -= onGamePhaseChanged;
         uiVars.onValidTargetsChanged -= onValidTargetsChanged;
         if (register)
@@ -45,7 +48,8 @@ public class SpellDisplayer : PlayerDisplayUI
             spellContext.onFocusChanged += updateFocus;
             spellContext.onAuraChanged += updateAura;
             spellContext.onBinDran += checkShowPulse;
-            spellContext.OnSpellResolved += onSpellResolved;
+            spellContext.onStateChanged += checkShowSelectRing;
+            spellContext.OnSpellProcessed += onSpellResolved;
             uiVars.game.onPhaseChanged += onGamePhaseChanged;
             uiVars.onValidTargetsChanged += onValidTargetsChanged;
         }
@@ -58,6 +62,7 @@ public class SpellDisplayer : PlayerDisplayUI
         updateAura(spellContext.Aura);
         showTooltip(false);
         checkShowPulse();
+        checkShowSelectRing(spellContext.state);
     }
 
     private void updateColor()
@@ -97,10 +102,19 @@ public class SpellDisplayer : PlayerDisplayUI
     {
         showPulse(
             uiVars.game.Phase == Game.GamePhase.MATCHUP
-            && ((uiVars.CurrentCastingSpell != null)
+            && ((uiVars.CurrentTargetingSpell != null)
                 ? uiVars.ValidTargets.Contains(spellContext)
                 : spellContext.canBeCastNext)
             );
+    }
+
+    public void showSelectRing(bool show)
+    {
+        imgSelectRing.gameObject.SetActive(show);
+    }
+    public void checkShowSelectRing(SpellContext.State state)
+    {
+        showSelectRing(state == SpellContext.State.CASTING);
     }
 
     public void onGamePhaseChanged(Game.GamePhase phase)

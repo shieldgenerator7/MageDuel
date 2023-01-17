@@ -21,7 +21,18 @@ public class SpellContext : Target
         RESOLVED,//processed and casted
         FIZZLED,//processed but not casted
     }
-    public State state = State.LINEDUP;
+    private State _state = State.LINEDUP;
+    public State state
+    {
+        get => _state;
+        set
+        {
+            _state = value;
+            onStateChanged?.Invoke(_state);
+        }
+    }
+    public delegate void OnStateChanged(State state);
+    public event OnStateChanged onStateChanged;
 
     private AttributeSet variables;
     private Dictionary<string, SpellContext> spellTargets = new Dictionary<string, SpellContext>();
