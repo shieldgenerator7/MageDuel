@@ -194,7 +194,7 @@ public class Game
             //Flash spells faster
             if (currentSpells.Count > 1)
             {
-                List<SpellContext> flashSpells = currentSpells.FindAll(spell => spell.spell.keywords.Contains(Spell.Keyword.FLASH));
+                List<SpellContext> flashSpells = currentSpells.FindAll(spell => spell.Flash);
                 if (flashSpells.Count > 0)
                 {
                     currentSpells = flashSpells;

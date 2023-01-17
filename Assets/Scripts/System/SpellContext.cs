@@ -146,8 +146,9 @@ public class SpellContext : Target
     public event OnBinDran onBinDran;
 
     public bool canBeCastNext
-        => !Processed && (binDran
-        || spell.keywords.Contains(Spell.Keyword.FLASH));
+        => !Processed && (binDran || Flash);
+
+    public bool Flash => spell.keywords.Contains(Spell.Keyword.FLASH);
 
     public void activate()
     {
