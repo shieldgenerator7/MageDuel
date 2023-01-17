@@ -428,6 +428,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultDeck: {fileID: 11400000, guid: 4cb43cdec3376794d83f527ee8b34b9c, type: 2}
+  castProcessingDelay: 2
   playerNames:
   - Player1
   - Player2

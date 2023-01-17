@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameUI : MonoBehaviour
 {
     public Deck defaultDeck;
+    public float castProcessingDelay = 2;
 
     public List<string> playerNames;
     public List<Placemat> placemats;
@@ -46,7 +47,7 @@ public class GameUI : MonoBehaviour
         switch (phase)
         {
             case Game.GamePhase.READYUP:
-                Managers.Timer.startTimer(3, game.checkNextPhase);
+                Managers.Timer.startTimer(1, game.checkNextPhase);
                 break;
             case Game.GamePhase.LINEUP:
                 break;
@@ -65,7 +66,7 @@ public class GameUI : MonoBehaviour
     {
         if (subphase == Game.GameSubPhase.PROCESSING)
         {
-            Managers.Timer.startTimer(1, this.processQueue);
+            Managers.Timer.startTimer(castProcessingDelay, this.processQueue);
         }
     }
     private void processQueue()
@@ -74,7 +75,7 @@ public class GameUI : MonoBehaviour
         if (queueCount > 0)
         {
             game.processQueue();
-            Managers.Timer.startTimer(1, this.processQueue);
+            Managers.Timer.startTimer(castProcessingDelay, this.processQueue);
         }
         else
         {
