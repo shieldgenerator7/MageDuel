@@ -10,6 +10,7 @@ public class PlayerPoolDisplayer : PlayerDisplayUI
     public Image auraBar;
     public Image imgAuraDiff;
     public Image focusBar;
+    public Image imgShield;
 
     private Queue<Animation> animationQueue = new Queue<Animation>();
 
@@ -18,11 +19,13 @@ public class PlayerPoolDisplayer : PlayerDisplayUI
         player.health.onValueChanged -= updateHealthBar;
         player.aura.onValueChanged -= updateAuraBar;
         player.focus.onValueChanged -= updateFocusBar;
+        player.onShieldCountChanged -= updateShield;
         if (register)
         {
             player.health.onValueChanged += updateHealthBar;
             player.aura.onValueChanged += updateAuraBar;
             player.focus.onValueChanged += updateFocusBar;
+            player.onShieldCountChanged += updateShield;
         }
     }
 
@@ -30,6 +33,8 @@ public class PlayerPoolDisplayer : PlayerDisplayUI
     {
         updateHealthBar(player.health);
         updateAuraBar(player.aura);
+        updateFocusBar(player.focus);
+        updateShield(player.ShieldCount);
     }
 
     private void updateHealthBar(int health)
@@ -99,6 +104,11 @@ public class PlayerPoolDisplayer : PlayerDisplayUI
     private void updateFocusBar(int focus)
     {
         focusBar.fillAmount = (float)focus / (float)player.focus.maxValue;
+    }
+
+    private void updateShield(int count)
+    {
+        imgShield.gameObject.SetActive(count > 0);
     }
 
 }

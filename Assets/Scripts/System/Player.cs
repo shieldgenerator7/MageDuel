@@ -40,6 +40,8 @@ public class Player : Entity
     public delegate void OnPlayState(PlayState state);
     public event OnPlayState onStateChanged;
 
+    private List<SpellEffect> shields = new List<SpellEffect>();
+    public int ShieldCount => shields.Count;
 
     public Player(string name) : base(3, 5)
     {
@@ -152,6 +154,24 @@ public class Player : Entity
         focus.refill();
         aura.refill();
     }
+
+    public void addShield(SpellEffect spellEffect, bool add)
+    {
+        if (add)
+        {
+            if (!shields.Contains(spellEffect))
+            {
+                shields.Add(spellEffect);
+            }
+        }
+        else
+        {
+            shields.Remove(spellEffect);
+        }
+        onShieldCountChanged?.Invoke(shields.Count);
+    }
+    public delegate void OnShieldCountChanged(int count);
+    public event OnShieldCountChanged onShieldCountChanged;
 
     public static implicit operator bool(Player player) => player != null;
     public override string ToString()
