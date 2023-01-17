@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Shield
   m_EditorClassIdentifier: 
   name: Shield
-  description: Block [threshold] damage per Focus
+  description: Block [threshold] damage
   element: {fileID: 11400000, guid: 3347f6e73112a8c4ea76271f58b61f16, type: 2}
   cost: 1
   speed: 5
@@ -26,6 +26,4 @@ MonoBehaviour:
       value: 1
       rampable: 1
   spellTargets: []
-  script: 'focusRamp(threshold)
-
-    block(threshold)'
+  script: block(threshold)
