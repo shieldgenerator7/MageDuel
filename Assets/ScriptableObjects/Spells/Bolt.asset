@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bolt
   m_EditorClassIdentifier: 
   name: Bolt
-  description: Deal [damagePerFocus] damage per Focus spent
+  description: Deal [damagePerFocus] damage per Focus
   element: {fileID: 11400000, guid: b46f8a6e90bfce34f8ceecd66a9271ef, type: 2}
   cost: 3
   speed: 5
@@ -25,6 +25,7 @@ MonoBehaviour:
     - name: damagePerFocus
       value: 1
       rampable: 0
+  spellTargets: []
   script: 'focusRamp (damagePerFocus, damage)
 
     damage (damage)'

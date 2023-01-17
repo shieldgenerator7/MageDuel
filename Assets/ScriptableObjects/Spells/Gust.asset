@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Gust
   m_EditorClassIdentifier: 
   name: Gust
-  description: Move [toFocus] Focus among a lineup.
+  description: Move [toFocus] Focus among a lineup
   element: {fileID: 11400000, guid: 7ad5d788ba9db78438ccc54681007fbd, type: 2}
   cost: 1
   speed: 4

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Whirlwind
   m_EditorClassIdentifier: 
   name: Whirlwind
-  description: 'Deal [damage] damage.
+  description: 'Deal [damage] damage,
 
-    Redirect a spell.'
+    Redirect a spell'
   element: {fileID: 11400000, guid: 7ad5d788ba9db78438ccc54681007fbd, type: 2}
   cost: 2
   speed: 2
