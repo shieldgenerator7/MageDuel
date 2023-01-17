@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,25 +40,45 @@ public class SpellControllerUI : PlayerControlUI
                 break;
             case Game.GamePhase.MATCHUP:
                 //Early exit: another spell is targeting
-                if (uiVars.CurrentCastingSpell != null)
+                if (uiVars.CurrentTargetingSpell != null)
                 {
                     if (uiVars.ValidTargets.Contains(spellContext))
                     {
-                        uiVars.CurrentCastingSpell.acceptTargetAsNext(spellContext);
+                        uiVars.CurrentTargetingSpell.acceptTargetAsNext(spellContext);
                     }
                     break;
                 }
-                //if this is the next spell in the lineup,
+                //if this is the next spell in the lineup (or has Flash),
                 if (spellContext.canBeCastNext)
                 {
-                    //process it
+                    //add it to process queue
                     if (!rightClick)
                     {
-                        processSpell();
+                        Action enqueueFunc = () => 
+                            uiVars.game.queueSpell(spellContext, true);
+
+                        if (spellContext.hasAllTargets())
+                        {
+                            //Add to queue
+                            enqueueFunc();
+                        }
+                        else { 
+                            //Select targets then add to queue
+                            StartCoroutine(waitForUserTarget(enqueueFunc));
+                        }
                     }
                     else
                     {
-                        spellContext.fizzle();
+                        //Dequeue it
+                        if (spellContext.state == SpellContext.State.CASTING)
+                        {
+                            uiVars.game.queueSpell(spellContext, false);
+                        }
+                        //fizzle it
+                        else
+                        {
+                            spellContext.fizzle();
+                        }
                     }
                 }
                 break;
@@ -76,29 +97,9 @@ public class SpellControllerUI : PlayerControlUI
         activate();
     }
 
-    private void processSpell()
+    private IEnumerator waitForUserTarget(Action thenFunc)
     {
-        //Early exit: not enough focus
-        if (!spellContext.FocusPaid)
-        {
-            spellContext.fizzle();
-            return;
-        }
-        //Activate with targets
-        if (spellContext.hasAllTargets())
-        {
-            spellContext.activate();
-        }
-        //Wait for target selection
-        else
-        {
-            StartCoroutine(waitForUserTarget());
-        }
-    }
-
-    private IEnumerator waitForUserTarget()
-    {
-        uiVars.CurrentCastingSpell = spellContext;
+        uiVars.CurrentTargetingSpell = spellContext;
         foreach (SpellTarget target in spellContext.spell.spellTargets)
         {
             uiVars.ValidTargets = spellContext.target.Lineup
@@ -111,7 +112,7 @@ public class SpellControllerUI : PlayerControlUI
                 .ConvertAll(spell => (Target)spell);
             if (uiVars.ValidTargets.Count == 0)
             {
-                break;
+                continue;
             }
             while (!spellContext.hasTarget(target.name))
             {
@@ -119,7 +120,7 @@ public class SpellControllerUI : PlayerControlUI
             }
         }
         uiVars.ValidTargets.Clear();
-        uiVars.CurrentCastingSpell = null;
-        spellContext.activate();
+        uiVars.CurrentTargetingSpell = null;
+        thenFunc();
     }
 }

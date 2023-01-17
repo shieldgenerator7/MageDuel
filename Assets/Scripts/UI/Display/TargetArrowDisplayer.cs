@@ -18,7 +18,7 @@ public class TargetArrowDisplayer : MonoBehaviour
     {
         rectTransform = GetComponent<RectTransform>();
         registerDelegates(true);
-        updateToCastingSpell(uiVars.CurrentCastingSpell);
+        updateToCastingSpell(uiVars.CurrentTargetingSpell);
     }
 
     public void registerDelegates(bool register)

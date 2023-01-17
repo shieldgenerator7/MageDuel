@@ -24,7 +24,7 @@ public class Game
         private set
         {
             phase = value;
-            onPhaseChanged.Invoke(phase);
+            onPhaseChanged?.Invoke(phase);
         }
     }
     public delegate void OnPhase(GamePhase phase);
@@ -43,12 +43,13 @@ public class Game
         private set
         {
             subphase = value;
-            onSubPhaseChanged.Invoke(subphase);
+            onSubPhaseChanged?.Invoke(subphase);
         }
     }
     public delegate void OnSubPhase(GameSubPhase subphase);
     public event OnSubPhase onSubPhaseChanged;
 
+    private List<SpellContext> castingQueue = new List<SpellContext>();
 
     public void startGame()
     {
@@ -152,8 +153,8 @@ public class Game
         {
             spellContexts.ForEach(spell =>
             {
-                spell.OnSpellResolved -= OnSpellResolved;
-                spell.OnSpellResolved += OnSpellResolved;
+                spell.OnSpellProcessed -= OnSpellResolved;
+                spell.OnSpellProcessed += OnSpellResolved;
             });
         }
     }
@@ -253,6 +254,30 @@ public class Game
             else
             {
                 Debug.LogError($"Should not be possible to get here! currentSpell count: {currentSpells.Count}");
+            }
+        }
+    }
+
+    public void queueSpell(SpellContext spellContext, bool queue)
+    {
+        if (queue)
+        {
+            spellContext.state = SpellContext.State.CASTING; 
+            if (!castingQueue.Contains(spellContext))
+            {
+                castingQueue.Add(spellContext);
+                castingQueue.OrderBy(spell => (spell.Flash) ? 0 : 1)
+                    .ThenByDescending(spell => spell.spell.speed)
+                    .ThenBy(spell => spell.Focus)
+                    .ThenByDescending(spell => spell.Aura).ToList();
+            }
+        }
+        else
+        {
+            spellContext.state = SpellContext.State.LINEDUP;
+            if (castingQueue.Contains(spellContext))
+            {
+                castingQueue.Remove(spellContext);
             }
         }
     }

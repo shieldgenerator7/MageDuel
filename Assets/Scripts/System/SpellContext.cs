@@ -163,28 +163,30 @@ public class SpellContext : Target
 
     public void activate()
     {
-        //If focus cost has been paid,
-        if (FocusPaid)
+        //Early exit: Not enough focus
+        if (!FocusPaid)
         {
-            //Target player
-            if (target)
-            {
-                caster.targetPlayer(target, this);
-            }
-            //Activate spell
-            List<SpellEffect> effects = SpellScriptCompiler.compile(spell.script);
-            effects.ForEach(effect =>
-            {
-                effect.init(this);
-                effect.activate();
-            });
+            fizzle();
+            return;
         }
-        //Mark this spell resolved regardless
+        //Target player
+        if (target)
+        {
+            caster.targetPlayer(target, this);
+        }
+        //Activate spell
+        List<SpellEffect> effects = SpellScriptCompiler.compile(spell.script);
+        effects.ForEach(effect =>
+        {
+            effect.init(this);
+            effect.activate();
+        });
+        //Mark this spell resolved
         state = State.RESOLVED;
-        OnSpellResolved?.Invoke(this);
+        OnSpellProcessed?.Invoke(this);
     }
     public delegate void OnSpell(SpellContext sc);
-    public event OnSpell OnSpellResolved;
+    public event OnSpell OnSpellProcessed;
 
     public bool Processed => (new State[] {
         State.RESOLVED,
@@ -194,6 +196,6 @@ public class SpellContext : Target
     public void fizzle()
     {
         state = State.FIZZLED;
-        OnSpellResolved?.Invoke(this);
+        OnSpellProcessed?.Invoke(this);
     }
 }

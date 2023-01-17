@@ -18,7 +18,7 @@ public class UIVariables
     }
 
     private SpellContext currentlyCastingSpell = null;
-    public SpellContext CurrentCastingSpell
+    public SpellContext CurrentTargetingSpell
     {
         get => currentlyCastingSpell;
         set
