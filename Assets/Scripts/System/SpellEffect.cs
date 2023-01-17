@@ -51,6 +51,11 @@ public abstract class SpellEffect
                     Debug.Log($"Cannot target player ({spellContext.target}) spell {spellTarget.name}: {target}");
                     return false;
                 }
+                if (target.Processed)
+                {
+                    Debug.Log($"Cannot target player ({spellContext.target}) spell {spellTarget.name}: {target}. It has already been processed.");
+                    return false;
+                }
             }
         }
         //Success

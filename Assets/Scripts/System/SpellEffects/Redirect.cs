@@ -8,13 +8,20 @@ public class Redirect : SpellEffect
     {
         if (!checkTarget(true)) { return; }
         SpellContext target = spellContext.getTarget(getParameter(0));
+        //Redirect self-targeting spell
         if (target.target == target.caster)
         {
-            target.target = target.caster.opponent;
+            target.redirect(target.caster.opponent);
         }
-        else if (target.target == target.caster.opponent)
+        //Redirect opponent-targeting spell
+        else if (target.target != null)
         {
-            target.target = target.caster;
+            target.redirect(target.caster);
+        }
+        //Non-targeting spell
+        else
+        {
+            //do nothing
         }
     }
 }

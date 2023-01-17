@@ -143,6 +143,26 @@ public class SpellContext : Target
     {
         return spellTargets.ContainsValue(spellContext);
     }
+    public void clearTargets()
+    {
+        spellTargets.Clear();
+    }
+    public void redirect(Player newTarget)
+    {
+        Player oldTarget = target;
+        target = newTarget;
+        //Redirect spells
+        List<SpellContext> oldLineup = oldTarget.Lineup;
+        List<SpellContext> newLineup = newTarget.Lineup;
+        List<string> targetNames = spellTargets.Keys.ToList();
+        foreach (string targetName in targetNames)
+        {
+            SpellContext spell = spellTargets[targetName];
+            int index = oldLineup.IndexOf(spell);
+            //TODO: check to make sure new spell target is a valid target
+            spellTargets[targetName] = newLineup[index];
+        }
+    }
 
     public bool BinDran
     {
