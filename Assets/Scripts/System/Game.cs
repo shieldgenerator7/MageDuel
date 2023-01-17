@@ -30,6 +30,26 @@ public class Game
     public delegate void OnPhase(GamePhase phase);
     public event OnPhase onPhaseChanged;
 
+    public enum GameSubPhase
+    {
+        NONE,
+        CASTING,
+        PROCESSING,
+    }
+    private GameSubPhase subphase;
+    public GameSubPhase SubPhase
+    {
+        get => subphase;
+        private set
+        {
+            subphase = value;
+            onSubPhaseChanged.Invoke(subphase);
+        }
+    }
+    public delegate void OnSubPhase(GameSubPhase subphase);
+    public event OnSubPhase onSubPhaseChanged;
+
+
     public void startGame()
     {
         players.ForEach(player =>
@@ -68,6 +88,7 @@ public class Game
                 {
                     player.State = Player.PlayState.CASTING;
                 });
+                SubPhase = GameSubPhase.CASTING;
                 setSpellsBinDran();
                 break;
             case GamePhase.CLEANUP:
@@ -75,6 +96,7 @@ public class Game
                 {
                     player.clearLineup();
                 });
+                SubPhase = GameSubPhase.NONE;
                 break;
             default:
                 Debug.LogError($"Unknown phase: {phase}");
