@@ -104,6 +104,10 @@ public class SpellContext : Target
 
     public int getAttribute(string attrName)
     {
+        if (string.IsNullOrWhiteSpace(attrName))
+        {
+            return 0;
+        }
         SpellAttribute attr = variables.getAttribute(attrName);
         int value = attr.value;
         if (attr.rampable)

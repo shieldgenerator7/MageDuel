@@ -13,12 +13,19 @@ MonoBehaviour:
   m_Name: Shield
   m_EditorClassIdentifier: 
   name: Shield
-  description: Block the next damage.
+  description: Block damage up to [threshold] damage.
   element: {fileID: 11400000, guid: 3347f6e73112a8c4ea76271f58b61f16, type: 2}
   cost: 1
   speed: 5
   autoTargetEnemy: 0
   autoTargetSelf: 1
   keywords: 00000000
-  attributes: []
-  script: block()
+  attributes:
+    attributes:
+    - name: threshold
+      value: 1
+      rampable: 1
+  spellTargets: []
+  script: 'focusRamp(threshold)
+
+    block(threshold)'

@@ -14,8 +14,13 @@ public class BlockSpellEffect : SpellEffect
 
     private int onDamageReceived(int damage)
     {
-        //unregister
-        spellContext.target.onDamageReceived -= onDamageReceived;
+        int defense = spellContext.getAttribute(getParameter(0));
+        //Check to see if 
+        if (damage > defense)
+        {
+            //unregister
+            spellContext.target.onDamageReceived -= onDamageReceived;
+        }
         //block all damage
         return 0;
     }
