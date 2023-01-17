@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,6 +27,7 @@ public class GameUI : MonoBehaviour
             game.players.Add(p);
         }
         game.onPhaseChanged += onPhaseChanged;
+        game.onSubPhaseChanged += onSubPhaseChanged;
         game.startGame();
         //uiVars
         uiVars = new UIVariables(game);
@@ -41,7 +43,7 @@ public class GameUI : MonoBehaviour
     void onPhaseChanged(Game.GamePhase phase)
     {
         //depending on phase, go directly into the next phase
-        switch(phase)
+        switch (phase)
         {
             case Game.GamePhase.READYUP:
                 Managers.Timer.startTimer(3, game.checkNextPhase);
@@ -56,6 +58,43 @@ public class GameUI : MonoBehaviour
             default:
                 Debug.LogError($"Unknown game phase! phase: {phase}");
                 break;
+        }
+    }
+
+    private void onSubPhaseChanged(Game.GameSubPhase subphase)
+    {
+        if (subphase == Game.GameSubPhase.PROCESSING)
+        {
+            Timer lastTimer = null;
+            int queueCount = game.CastingQueue.Count;
+            Func<Timer> startTimerFunc = () =>
+                Managers.Timer.startTimer(1, game.processQueue);
+            for (int i = 0; i < queueCount; i++)
+            {
+
+                if (lastTimer == null)
+                {
+                    lastTimer = startTimerFunc();
+                }
+                else if (lastTimer != null)
+                {
+                    Timer timer = startTimerFunc();
+                    timer.stop();
+                    lastTimer.onTimerFinished += timer.reset;
+                    lastTimer = timer;
+                }
+            }
+            if (lastTimer != null)
+            {
+                Timer timer = Managers.Timer.startTimer(1, game.moveToNextMatchUp);
+                timer.stop();
+                lastTimer.onTimerFinished += timer.reset;
+                lastTimer = timer;
+            }
+            else
+            {
+                game.moveToNextMatchUp();
+            }
         }
     }
 }

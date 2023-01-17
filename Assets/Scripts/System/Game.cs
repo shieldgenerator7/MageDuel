@@ -50,6 +50,7 @@ public class Game
     public event OnSubPhase onSubPhaseChanged;
 
     private List<SpellContext> castingQueue = new List<SpellContext>();
+    public List<SpellContext> CastingQueue => castingQueue.ToList();
 
     public void startGame()
     {
@@ -182,19 +183,33 @@ public class Game
                 if (readyToProcess)
                 {
                     SubPhase = GameSubPhase.PROCESSING;
-                    //process all spells //TODO 2022-01-16: move this to game ui
-                    while (castingQueue.Count > 0)
-                    {
-                        processQueue();
-                    }
+                }
+            }
+            else if (subphase == GameSubPhase.PROCESSING)
+            {
+                bool finishedProcessing = players.All(player =>
+                {
+                    List<SpellContext> lineup = player.Lineup;
+                    if (matchupIndex >= lineup.Count)
+                    {//
+                        return true;
+                    }//
+                    SpellContext spell = lineup[matchupIndex];
+                    if (spell == null)
+                    {//
+                        return true;
+                    }//
+                    return spell.Processed;
+                });
+                if (finishedProcessing)
+                {
                     SubPhase = GameSubPhase.CASTING;
-                    moveToNextMatchUp();
                 }
             }
         }
     }
 
-    private void moveToNextMatchUp()
+    public void moveToNextMatchUp()
     {
         bool endPhase = false;
         bool moveToNextMatchup = players.All(player =>
