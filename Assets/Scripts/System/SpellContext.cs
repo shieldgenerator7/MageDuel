@@ -13,7 +13,15 @@ public class SpellContext : Target
     private int focusSpent;
     private int auraSpent;
     private bool binDran = false;//"ich bin dran" -> "it's my turn"; true: it is now this spell's turn to be cast
-    private bool resolved = false;
+
+    public enum State
+    {
+        LINEDUP,//in the lineup, waiting for its turn
+        CASTING,//selected for casting and/or in the process of being casted
+        RESOLVED,//processed and casted
+        FIZZLED,//processed but not casted
+    }
+    public State state = State.LINEDUP;
 
     private AttributeSet variables;
     private Dictionary<string, SpellContext> spellTargets = new Dictionary<string, SpellContext>();
@@ -138,7 +146,7 @@ public class SpellContext : Target
     public event OnBinDran onBinDran;
 
     public bool canBeCastNext
-        => !Resolved && (binDran
+        => !Processed && (binDran
         || spell.keywords.Contains(Spell.Keyword.FLASH));
 
     public void activate()
@@ -160,17 +168,20 @@ public class SpellContext : Target
             });
         }
         //Mark this spell resolved regardless
-        resolved = true;
+        state = State.RESOLVED;
         OnSpellResolved?.Invoke(this);
     }
     public delegate void OnSpell(SpellContext sc);
     public event OnSpell OnSpellResolved;
 
-    public bool Resolved => resolved;
+    public bool Processed => (new State[] {
+        State.RESOLVED,
+        State.FIZZLED,
+    }).Contains(state);
 
     public void fizzle()
     {
-        resolved = true;
+        state = State.FIZZLED;
         OnSpellResolved?.Invoke(this);
     }
 }

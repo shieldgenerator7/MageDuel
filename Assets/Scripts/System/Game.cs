@@ -101,7 +101,7 @@ public class Game
             case GamePhase.MATCHUP:
                 //if all players are done casting spells,
                 if (players.All(player => player.Lineup.All(
-                    spell => spell == null || spell.Resolved
+                    spell => spell == null || spell.Processed
                     )))
                 {
                     //move to cleanup phase
@@ -142,7 +142,7 @@ public class Game
         bool moveToNextMatchup = players.All(player =>
             player.Lineup.Count <= matchupIndex
             || player.Lineup[matchupIndex] == null
-            || player.Lineup[matchupIndex].Resolved
+            || player.Lineup[matchupIndex].Processed
             );
         while (moveToNextMatchup)
         {
@@ -155,7 +155,7 @@ public class Game
             moveToNextMatchup = players.All(player =>
                 player.Lineup.Count <= matchupIndex
                 || player.Lineup[matchupIndex] == null
-                || player.Lineup[matchupIndex].Resolved
+                || player.Lineup[matchupIndex].Processed
                 );
         }
         if (endPhase)
@@ -178,7 +178,7 @@ public class Game
             {
                 SpellContext spell = spells[i];
                 if (spell == null) { continue; }
-                bool binDran = !spell.Resolved
+                bool binDran = !spell.Processed
                     && i == matchupIndex;
                 spell.BinDran = binDran;
                 if (binDran)
