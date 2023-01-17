@@ -65,36 +65,20 @@ public class GameUI : MonoBehaviour
     {
         if (subphase == Game.GameSubPhase.PROCESSING)
         {
-            Timer lastTimer = null;
-            int queueCount = game.CastingQueue.Count;
-            Func<Timer> startTimerFunc = () =>
-                Managers.Timer.startTimer(1, game.processQueue);
-            for (int i = 0; i < queueCount; i++)
-            {
-
-                if (lastTimer == null)
-                {
-                    lastTimer = startTimerFunc();
-                }
-                else if (lastTimer != null)
-                {
-                    Timer timer = startTimerFunc();
-                    timer.stop();
-                    lastTimer.onTimerFinished += timer.reset;
-                    lastTimer = timer;
-                }
-            }
-            if (lastTimer != null)
-            {
-                Timer timer = Managers.Timer.startTimer(1, game.moveToNextMatchUp);
-                timer.stop();
-                lastTimer.onTimerFinished += timer.reset;
-                lastTimer = timer;
-            }
-            else
-            {
-                game.moveToNextMatchUp();
-            }
+            Managers.Timer.startTimer(1, this.processQueue);
+        }
+    }
+    private void processQueue()
+    {
+        int queueCount = game.CastingQueue.Count;
+        if (queueCount > 0)
+        {
+            game.processQueue();
+            Managers.Timer.startTimer(1, this.processQueue);
+        }
+        else
+        {
+            game.moveToNextMatchUp();
         }
     }
 }
