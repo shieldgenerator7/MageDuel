@@ -43,6 +43,7 @@ public class SpellDisplayer : PlayerDisplayUI
         spellContext.OnSpellProcessed -= onSpellResolved;
         uiVars.game.onPhaseChanged -= onGamePhaseChanged;
         uiVars.onValidTargetsChanged -= onValidTargetsChanged;
+        uiVars.onCurrentCastingSpellChanged -= checkShowPulse;
         if (register)
         {
             spellContext.onFocusChanged += updateFocus;
@@ -52,6 +53,7 @@ public class SpellDisplayer : PlayerDisplayUI
             spellContext.OnSpellProcessed += onSpellResolved;
             uiVars.game.onPhaseChanged += onGamePhaseChanged;
             uiVars.onValidTargetsChanged += onValidTargetsChanged;
+            uiVars.onCurrentCastingSpellChanged += checkShowPulse;
         }
     }
 
@@ -103,9 +105,13 @@ public class SpellDisplayer : PlayerDisplayUI
         showPulse(
             uiVars.game.Phase == Game.GamePhase.MATCHUP
             && ((uiVars.CurrentTargetingSpell != null)
-                ? uiVars.ValidTargets.Contains(spellContext)
+                ? uiVars.ValidTargets?.Contains(spellContext) ?? false
                 : spellContext.canBeCastNext)
             );
+    }
+    public void checkShowPulse(SpellContext spellContext)
+    {
+        checkShowPulse();
     }
 
     public void showSelectRing(bool show)

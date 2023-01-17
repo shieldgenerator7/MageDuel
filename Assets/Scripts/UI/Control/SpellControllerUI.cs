@@ -119,7 +119,7 @@ public class SpellControllerUI : PlayerControlUI
                 yield return target;
             }
         }
-        uiVars.ValidTargets.Clear();
+        uiVars.ValidTargets = null;
         uiVars.CurrentTargetingSpell = null;
         thenFunc();
     }
