@@ -15,6 +15,7 @@ public static class SpellScriptCompiler
         {"focusSpell",typeof(FocusSpellSpellEffect) },
         {"redirect",typeof(Redirect) },
         {"shiftLineup",typeof(ShiftLineUp) },
+        {"undodgableElement",typeof(UndodgableElement) },
     };
 
 
