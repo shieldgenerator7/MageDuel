@@ -427,11 +427,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 323dfc5f984a4d64797679af12164b32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultDeck: {fileID: 11400000, guid: 4cb43cdec3376794d83f527ee8b34b9c, type: 2}
+  gameSettings: {fileID: 11400000, guid: 5b10eb725129a054d9cc838deddb547b, type: 2}
   castProcessingDelay: 1.5
-  playerNames:
-  - Player1
-  - Player2
   placemats:
   - {fileID: 8005862789927378908}
   - {fileID: 1546502758}

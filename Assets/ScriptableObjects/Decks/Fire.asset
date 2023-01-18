@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 721200e0788047f429d7e2dacba620f0, type: 3}
+  m_Name: Fire
+  m_EditorClassIdentifier: 
+  name: Fire
+  spellList:
+  - {fileID: 11400000, guid: a8f5a8aa088fd834cab9dae2607e3d98, type: 2}
+  - {fileID: 11400000, guid: ea9c87713a0dc7a4b91b30f428c7bc9e, type: 2}
+  - {fileID: 11400000, guid: 79ec351bcce203b4aaa00946f204a1a3, type: 2}
+  - {fileID: 11400000, guid: 6aff90cb5971f76459087bbf5a570e51, type: 2}
+  - {fileID: 11400000, guid: a5d20484227dbba4d976e0f5f190664e, type: 2}
+  - {fileID: 11400000, guid: 063430406cde6d6418558dd52c578d95, type: 2}
+  - {fileID: 11400000, guid: 147cb360cc758de4bb9f1ab3fb447fdf, type: 2}
+  - {fileID: 11400000, guid: d76333022672c1449b13d45ac64af454, type: 2}
+  - {fileID: 11400000, guid: caa2f5f8860a41b4e868ee860c6af8e3, type: 2}
+  - {fileID: 11400000, guid: 2e64511f3b7bf4146a2ae814bd70f1c6, type: 2}

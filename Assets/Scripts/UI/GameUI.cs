@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class GameUI : MonoBehaviour
 {
-    public Deck defaultDeck;
+    public GameSettings gameSettings;
+
     public float castProcessingDelay = 2;
 
-    public List<string> playerNames;
     public List<Placemat> placemats;
 
     public TargetArrowDisplayer targetArrowDisplayer;
@@ -21,10 +21,11 @@ public class GameUI : MonoBehaviour
     {
         //Game
         game = new Game();
-        for (int i = 0; i < playerNames.Count; i++)
+        for (int i = 0; i < gameSettings.playerNames.Count; i++)
         {
-            Player p = new Player(playerNames[i]);
-            p.deck ??= defaultDeck;
+            Player p = new Player(gameSettings.playerNames[i]);
+            p.deck ??= ((i < gameSettings.decks.Count) ? gameSettings.decks[i] : null)
+                ?? gameSettings.defaultDeck;
             game.players.Add(p);
         }
         game.onPhaseChanged += onPhaseChanged;
