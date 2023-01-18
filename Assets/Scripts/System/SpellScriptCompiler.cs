@@ -16,6 +16,7 @@ public static class SpellScriptCompiler
         {"redirect",typeof(Redirect) },
         {"shiftLineup",typeof(ShiftLineUp) },
         {"undodgableElement",typeof(UndodgableElement) },
+        {"breakDefense",typeof(BreakDefense) },
     };
 
 
