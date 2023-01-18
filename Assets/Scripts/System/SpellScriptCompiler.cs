@@ -17,6 +17,7 @@ public static class SpellScriptCompiler
         {"shiftLineup",typeof(ShiftLineUp) },
         {"undodgableElement",typeof(UndodgableElement) },
         {"breakDefense",typeof(BreakDefense) },
+        {"spellSpeed",typeof(SpellSpeedAdjust) },
     };
 
 

@@ -26,6 +26,4 @@ MonoBehaviour:
       value: 2
       rampable: 1
   spellTargets: []
-  script: 'damage(damage)
-
-    redirect(target)'
+  script: spellSpeed(speed)
