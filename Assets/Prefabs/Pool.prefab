@@ -424,16 +424,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22df871d70392494882dc5db8a16776e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dodgeAlpha: 0.5
+  dodgeAlpha: 0.35
   imgShield: {fileID: 6696872736983734208}
   imgDodgeList:
-  - {fileID: 1977091558823316777}
-  - {fileID: 3113511787785715692}
   - {fileID: 954509107278492025}
   - {fileID: 4967221844074245074}
   - {fileID: 6696872736983734208}
-  - {fileID: 3751198235331285354}
   - {fileID: 8426496600952828329}
+  imgDodgeHideList:
+  - {fileID: 1977091558823316777}
+  - {fileID: 3113511787785715692}
+  - {fileID: 3751198235331285354}
   imgStatic: {fileID: 87318190013590272}
 --- !u!1 &3933024461640433732
 GameObject:

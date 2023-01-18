@@ -11,6 +11,7 @@ public class SpellEffectDisplayer : PlayerDisplayUI
 
     public Image imgShield;
     public List<Image> imgDodgeList;
+    public List<Image> imgDodgeHideList;
     public Image imgStatic;
 
     protected override void _registerDelegates(bool register)
@@ -40,6 +41,7 @@ public class SpellEffectDisplayer : PlayerDisplayUI
     }
     private void showDodge(bool show)
     {
+        //Make some images transparent
         float alpha = (show) ? dodgeAlpha : 1;
         imgDodgeList.ForEach(img =>
         {
@@ -47,6 +49,8 @@ public class SpellEffectDisplayer : PlayerDisplayUI
             c.a = alpha;
             img.color = c;
         });
+        //Hide some images
+        imgDodgeHideList.ForEach(img => img.gameObject.SetActive(!show));
     }
     private void showStatic(bool show)
     {
