@@ -13,5 +13,11 @@ public class MageHoodController : PlayerControlUI
                 player.State = Player.PlayState.CASTING;
             }
         }
+        //TEST CODE: rerandomize player deck
+        if (uiVars.game.roundNumber <= 1 && player.Lineup.Count == 0)
+        {
+            List<Deck> decks = uiVars.gameSettings.decks;
+            player.Deck = decks[Random.Range(0, decks.Count)];
+        }
     }
 }

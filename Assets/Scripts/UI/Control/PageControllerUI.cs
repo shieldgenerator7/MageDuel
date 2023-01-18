@@ -10,7 +10,7 @@ public class PageControllerUI : PlayerControlUI
     {
         if (uiVars.game.Phase == Game.GamePhase.LINEUP && player.State == Player.PlayState.FOCUSING)
         {
-            player.lineupSpell(player.deck[pageIndex]);
+            player.lineupSpell(player.Deck[pageIndex]);
         }
     }
 }

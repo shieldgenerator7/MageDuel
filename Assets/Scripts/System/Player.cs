@@ -11,7 +11,18 @@ public class Player : Entity
     /// <summary>
     /// The spells that the player knows
     /// </summary>
-    public Deck deck;
+    private Deck deck;
+    public Deck Deck
+    {
+        get => deck;
+        set
+        {
+            deck = value;
+            onDeckChanged?.Invoke(deck);
+        }
+    }
+    public delegate void OnDeckChanged(Deck deck);
+    public event OnDeckChanged onDeckChanged;
     /// <summary>
     /// The spells that the player has in the lineup
     /// </summary>

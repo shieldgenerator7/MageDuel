@@ -9,7 +9,7 @@ public class BookController : PlayerControlUI
         if (uiVars.game.Phase == Game.GamePhase.LINEUP && player.State == Player.PlayState.FOCUSING)
         {
             player.lineupSpell(
-                player.deck[uiVars.getPlayerVariables(player).SpellBookPage]
+                player.Deck[uiVars.getPlayerVariables(player).SpellBookPage]
                 );
         }
     }

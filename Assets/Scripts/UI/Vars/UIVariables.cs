@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class UIVariables
 {
     public Game game { get; private set; }
+    public GameSettings gameSettings;
     public List<PlayerUIVariables> playerVars { get; private set; }
 
     public UIVariables(Game game)

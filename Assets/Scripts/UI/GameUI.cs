@@ -25,7 +25,7 @@ public class GameUI : MonoBehaviour
         for (int i = 0; i < gameSettings.playerNames.Count; i++)
         {
             Player p = new Player(gameSettings.playerNames[i]);
-            p.deck ??= ((gameSettings.decks.Count > 0)
+            p.Deck ??= ((gameSettings.decks.Count > 0)
                     ? gameSettings.decks[Random.Range(0, gameSettings.decks.Count)]
                     : null
                 )
@@ -37,6 +37,7 @@ public class GameUI : MonoBehaviour
         game.startGame();
         //uiVars
         uiVars = new UIVariables(game);
+        uiVars.gameSettings = gameSettings;
         for (int i = 0; i < game.players.Count; i++)
         {
             Player p = game.players[i];

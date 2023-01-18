@@ -12,7 +12,7 @@ public class PlayerUIVariables
         get => spellBookPage;
         set
         {
-            spellBookPage = Mathf.Clamp(value, 0, player.deck.spellList.Count - 1);
+            spellBookPage = Mathf.Clamp(value, 0, player.Deck.spellList.Count - 1);
             onSpellBookPaged?.Invoke(spellBookPage);
         }
     }

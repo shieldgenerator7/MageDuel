@@ -30,7 +30,7 @@ public class BookDisplayer : PlayerDisplayUI
 
     public void onPageTurned(int index)
     {
-        spell = player.deck[playerVars.SpellBookPage];
+        spell = player.Deck[playerVars.SpellBookPage];
         imgColors.ForEach(img => img.color = spell.element.color);
         txtName.text = spell.name;
         txtDescription.text = spell.Description;

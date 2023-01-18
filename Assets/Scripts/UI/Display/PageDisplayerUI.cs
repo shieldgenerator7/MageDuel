@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static Player;
 
 public class PageDisplayerUI : PlayerDisplayUI
 {
@@ -16,32 +17,46 @@ public class PageDisplayerUI : PlayerDisplayUI
     public List<Image> imgColors;
     public List<GameObject> goToggleList;
 
-    private bool pageExists = true;
-
     protected override void _registerDelegates(bool register)
     {
-        pageExists = pageIndex < player.deck.spellList.Count;
-        if (pageExists)
+        player.onDeckChanged -= onDeckChanged;
+        if (register)
         {
-            spell = player.deck[pageIndex];
+            player.onDeckChanged += onDeckChanged;
         }
-        gameObject.SetActive(pageExists);
     }
 
     public override void forceUpdate()
     {
-        if (!pageExists) { return; }
-        imgColors.ForEach(img => img.color = spell.element.color);
-        txtName.text = spell.name;
-        txtDescription.text = spell.Description;
-        txtCost.text = $"{spell.cost}";
-        txtSpeed.text = $"{spell.speed}";
+        updateCircle();
         showToggles(false);
     }
 
     public void showToggles(bool show)
     {
         goToggleList.ForEach(go => go.SetActive(show));
+    }
+
+    private void updateCircle()
+    {
+        bool pageExists = pageIndex < player.Deck.spellList.Count;
+        if (pageExists)
+        {
+            spell = player.Deck[pageIndex];
+        }
+        gameObject.SetActive(pageExists);
+
+        if (!pageExists) { return; }
+        imgColors.ForEach(img => img.color = spell.element.color);
+        txtName.text = spell.name;
+        txtDescription.text = spell.Description;
+        txtCost.text = $"{spell.cost}";
+        txtSpeed.text = $"{spell.speed}";
+    }
+
+    private void onDeckChanged(Deck deck)
+    {
+        updateCircle();
     }
 
 }
