@@ -6,6 +6,7 @@ public class Dodge : SpellEffect
     public override void activate()
     {
         spellContext.caster.onTargetedByPlayer += onTargetedByPlayer;
+        spellContext.caster.game.onMatchUpChanged += stopDodging;
     }
 
     private void onTargetedByPlayer(Player player, SpellContext otherSpell)
@@ -18,7 +19,12 @@ public class Dodge : SpellEffect
         }
         //Dodge the spell
         otherSpell.target = null;
+    }
+
+    private void stopDodging(int index)
+    {
         //unregister
-        this.spellContext.caster.onTargetedByPlayer -= onTargetedByPlayer;
+        spellContext.caster.onTargetedByPlayer -= onTargetedByPlayer;
+        spellContext.caster.game.onMatchUpChanged -= stopDodging;
     }
 }

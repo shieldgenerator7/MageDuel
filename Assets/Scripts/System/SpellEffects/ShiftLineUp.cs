@@ -17,7 +17,7 @@ public class ShiftLineUp : SpellEffect
         if (shift > 0)
         {
             //Assumption: shift is 1 or more
-            int index = spellContext.caster.game.matchupIndex;
+            int index = spellContext.caster.game.MatchupIndex;
             for (int i = 0; i < shift; i++)
             {
                 spellContext.target.lineupSpell(null, index);

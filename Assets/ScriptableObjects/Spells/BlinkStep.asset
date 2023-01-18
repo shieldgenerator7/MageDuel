@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlinkStep
   m_EditorClassIdentifier: 
   name: Blink Step
-  description: Dodge the next spell
+  description: Dodge spells this matchup
   element: {fileID: 11400000, guid: 3347f6e73112a8c4ea76271f58b61f16, type: 2}
   cost: 1
   speed: 5
@@ -22,4 +22,5 @@ MonoBehaviour:
   keywords: 00000000
   attributes:
     attributes: []
+  spellTargets: []
   script: dodge()

@@ -8,7 +8,19 @@ public class Game
     public List<Player> players = new List<Player>();
 
     public int roundNumber = 1;
-    public int matchupIndex = 0;
+
+    private int matchupIndex = 0;
+    public int MatchupIndex
+    {
+        get => matchupIndex;
+        set
+        {
+            matchupIndex = Mathf.Clamp(value, 0, players.Max(player => player.castingSpeed));
+            onMatchUpChanged?.Invoke(matchupIndex);
+        }
+    }
+    public delegate void OnMatchUpChanged(int index);
+    public event OnMatchUpChanged onMatchUpChanged;
 
     public enum GamePhase
     {
@@ -62,7 +74,7 @@ public class Game
             player.onLineupChanged += onLineupChanged;
         });
         roundNumber = 1;
-        matchupIndex = 0;
+        MatchupIndex = 0;
         Phase = GamePhase.READYUP;
     }
 
@@ -85,7 +97,7 @@ public class Game
                 });
                 break;
             case GamePhase.MATCHUP:
-                matchupIndex = 0;
+                MatchupIndex = 0;
                 players.ForEach(player =>
                 {
                     player.State = Player.PlayState.CASTING;
@@ -228,7 +240,7 @@ public class Game
             );
         while (moveToNextMatchup)
         {
-            matchupIndex++;
+            MatchupIndex++;
             endPhase = players.All(player => matchupIndex >= player.castingSpeed);
             if (endPhase)
             {
