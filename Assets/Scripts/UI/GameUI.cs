@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameUI : MonoBehaviour
 {
@@ -24,7 +25,10 @@ public class GameUI : MonoBehaviour
         for (int i = 0; i < gameSettings.playerNames.Count; i++)
         {
             Player p = new Player(gameSettings.playerNames[i]);
-            p.deck ??= ((i < gameSettings.decks.Count) ? gameSettings.decks[i] : null)
+            p.deck ??= ((gameSettings.decks.Count > 0)
+                    ? gameSettings.decks[Random.Range(0, gameSettings.decks.Count)]
+                    : null
+                )
                 ?? gameSettings.defaultDeck;
             game.players.Add(p);
         }
