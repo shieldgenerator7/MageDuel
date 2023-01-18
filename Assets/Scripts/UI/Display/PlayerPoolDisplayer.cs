@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,13 +20,13 @@ public class PlayerPoolDisplayer : PlayerDisplayUI
         player.health.onValueChanged -= updateHealthBar;
         player.aura.onValueChanged -= updateAuraBar;
         player.focus.onValueChanged -= updateFocusBar;
-        player.onShieldCountChanged -= updateShield;
+        player.onSpellEffectsChanged -= updateShield;
         if (register)
         {
             player.health.onValueChanged += updateHealthBar;
             player.aura.onValueChanged += updateAuraBar;
             player.focus.onValueChanged += updateFocusBar;
-            player.onShieldCountChanged += updateShield;
+            player.onSpellEffectsChanged += updateShield;
         }
     }
 
@@ -34,7 +35,7 @@ public class PlayerPoolDisplayer : PlayerDisplayUI
         updateHealthBar(player.health);
         updateAuraBar(player.aura);
         updateFocusBar(player.focus);
-        updateShield(player.ShieldCount);
+        updateShield(player.SpellEffects);
     }
 
     private void updateHealthBar(int health)
@@ -106,9 +107,11 @@ public class PlayerPoolDisplayer : PlayerDisplayUI
         focusBar.fillAmount = (float)focus / (float)player.focus.maxValue;
     }
 
-    private void updateShield(int count)
+    private void updateShield(List<SpellEffect> spellEffects)
     {
-        imgShield.gameObject.SetActive(count > 0);
+        imgShield.gameObject.SetActive(
+            spellEffects.Any(effect => effect is BlockSpellEffect)
+            );
     }
 
 }

@@ -40,8 +40,11 @@ public class Player : Entity
     public delegate void OnPlayState(PlayState state);
     public event OnPlayState onStateChanged;
 
-    private List<SpellEffect> shields = new List<SpellEffect>();
-    public int ShieldCount => shields.Count;
+    /// <summary>
+    /// The spell effects that are currently on the player
+    /// </summary>
+    private List<SpellEffect> spellEffects = new List<SpellEffect>();
+    public List<SpellEffect> SpellEffects => spellEffects.ToList();
 
     public Player(string name) : base(3, 5)
     {
@@ -155,23 +158,23 @@ public class Player : Entity
         aura.refill();
     }
 
-    public void addShield(SpellEffect spellEffect, bool add)
+    public void applyEffect(SpellEffect spellEffect, bool apply)
     {
-        if (add)
+        if (apply)
         {
-            if (!shields.Contains(spellEffect))
+            if (!spellEffects.Contains(spellEffect))
             {
-                shields.Add(spellEffect);
+                spellEffects.Add(spellEffect);
             }
         }
         else
         {
-            shields.Remove(spellEffect);
+            spellEffects.Remove(spellEffect);
         }
-        onShieldCountChanged?.Invoke(shields.Count);
+        onSpellEffectsChanged?.Invoke(spellEffects.ToList());
     }
-    public delegate void OnShieldCountChanged(int count);
-    public event OnShieldCountChanged onShieldCountChanged;
+    public delegate void OnSpellEffectsChanged(List<SpellEffect> spellEffects);
+    public event OnSpellEffectsChanged onSpellEffectsChanged;
 
     public static implicit operator bool(Player player) => player != null;
     public override string ToString()

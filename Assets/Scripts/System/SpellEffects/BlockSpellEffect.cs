@@ -10,7 +10,7 @@ public class BlockSpellEffect : SpellEffect
         if (!checkTarget()) { return; }
         //Shield target
         spellContext.target.onDamageReceived += onDamageReceived;
-        spellContext.target.addShield(this, true);
+        spellContext.target.applyEffect(this, true);
     }
 
     private int onDamageReceived(int damage)
@@ -21,7 +21,7 @@ public class BlockSpellEffect : SpellEffect
         {
             //unregister
             spellContext.target.onDamageReceived -= onDamageReceived;
-            spellContext.target.addShield(this, false);
+            spellContext.target.applyEffect(this, false);
         }
         //block all damage
         return 0;
