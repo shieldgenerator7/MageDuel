@@ -113,6 +113,11 @@ public class SpellContext : Target
             return 0;
         }
         SpellAttribute attr = variables.getAttribute(attrName);
+        if (attr == null)
+        {
+            Debug.LogError($"Spell {spell.name} doesnt have attribute {attrName}!");
+            return 0;
+        }
         int value = attr.value;
         if (attr.rampable)
         {
@@ -132,7 +137,12 @@ public class SpellContext : Target
     }
     public SpellContext getTarget(string name)
     {
-        return (hasTarget(name)) ? spellTargets[name] : null;
+        SpellContext target = (hasTarget(name)) ? spellTargets[name] : null;
+        if (target == null)
+        {
+            Debug.LogError($"Spell {spell.name} doesnt have target {name}!");
+        }
+        return target;
     }
     public void setTarget(string name, SpellContext spellContext)
     {
