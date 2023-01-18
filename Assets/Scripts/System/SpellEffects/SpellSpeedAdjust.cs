@@ -7,9 +7,22 @@ public class SpellSpeedAdjust : SpellEffect, SpellEffectMod
     {
         if (!checkTarget()) { return; }
 
-        spellContext.target.Lineup
-            .FindAll(spell => !spell.Processed)
-            .ForEach(spell => spell.addMod(this, true));
+        //Target a specific spell
+        string targetName = getParameter(1);
+        if (!string.IsNullOrEmpty(targetName))
+        {
+            if (!checkTarget(true)) { return; }
+
+            SpellContext target = spellContext.getTarget(targetName);
+            target.addMod(this, true);
+        }
+        //Target all spells of that player
+        else
+        {
+            spellContext.target.Lineup
+                .FindAll(spell => !spell.Processed)
+                .ForEach(spell => spell.addMod(this, true));
+        }
     }
 
     public int modVariable(string name, int value)
