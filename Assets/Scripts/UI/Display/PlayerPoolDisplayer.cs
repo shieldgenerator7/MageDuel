@@ -11,7 +11,6 @@ public class PlayerPoolDisplayer : PlayerDisplayUI
     public Image auraBar;
     public Image imgAuraDiff;
     public Image focusBar;
-    public Image imgShield;
 
     private Queue<Animation> animationQueue = new Queue<Animation>();
 
@@ -20,13 +19,11 @@ public class PlayerPoolDisplayer : PlayerDisplayUI
         player.health.onValueChanged -= updateHealthBar;
         player.aura.onValueChanged -= updateAuraBar;
         player.focus.onValueChanged -= updateFocusBar;
-        player.onSpellEffectsChanged -= updateShield;
         if (register)
         {
             player.health.onValueChanged += updateHealthBar;
             player.aura.onValueChanged += updateAuraBar;
             player.focus.onValueChanged += updateFocusBar;
-            player.onSpellEffectsChanged += updateShield;
         }
     }
 
@@ -35,7 +32,6 @@ public class PlayerPoolDisplayer : PlayerDisplayUI
         updateHealthBar(player.health);
         updateAuraBar(player.aura);
         updateFocusBar(player.focus);
-        updateShield(player.SpellEffects);
     }
 
     private void updateHealthBar(int health)
@@ -105,13 +101,6 @@ public class PlayerPoolDisplayer : PlayerDisplayUI
     private void updateFocusBar(int focus)
     {
         focusBar.fillAmount = (float)focus / (float)player.focus.maxValue;
-    }
-
-    private void updateShield(List<SpellEffect> spellEffects)
-    {
-        imgShield.gameObject.SetActive(
-            spellEffects.Any(effect => effect is BlockSpellEffect)
-            );
     }
 
 }
