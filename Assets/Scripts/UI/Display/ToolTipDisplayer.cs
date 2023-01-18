@@ -35,7 +35,7 @@ public class ToolTipDisplayer : PlayerDisplayUI
         txtName.text = spellContext.spell.name;
         txtDescription.text = spellContext.Description;
         txtCost.text = $"{spellContext.spell.cost}";
-        txtSpeed.text = $"{spellContext.spell.speed}";
+        txtSpeed.text = $"{spellContext.Speed}";
     }
 
 }

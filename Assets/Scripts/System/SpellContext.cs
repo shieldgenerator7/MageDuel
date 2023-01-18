@@ -37,6 +37,8 @@ public class SpellContext : Target
     private AttributeSet variables;
     private Dictionary<string, SpellContext> spellTargets = new Dictionary<string, SpellContext>();
 
+    private List<SpellEffectMod> mods = new List<SpellEffectMod>();
+
     public SpellContext(Spell spell, Player caster)
     {
         this.spell = spell;
@@ -102,6 +104,8 @@ public class SpellContext : Target
         }
     }
 
+    public int Speed => getModdedValue("speed", spell.speed);
+
     public int getAttribute(string attrName)
     {
         if (string.IsNullOrWhiteSpace(attrName))
@@ -166,6 +170,27 @@ public class SpellContext : Target
             //TODO: check to make sure new spell target is a valid target
             spellTargets[targetName] = newLineup[index];
         }
+    }
+
+    public void addMod(SpellEffectMod mod, bool add)
+    {
+        if (add)
+        {
+            if (!mods.Contains(mod))
+            {
+                mods.Add(mod);
+            }
+        }
+        else
+        {
+            mods.Remove(mod);
+        }
+    }
+    private int getModdedValue(string name, int value)
+    {
+        int ret = value;
+        mods.ForEach(mod => ret = mod.modVariable(name, ret));
+        return ret;
     }
 
     public bool BinDran

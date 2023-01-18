@@ -287,7 +287,7 @@ public class Game
             {
                 castingQueue.Add(spellContext);
                 castingQueue = castingQueue.OrderBy(spell => (spell.Flash) ? 0 : 1)
-                    .ThenByDescending(spell => spell.spell.speed)
+                    .ThenByDescending(spell => spell.Speed)
                     .ThenBy(spell => spell.Focus)
                     .ThenByDescending(spell => spell.Aura).ToList();
             }
