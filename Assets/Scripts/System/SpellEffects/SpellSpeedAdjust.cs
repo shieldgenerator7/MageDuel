@@ -16,7 +16,7 @@ public class SpellSpeedAdjust : SpellEffect, SpellEffectMod
     {
         if (name == "speed")
         {
-            return value + spellContext.getAttribute(getParameter(0));
+            return value + Parameter0;
         }
         return value;
     }

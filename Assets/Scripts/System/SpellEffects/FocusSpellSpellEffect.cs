@@ -8,7 +8,7 @@ public class FocusSpellSpellEffect : SpellEffect
     {
         if (!checkTarget(true)) { return; }
         SpellContext spell = spellContext.getTarget(getParameter(0));
-        int focusDelta = spellContext.getAttribute(getParameter(1));
+        int focusDelta = Parameter1;
         spell.Focus += focusDelta;
     }
 }

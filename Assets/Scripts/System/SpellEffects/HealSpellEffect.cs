@@ -9,7 +9,7 @@ public class HealSpellEffect : SpellEffect
         //Early exit: no target
         if (!checkTarget()) { return; }
         //Heal target
-        int heal = spellContext.getAttribute(getParameter(0));
+        int heal = Parameter0;
         Debug.Log($"Heal effect: {heal}, {spellContext.target}");
         spellContext.target.heal(heal);
     }

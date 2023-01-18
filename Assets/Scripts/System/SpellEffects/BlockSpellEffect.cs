@@ -15,7 +15,7 @@ public class BlockSpellEffect : SpellEffect
 
     private int onDamageReceived(int damage)
     {
-        int defense = spellContext.getAttribute(getParameter(0));
+        int defense = Parameter0;
         //Check to see if it breaks
         if (damage > defense)
         {

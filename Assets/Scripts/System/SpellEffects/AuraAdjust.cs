@@ -8,7 +8,7 @@ public class AuraAdjust : SpellEffect
     {
         if (!checkTarget()) { return; }
 
-        int aura = spellContext.getAttribute(getParameter(0));
+        int aura = Parameter0;
         spellContext.target.aura.Value += aura;
     }
 }

@@ -30,6 +30,9 @@ public abstract class SpellEffect
         return parameters[index];
     }
 
+    protected int Parameter0 => spellContext.getAttribute(getParameter(0));
+    protected int Parameter1 => spellContext.getAttribute(getParameter(1));
+
     public abstract void activate();
 
     protected bool checkTarget(bool checkSpellTargets = false)

@@ -7,7 +7,7 @@ public class ShiftLineUp : SpellEffect
     public override void activate()
     {
         if (!checkTarget()) { return; }
-        int shift = spellContext.getAttribute(getParameter(0));
+        int shift = Parameter0;
         if (shift < 0)
         {
             //TODO: support negative numbers
