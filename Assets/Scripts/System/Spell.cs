@@ -49,6 +49,16 @@ public class Spell : ScriptableObject
             {
                 desc = desc.Replace($"[{attrName}]", $"{attributes.get(attrName)}");
             }
+            string keywordStr = "";
+            foreach (Keyword keyword in keywords)
+            {
+                keywordStr += $"<b>{keyword}</b> ";
+            }
+            if (!string.IsNullOrEmpty(keywordStr))
+            {
+                keywordStr += "\n";
+            }
+            desc = keywordStr + desc;
             return desc;
         }
     }

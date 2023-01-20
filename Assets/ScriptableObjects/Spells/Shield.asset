@@ -20,7 +20,7 @@ MonoBehaviour:
   speed: 5
   autoTargetEnemy: 0
   autoTargetSelf: 1
-  keywords: 00000000
+  keywords: 0000000003000000
   attributes:
     attributes:
     - name: threshold

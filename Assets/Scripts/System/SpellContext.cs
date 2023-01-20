@@ -103,6 +103,16 @@ public class SpellContext : Target
             {
                 desc = desc.Replace($"[{attrName}]", $"{getAttribute(attrName)}");
             }
+            string keywordStr = "";
+            foreach (Spell.Keyword keyword in spell.keywords)
+            {
+                keywordStr += $"<b>{keyword}</b> ";
+            }
+            if (!string.IsNullOrEmpty(keywordStr))
+            {
+                keywordStr += "\n";
+            }
+            desc = keywordStr + desc;
             return desc;
         }
     }
