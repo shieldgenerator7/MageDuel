@@ -106,5 +106,10 @@ public class GameUI : MonoBehaviour
                 processQueue();
             }
         }
+        if (Input.GetKeyUp(KeyCode.Escape) && !Input.GetKey(KeyCode.Space))
+        {
+            Debug.Log("Quitting");
+            Application.Quit(0);
+        }
     }
 }
