@@ -12,6 +12,7 @@ public class PageDisplayerUI : PlayerDisplayUI
 
     public TMP_Text txtName;
     public Image imgIcon;
+    public Image imgIcon2;
     public TMP_Text txtDescription;
     public TMP_Text txtCost;
     public TMP_Text txtSpeed;
@@ -51,6 +52,7 @@ public class PageDisplayerUI : PlayerDisplayUI
         imgColors.ForEach(img => img.color = spell.element.color);
         txtName.text = spell.name;
         imgIcon.sprite = spell.icon;
+        imgIcon2.sprite = spell.icon;
         txtDescription.text = spell.Description;
         txtCost.text = $"{spell.cost}";
         txtSpeed.text = $"{spell.speed}";

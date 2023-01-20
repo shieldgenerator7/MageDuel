@@ -421,6 +421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imgIcon: {fileID: 1148303961532320106}
+  imgIcon2: {fileID: 4512792173822980001}
   focusSprites:
   - {fileID: 21300000, guid: 71e91b4dbe650914eb26564cb5a0fa5f, type: 3}
   - {fileID: 21300000, guid: afe7080b9c323e040934284b7fceeb48, type: 3}
@@ -443,6 +444,7 @@ MonoBehaviour:
   - {fileID: 4015669567752887459}
   - {fileID: 6497443175054586662}
   - {fileID: 1148303961532320106}
+  - {fileID: 4512792173822980001}
   tooltip: {fileID: 8984357891534415036}
   imgPulse: {fileID: 2587589622858697837}
   imgSelectRing: {fileID: 3452780027075323845}
@@ -881,11 +883,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7756287889678542702, guid: cef48f753701d2846af1d51310a1b6af, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 210
       objectReference: {fileID: 0}
     - target: {fileID: 7756287889678542702, guid: cef48f753701d2846af1d51310a1b6af, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -156
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 7756287889678542702, guid: cef48f753701d2846af1d51310a1b6af, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1049,6 +1051,17 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 12
   m_TargetDisplay: 0
+--- !u!114 &4512792173822980001 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4699021346077456399, guid: cef48f753701d2846af1d51310a1b6af, type: 3}
+  m_PrefabInstance: {fileID: 9193799117066540974}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5434856851968898042 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3817524253305676884, guid: cef48f753701d2846af1d51310a1b6af, type: 3}

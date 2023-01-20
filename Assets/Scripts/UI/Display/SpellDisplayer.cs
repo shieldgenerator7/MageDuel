@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class SpellDisplayer : PlayerDisplayUI
 {
     public Image imgIcon;
+    public Image imgIcon2;
     public List<Sprite> focusSprites;
     public List<Sprite> auraSprites;
     public Image imgFocus;
@@ -63,6 +64,7 @@ public class SpellDisplayer : PlayerDisplayUI
     public override void forceUpdate()
     {
         imgIcon.sprite = spellContext.spell.icon;
+        imgIcon2.sprite = spellContext.spell.icon;
         updateColor();
         updateFocus(spellContext.Focus);
         updateAura(spellContext.Aura);

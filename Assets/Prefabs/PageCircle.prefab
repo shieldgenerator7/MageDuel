@@ -70,6 +70,7 @@ MonoBehaviour:
   pageIndex: 0
   txtName: {fileID: 1656087091549541929}
   imgIcon: {fileID: 6911272781048660087}
+  imgIcon2: {fileID: 8485832266520744212}
   txtDescription: {fileID: 3436219114900711412}
   txtCost: {fileID: 2347176503813619165}
   txtSpeed: {fileID: 4343539329781071}
@@ -77,6 +78,7 @@ MonoBehaviour:
   - {fileID: 3328652572156345109}
   - {fileID: 763012230309222606}
   - {fileID: 6911272781048660087}
+  - {fileID: 8485832266520744212}
   - {fileID: 1618670217430773282}
   - {fileID: 6875942614313302539}
   goToggleList:
@@ -516,7 +518,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7756287889678542702, guid: cef48f753701d2846af1d51310a1b6af, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 256.3
+      value: 178
       objectReference: {fileID: 0}
     - target: {fileID: 7756287889678542702, guid: cef48f753701d2846af1d51310a1b6af, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -605,6 +607,17 @@ RectTransform:
 --- !u!114 &6875942614313302539 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7753436146947166992, guid: cef48f753701d2846af1d51310a1b6af, type: 3}
+  m_PrefabInstance: {fileID: 3816233851616291099}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8485832266520744212 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4699021346077456399, guid: cef48f753701d2846af1d51310a1b6af, type: 3}
   m_PrefabInstance: {fileID: 3816233851616291099}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
