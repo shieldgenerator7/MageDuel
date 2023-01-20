@@ -10,6 +10,7 @@ public class SpellEffectDisplayer : PlayerDisplayUI
     public float dodgeAlpha = 0.5f;
 
     public Image imgShield;
+    public Image imgDodge;
     public List<Image> imgDodgeList;
     public List<Image> imgDodgeHideList;
     public Image imgStatic;
@@ -41,6 +42,8 @@ public class SpellEffectDisplayer : PlayerDisplayUI
     }
     private void showDodge(bool show)
     {
+        //Show dodge image
+        imgDodge.gameObject.SetActive(show);
         //Make some images transparent
         float alpha = (show) ? dodgeAlpha : 1;
         imgDodgeList.ForEach(img =>
