@@ -36,7 +36,7 @@ public class TargetArrowManager : MonoBehaviour
                 .transform.position;
             TargetArrow arrow = new TargetArrow(
                 startPos,
-                () => Input.mousePosition - startPos,
+                () => Input.mousePosition,
                 spellContext.spell.element.color
                 );
             addArrow(arrow, true);
