@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Fireball
   m_EditorClassIdentifier: 
   name: Fireball
+  icon: {fileID: 21300000, guid: b85ce9d7cb8ff744a9744b21beb9d937, type: 3}
   description: Deal [damagePerFocus] damage per Focus
   element: {fileID: 11400000, guid: 40952c779b37a20498b12735adee2dc5, type: 2}
   cost: 1

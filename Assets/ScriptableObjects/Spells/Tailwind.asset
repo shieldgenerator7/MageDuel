@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Tailwind
   m_EditorClassIdentifier: 
   name: Tailwind
+  icon: {fileID: 21300000, guid: 8e8124e8590c7904dbccd4a091063705, type: 3}
   description: Increase spellspeed by [speed]
   element: {fileID: 11400000, guid: 7ad5d788ba9db78438ccc54681007fbd, type: 2}
   cost: 0

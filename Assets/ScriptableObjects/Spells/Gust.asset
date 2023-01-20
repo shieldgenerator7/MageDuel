@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Gust
   m_EditorClassIdentifier: 
   name: Gust
+  icon: {fileID: 21300000, guid: 3e7daf893764e60439e5dfd9a1d5ba9f, type: 3}
   description: Move [toFocus] Focus among a lineup
   element: {fileID: 11400000, guid: 7ad5d788ba9db78438ccc54681007fbd, type: 2}
   cost: 1

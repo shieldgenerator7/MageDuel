@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PowerUp
   m_EditorClassIdentifier: 
   name: Power Up
+  icon: {fileID: 21300000, guid: 5f31a0404510e0f4b9a6f31e5196d459, type: 3}
   description: Gain [aura] Aura
   element: {fileID: 11400000, guid: 3347f6e73112a8c4ea76271f58b61f16, type: 2}
   cost: 1
@@ -25,4 +26,5 @@ MonoBehaviour:
     - name: aura
       value: 2
       rampable: 0
+  spellTargets: []
   script: aura(aura)

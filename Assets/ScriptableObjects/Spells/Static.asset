@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Static
   m_EditorClassIdentifier: 
   name: Static
+  icon: {fileID: 21300000, guid: 6b11b25a4140337438a496bff2be289a, type: 3}
   description: Target fails to dodge Lightning spells.
   element: {fileID: 11400000, guid: b46f8a6e90bfce34f8ceecd66a9271ef, type: 2}
   cost: 1

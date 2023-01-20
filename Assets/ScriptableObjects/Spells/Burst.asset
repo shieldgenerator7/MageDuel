@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Burst
   m_EditorClassIdentifier: 
   name: Burst
+  icon: {fileID: 21300000, guid: 12ca05568d7f076448fda5852c6b3aa9, type: 3}
   description: Move target's queue down [shift]
   element: {fileID: 11400000, guid: 40952c779b37a20498b12735adee2dc5, type: 2}
   cost: 2

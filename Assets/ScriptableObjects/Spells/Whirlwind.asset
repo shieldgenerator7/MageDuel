@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Whirlwind
   m_EditorClassIdentifier: 
   name: Whirlwind
+  icon: {fileID: 21300000, guid: 0ef716277e356fe4aab5d8adb38c60a6, type: 3}
   description: 'Deal [damage] damage,
 
     Redirect a spell'

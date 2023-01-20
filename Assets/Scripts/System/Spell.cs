@@ -5,6 +5,7 @@ using UnityEngine;
 public class Spell : ScriptableObject
 {
     public new string name;
+    public Sprite icon;
     [TextArea(2, 10)]
     public string description;
     public Element element;

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Bang
   m_EditorClassIdentifier: 
   name: Bang
+  icon: {fileID: 21300000, guid: 52139ed76fcaed441bfdace1b7d5ea5b, type: 3}
   description: 'Deal [damage] damage,
 
     Break a defense'
