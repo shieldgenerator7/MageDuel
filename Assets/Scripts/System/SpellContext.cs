@@ -36,6 +36,7 @@ public class SpellContext : Target
 
     private AttributeSet variables;
     private Dictionary<string, SpellContext> spellTargets = new Dictionary<string, SpellContext>();
+    public List<SpellContext> SpellTargets => new List<SpellContext>(spellTargets.Values);
 
     private List<SpellEffect> spellEffects;
 
@@ -149,7 +150,7 @@ public class SpellContext : Target
     private void setTarget(string name, SpellContext spellContext)
     {
         spellTargets[name] = spellContext;
-        onTargetChanged?.Invoke(new List<SpellContext>(spellTargets.Values));
+        onTargetChanged?.Invoke(SpellTargets);
     }
     public delegate void OnTargetChanged(List<SpellContext> targets);
     public event OnTargetChanged onTargetChanged;

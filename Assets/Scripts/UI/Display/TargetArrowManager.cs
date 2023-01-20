@@ -16,20 +16,25 @@ public class TargetArrowManager : MonoBehaviour
     private void Start()
     {
         registerDelegates(true);
-        updateToCastingSpell(uiVars.CurrentTargetingSpell);
+        updateToTargetingSpell(uiVars.CurrentTargetingSpell);
     }
 
     public void registerDelegates(bool register)
     {
-        uiVars.onCurrentCastingSpellChanged -= updateToCastingSpell;
+        uiVars.onCurrentCastingSpellChanged -= updateToTargetingSpell;
+        uiVars.game.onQueueChanged -= updateToCastingSpell;
+        uiVars.game.onSubPhaseChanged -= updateToCastingSpell;
         if (register)
         {
-            uiVars.onCurrentCastingSpellChanged += updateToCastingSpell;
+            uiVars.onCurrentCastingSpellChanged += updateToTargetingSpell;
+            uiVars.game.onQueueChanged += updateToCastingSpell;
+            uiVars.game.onSubPhaseChanged += updateToCastingSpell;
         }
     }
 
-    private void updateToCastingSpell(SpellContext spellContext)
+    private void updateToTargetingSpell(SpellContext spellContext)
     {
+        removeAllArrows();
         if (spellContext != null)
         {
             TargetArrow arrow = makeArrow(spellContext, () => Input.mousePosition);
@@ -44,15 +49,34 @@ public class TargetArrowManager : MonoBehaviour
                 updateArrowDisplayers();
             };
         }
-        else
+        updateArrowDisplayers();
+    }
+
+    private void updateToCastingSpell(List<SpellContext> spells)
+    {
+        removeAllArrows();
+        if (uiVars.game.Phase == Game.GamePhase.MATCHUP && uiVars.game.SubPhase == Game.GameSubPhase.PROCESSING)
         {
-            //Remove all arrows
-            while (arrows.Count > 0)
+            SpellContext spell = spells.First();
+            if (spell != null)
             {
-                addArrow(arrows[0], false);
+                Vector2 endPos = getPosition(spell.target);
+                TargetArrow arrow = makeArrow(spell, () => endPos);
+                addArrow(arrow, true);
+                //Make target arrows
+                foreach(SpellContext target in spell.SpellTargets)
+                {
+                    Vector2 endPos1 = getPosition(target);
+                    TargetArrow arrow1 = makeArrow(spell, () => endPos1, 0.5f);
+                    addArrow(arrow1, true);
+                }
             }
         }
         updateArrowDisplayers();
+    }
+    private void updateToCastingSpell(Game.GameSubPhase subphase)
+    {
+        updateToCastingSpell(uiVars.game.CastingQueue);
     }
 
     private TargetArrow makeArrow(SpellContext spellContext, Func<Vector2> endFunc, float alpha = 1)
@@ -73,6 +97,12 @@ public class TargetArrowManager : MonoBehaviour
                 .First(so => so.spellContext == spellContext)
                 .transform.position;
     }
+    private Vector2 getPosition(Player player)
+    {
+        return FindObjectsOfType<PlayerPoolDisplayer>()
+                .First(ppd => ppd.Player == player)
+                .transform.position;
+    }
 
     private void addArrow(TargetArrow arrow, bool add)
     {
@@ -87,6 +117,10 @@ public class TargetArrowManager : MonoBehaviour
         {
             arrows.Remove(arrow);
         }
+    }
+    private void removeAllArrows()
+    {
+        arrows.Clear();
     }
 
     private void updateArrowDisplayers()

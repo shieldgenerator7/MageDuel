@@ -290,6 +290,7 @@ public class Game
                     .ThenByDescending(spell => spell.Speed)
                     .ThenBy(spell => spell.Focus)
                     .ThenByDescending(spell => spell.Aura).ToList();
+                onQueueChanged?.Invoke(castingQueue);
             }
             spellContext.state = SpellContext.State.CASTING;
         }
@@ -298,6 +299,7 @@ public class Game
             if (castingQueue.Contains(spellContext))
             {
                 castingQueue.Remove(spellContext);
+                onQueueChanged?.Invoke(castingQueue);
             }
             spellContext.state = SpellContext.State.LINEDUP;
         }
@@ -313,8 +315,11 @@ public class Game
             SpellContext firstSpell = castingQueue[0];
             firstSpell.activate();
             castingQueue.Remove(firstSpell);
+            onQueueChanged?.Invoke(castingQueue);
         }
     }
+    public delegate void OnQueueChanged(List<SpellContext> queue);
+    public event OnQueueChanged onQueueChanged;
 
 
     public Player getOpponent(Player p)
