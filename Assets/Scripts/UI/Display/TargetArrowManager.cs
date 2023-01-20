@@ -57,7 +57,7 @@ public class TargetArrowManager : MonoBehaviour
         removeAllArrows();
         if (uiVars.game.Phase == Game.GamePhase.MATCHUP && uiVars.game.SubPhase == Game.GameSubPhase.PROCESSING)
         {
-            SpellContext spell = spells.First();
+            SpellContext spell = spells.FirstOrDefault();
             if (spell != null)
             {
                 Vector2 endPos = getPosition(spell.target);
@@ -69,6 +69,12 @@ public class TargetArrowManager : MonoBehaviour
                     Vector2 endPos1 = getPosition(target);
                     TargetArrow arrow1 = makeArrow(spell, () => endPos1, 0.5f);
                     addArrow(arrow1, true);
+                }
+                //Focus target spell arrows more
+                if (arrows.Count > 1)
+                {
+                    arrows.ForEach(arr => arr.color.a = 1);
+                    arrow.color.a = 0.5f;
                 }
             }
         }
