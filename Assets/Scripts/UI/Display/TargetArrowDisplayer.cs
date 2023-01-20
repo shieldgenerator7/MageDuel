@@ -6,56 +6,40 @@ using UnityEngine.UI;
 
 public class TargetArrowDisplayer : MonoBehaviour
 {
-    public UIVariables uiVars;
     public Image imgArrow;
 
     private RectTransform rectTransform;
 
-    private bool active = false;
-
+    private TargetArrow arrow;
+    
     // Start is called before the first frame update
-    void Start()
+    public void init(TargetArrow arrow)
     {
         rectTransform = GetComponent<RectTransform>();
-        registerDelegates(true);
-        updateToCastingSpell(uiVars.CurrentTargetingSpell);
+        this.arrow = arrow;
+        transform.position = arrow.startPos;
+        imgArrow.color = arrow.color;
+        showArrow(true);
     }
 
-    public void registerDelegates(bool register)
+    public void showArrow(bool show)
     {
-        uiVars.onCurrentCastingSpellChanged -= updateToCastingSpell;
-        if (register)
-        {
-            uiVars.onCurrentCastingSpellChanged += updateToCastingSpell;
-        }
-    }
-
-    private void updateToCastingSpell(SpellContext spellContext)
-    {
-        active = spellContext != null;
-        if (active)
+        if (show)
         {
             updatePosition();
-            imgArrow.color = spellContext.spell.element.color;
-            transform.position = FindObjectsOfType<SpellDisplayer>()
-                .First(so => so.spellContext == spellContext)
-                .transform.position;
         }
-        imgArrow.gameObject.SetActive(active);
+        this.gameObject.SetActive(show);
     }
 
     private void Update()
     {
-        if (active)
-        {
-            updatePosition();
-        }
+        updatePosition();
     }
 
     private void updatePosition()
     {
         transform.up = Vector3.up;
-        Vector2 pointer = Input.mousePosition - rectTransform.position;
+        Vector2 pointer = arrow.Direction;
         Vector2 size = rectTransform.sizeDelta;
         size.y = pointer.magnitude * 2 * 1920 / Camera.main.pixelWidth;//TODO: get this "1920" from the canvas ref width
         rectTransform.sizeDelta = size;

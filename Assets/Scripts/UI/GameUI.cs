@@ -12,7 +12,7 @@ public class GameUI : MonoBehaviour
 
     public List<Placemat> placemats;
 
-    public TargetArrowDisplayer targetArrowDisplayer;
+    public TargetArrowManager targetArrowManager;
 
     private Game game;
     private UIVariables uiVars;
@@ -44,7 +44,7 @@ public class GameUI : MonoBehaviour
             placemats[i].setPlayer(p, uiVars);
         }
         //Target Arrow Displayer
-        targetArrowDisplayer.uiVars = uiVars;
+        targetArrowManager.uiVars = uiVars;
     }
 
     void onPhaseChanged(Game.GamePhase phase)
