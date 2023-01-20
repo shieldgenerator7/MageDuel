@@ -7,6 +7,7 @@ public class Timer
     private float startTime;
     private float duration;
     private bool completed = false;
+    public bool canceled = false;
 
     private bool running = true;
 
@@ -22,6 +23,10 @@ public class Timer
     public void update(float time)
     {
         if (completed)
+        {
+            return;
+        }
+        if (canceled)
         {
             return;
         }

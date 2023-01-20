@@ -429,7 +429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameSettings: {fileID: 11400000, guid: 5b10eb725129a054d9cc838deddb547b, type: 2}
-  castProcessingDelay: 1.5
+  castProcessingDelay: 3
   placemats:
   - {fileID: 8005862789927378908}
   - {fileID: 1546502758}

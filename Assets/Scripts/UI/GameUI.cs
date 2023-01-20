@@ -17,6 +17,8 @@ public class GameUI : MonoBehaviour
     private Game game;
     private UIVariables uiVars;
 
+    private Timer processQueueTimer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -81,11 +83,28 @@ public class GameUI : MonoBehaviour
         if (queueCount > 0)
         {
             game.processQueue();
-            Managers.Timer.startTimer(castProcessingDelay, this.processQueue);
+            processQueueTimer = Managers.Timer.startTimer(castProcessingDelay, this.processQueue);
         }
         else
         {
             game.moveToNextMatchUp();
+        }
+    }
+
+    private void Update()
+    {
+        if (game.Phase == Game.GamePhase.MATCHUP && game.SubPhase == Game.GameSubPhase.PROCESSING)
+        {
+            //TEST CODE: press space to immediately process the queue
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (processQueueTimer != null)
+                {
+                    processQueueTimer.canceled = true;
+                    processQueueTimer = null;
+                }
+                processQueue();
+            }
         }
     }
 }
