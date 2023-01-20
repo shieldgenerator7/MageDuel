@@ -146,10 +146,13 @@ public class SpellContext : Target
         }
         return target;
     }
-    public void setTarget(string name, SpellContext spellContext)
+    private void setTarget(string name, SpellContext spellContext)
     {
         spellTargets[name] = spellContext;
+        onTargetChanged?.Invoke(new List<SpellContext>(spellTargets.Values));
     }
+    public delegate void OnTargetChanged(List<SpellContext> targets);
+    public event OnTargetChanged onTargetChanged;
     public bool hasAllTargets()
     {
         return spell.spellTargets.All(target => hasTarget(target.name));
@@ -180,7 +183,7 @@ public class SpellContext : Target
             SpellContext spell = spellTargets[targetName];
             int index = oldLineup.IndexOf(spell);
             //TODO: check to make sure new spell target is a valid target
-            spellTargets[targetName] = newLineup[index];
+            setTarget(targetName, newLineup[index]);
         }
     }
 
