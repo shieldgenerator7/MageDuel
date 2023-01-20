@@ -37,6 +37,8 @@ public class SpellContext : Target
     private AttributeSet variables;
     private Dictionary<string, SpellContext> spellTargets = new Dictionary<string, SpellContext>();
 
+    private List<SpellEffect> spellEffects;
+
     private List<SpellEffectMod> mods = new List<SpellEffectMod>();
 
     public SpellContext(Spell spell, Player caster)
@@ -220,6 +222,11 @@ public class SpellContext : Target
 
     public bool Flash => spell.keywords.Contains(Spell.Keyword.FLASH);
 
+    public void acceptCompile(List<SpellEffect> spellEffects)
+    {
+        this.spellEffects = spellEffects;
+    }
+
     public void activate()
     {
         //Early exit: Not enough focus
@@ -234,8 +241,7 @@ public class SpellContext : Target
             caster.targetPlayer(target, this);
         }
         //Activate spell
-        List<SpellEffect> effects = SpellScriptCompiler.compile(spell.script);
-        effects.ForEach(effect =>
+        spellEffects.ForEach(effect =>
         {
             effect.init(this);
             effect.activate();

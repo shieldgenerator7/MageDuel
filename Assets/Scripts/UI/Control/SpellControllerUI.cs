@@ -51,7 +51,7 @@ public class SpellControllerUI : PlayerControlUI
                 //Early exit: dont allow adding more spells during processing
                 //(but allow targeting during processing if needed)
                 //TODO: check to see if theres ever a case where a spell would be targeting during processing (and not during casting)
-                if (uiVars.game.SubPhase== Game.GameSubPhase.PROCESSING)
+                if (uiVars.game.SubPhase == Game.GameSubPhase.PROCESSING)
                 {
                     break;
                 }
@@ -61,15 +61,19 @@ public class SpellControllerUI : PlayerControlUI
                     //add it to process queue
                     if (!rightClick)
                     {
-                        Action enqueueFunc = () => 
+                        Action enqueueFunc = () =>
+                        {
+                            SpellScriptCompiler.compile(spellContext);
                             uiVars.game.queueSpell(spellContext, true);
+                        };
 
                         if (spellContext.hasAllTargets())
                         {
                             //Add to queue
                             enqueueFunc();
                         }
-                        else { 
+                        else
+                        {
                             //Select targets then add to queue
                             StartCoroutine(waitForUserTarget(enqueueFunc));
                         }

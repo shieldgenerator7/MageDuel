@@ -10,7 +10,7 @@ public abstract class SpellEffect
     {
         this.spellContext = spellContext;
     }
-    internal void setArgs(string[] args)
+    public void setArgs(string[] args)
     {
         this.parameters = args;
     }

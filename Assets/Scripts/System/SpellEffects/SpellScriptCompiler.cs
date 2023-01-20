@@ -20,6 +20,10 @@ public static class SpellScriptCompiler
         {"spellSpeed",typeof(SpellSpeedAdjust) },
     };
 
+    public static void compile(SpellContext spellContext)
+    {
+        spellContext.acceptCompile(compile(spellContext.spell.script));
+    }
 
     public static List<SpellEffect> compile(string spellScript)
     {
