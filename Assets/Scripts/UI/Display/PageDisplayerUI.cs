@@ -7,60 +7,63 @@ using static Player;
 
 public class PageDisplayerUI : PlayerDisplayUI
 {
-    public int pageIndex;
+    private SpellContext spellContext;
     private Spell spell;
 
     public TMP_Text txtName;
     public Image imgIcon;
-    public Image imgIcon2;
     public TMP_Text txtDescription;
     public TMP_Text txtCost;
     public TMP_Text txtSpeed;
     public List<Image> imgColors;
-    public List<GameObject> goToggleList;
+
+    public void init(SpellContext spellContext)
+    {
+        this.spellContext = spellContext;
+        this.spell = spellContext.spell;
+        forceUpdate();
+    }
+    public void init(Spell spell)
+    {
+        this.spellContext = null;
+        this.spell = spell;
+        forceUpdate();
+    }
 
     protected override void _registerDelegates(bool register)
     {
-        player.onDeckChanged -= onDeckChanged;
+        if (spellContext != null)
+        {
+
+        }
         if (register)
         {
-            player.onDeckChanged += onDeckChanged;
+            if (spellContext != null)
+            {
+
+            }
         }
     }
 
     public override void forceUpdate()
     {
         updateCircle();
-        showToggles(false);
+        showPage(false);
     }
 
-    public void showToggles(bool show)
+    public void showPage(bool show)
     {
-        goToggleList.ForEach(go => go.SetActive(show));
+        gameObject.SetActive(show);
     }
 
     private void updateCircle()
     {
-        bool pageExists = pageIndex < player.Deck.spellList.Count;
-        if (pageExists)
-        {
-            spell = player.Deck[pageIndex];
-        }
-        gameObject.SetActive(pageExists);
-
-        if (!pageExists) { return; }
         imgColors.ForEach(img => img.color = spell.element.color);
         txtName.text = spell.name;
         imgIcon.sprite = spell.icon;
-        imgIcon2.sprite = spell.icon;
-        txtDescription.text = spell.Description;
+        txtDescription.text = spellContext?.Description ?? spell.Description;
         txtCost.text = $"{spell.cost}";
-        txtSpeed.text = $"{spell.speed}";
-    }
-
-    private void onDeckChanged(Deck deck)
-    {
-        updateCircle();
+        txtSpeed.text = $"{spellContext?.Speed ?? spell.speed}";
     }
 
 }
