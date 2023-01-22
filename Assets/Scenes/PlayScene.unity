@@ -429,7 +429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameSettings: {fileID: 11400000, guid: 5b10eb725129a054d9cc838deddb547b, type: 2}
-  castProcessingDelay: 3
+  castProcessingDelay: 2
   placemats:
   - {fileID: 8005862789927378908}
   - {fileID: 1546502758}
@@ -485,8 +485,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80e1d7dd1a3e2bc4ca0984d7591730dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 6387814481828978447, guid: b26cc00899dc29d42998118153555269, type: 3}
-  canvas: {fileID: 1948631793}
+  arrowPrefab: {fileID: 0}
+  canvas: {fileID: 0}
 --- !u!1 &1542360249
 GameObject:
   m_ObjectHideFlags: 0
@@ -1211,10 +1211,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 1
+  m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3

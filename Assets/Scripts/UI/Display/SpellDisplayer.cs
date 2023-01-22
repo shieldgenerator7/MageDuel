@@ -66,7 +66,7 @@ public class SpellDisplayer : SpellDisplayUI
 
     public override void forceUpdate()
     {
-        imgIcon.sprite = spellContext?.spell.icon ?? spell.icon;
+        imgIcon.sprite = spellContext?.spell.icon ?? spell?.icon;
         updateColor();
         updateFocus(spellContext?.Focus ?? -1);
         updateAura(spellContext?.Aura ?? -1);
