@@ -49,7 +49,6 @@ public class PageDisplayerUI : PlayerDisplayUI
     public override void forceUpdate()
     {
         updateCircle();
-        showPage(false);
     }
 
     public void showPage(bool show)

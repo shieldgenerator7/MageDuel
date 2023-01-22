@@ -43,7 +43,7 @@ public class PlacematDisplayer : MonoBehaviour
 
     public void refreshChildren()
     {
-        uiElements = GetComponentsInChildren<PlayerDisplayUI>().ToList();
+        uiElements = GetComponentsInChildren<PlayerDisplayUI>(true).ToList();
         setPlayer(player, uiVars);
     }
 

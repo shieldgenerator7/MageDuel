@@ -25,7 +25,7 @@ public class PlacematController : MonoBehaviour
 
     public void refreshChildren()
     {
-        controls = GetComponentsInChildren<PlayerControlUI>().ToList();
+        controls = GetComponentsInChildren<PlayerControlUI>(true).ToList();
         setPlayer(player, uiVars);
     }
 }
