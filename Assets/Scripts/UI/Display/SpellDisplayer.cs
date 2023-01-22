@@ -4,17 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SpellDisplayer : PlayerDisplayUI
+public class SpellDisplayer : SpellDisplayUI
 {
     public Image imgIcon;
-    public Image imgIcon2;
     public List<Sprite> focusSprites;
     public List<Sprite> auraSprites;
     public Image imgFocus;
     public Image imgAura;
     public List<Image> imagesToColor;
     //Tooltip
-    public ToolTipDisplayer tooltip;
+    public PageDisplayerUI tooltip;
     //Pulse
     public Image imgPulse;
     //SelectRing
@@ -27,33 +26,37 @@ public class SpellDisplayer : PlayerDisplayUI
     [Range(0, 1)]
     public float resolveAlpha = 0.5f;
 
-    public SpellContext spellContext;
-
-    public void init(SpellContext spellContext, Player player)
+    public override void init(SpellContext spellContext)
     {
-        this.spellContext = spellContext;
-        this.registerDelegates(player, true);
-        forceUpdate();
+        base.init(spellContext);
+        tooltip.setUIVars(uiVars);
+        tooltip.init(this.spellContext);
     }
 
     protected override void _registerDelegates(bool register)
     {
-        spellContext.onFocusChanged -= updateFocus;
-        spellContext.onAuraChanged -= updateAura;
-        spellContext.onBinDran -= checkShowPulse;
-        spellContext.onStateChanged -= checkShowSelectRing;
-        spellContext.OnSpellProcessed -= onSpellResolved;
+        if (spellContext != null)
+        {
+            spellContext.onFocusChanged -= updateFocus;
+            spellContext.onAuraChanged -= updateAura;
+            spellContext.onBinDran -= checkShowPulse;
+            spellContext.onStateChanged -= checkShowSelectRing;
+            spellContext.OnSpellProcessed -= onSpellResolved;
+        }
         uiVars.game.onPhaseChanged -= onGamePhaseChanged;
         uiVars.game.onSubPhaseChanged -= onGameSubPhaseChanged;
         uiVars.onValidTargetsChanged -= onValidTargetsChanged;
         uiVars.onCurrentCastingSpellChanged -= checkShowPulse;
         if (register)
         {
-            spellContext.onFocusChanged += updateFocus;
-            spellContext.onAuraChanged += updateAura;
-            spellContext.onBinDran += checkShowPulse;
-            spellContext.onStateChanged += checkShowSelectRing;
-            spellContext.OnSpellProcessed += onSpellResolved;
+            if (spellContext != null)
+            {
+                spellContext.onFocusChanged += updateFocus;
+                spellContext.onAuraChanged += updateAura;
+                spellContext.onBinDran += checkShowPulse;
+                spellContext.onStateChanged += checkShowSelectRing;
+                spellContext.OnSpellProcessed += onSpellResolved;
+            }
             uiVars.game.onPhaseChanged += onGamePhaseChanged;
             uiVars.game.onSubPhaseChanged += onGameSubPhaseChanged;
             uiVars.onValidTargetsChanged += onValidTargetsChanged;
@@ -63,42 +66,44 @@ public class SpellDisplayer : PlayerDisplayUI
 
     public override void forceUpdate()
     {
-        imgIcon.sprite = spellContext.spell.icon;
-        imgIcon2.sprite = spellContext.spell.icon;
+        imgIcon.sprite = spellContext?.spell.icon ?? spell.icon;
         updateColor();
-        updateFocus(spellContext.Focus);
-        updateAura(spellContext.Aura);
+        updateFocus(spellContext?.Focus ?? -1);
+        updateAura(spellContext?.Aura ?? -1);
         showTooltip(false);
         checkShowPulse();
-        checkShowSelectRing(spellContext.state);
+        checkShowSelectRing(spellContext?.state ?? SpellContext.State.LINEDUP);
     }
 
     private void updateColor()
     {
-        Color color = spellContext.element.color;
+        Color color = spellContext?.element.color ?? spell.element.color;
         imagesToColor.ForEach(img => img.color = color);
     }
 
     private void updateFocus(int focus)
     {
-        imgFocus.sprite = focusSprites[focus];
+        bool show = focus >= 0;
+        imgFocus.enabled = show;
+        if (show)
+        {
+            imgFocus.sprite = focusSprites[focus];
+        }
     }
 
     private void updateAura(int aura)
     {
-        imgAura.sprite = auraSprites[aura];
+        bool show = aura >= 0;
+        imgAura.enabled = show;
+        if (show)
+        {
+            imgAura.sprite = auraSprites[aura];
+        }
     }
 
     public void showTooltip(bool show)
     {
-        if (show)
-        {
-            tooltip.spellContext = this.spellContext;
-            tooltip.registerDelegates(player, true);
-            tooltip.setUIVars(uiVars);
-            tooltip.forceUpdate();
-        }
-        tooltip.gameObject.SetActive(show);
+        tooltip.showPage(show);
     }
 
     public void showPulse(bool show)
@@ -109,7 +114,8 @@ public class SpellDisplayer : PlayerDisplayUI
     public void checkShowPulse(bool alwaysTrue = true)
     {
         showPulse(
-            uiVars.game.Phase == Game.GamePhase.MATCHUP
+            spellContext != null
+            && uiVars.game.Phase == Game.GamePhase.MATCHUP
             && ((uiVars.CurrentTargetingSpell != null)
                 ? uiVars.ValidTargets?.Contains(spellContext) ?? false
                 : uiVars.game.SubPhase == Game.GameSubPhase.CASTING

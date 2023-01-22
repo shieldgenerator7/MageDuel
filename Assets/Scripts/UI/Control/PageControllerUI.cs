@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class PageControllerUI : PlayerControlUI
 {
-    public int pageIndex;
+    private Spell spell;
+
+    public void init(Spell spell)
+    {
+        this.spell = spell;
+    }
 
     public override void activate()
     {
         if (uiVars.game.Phase == Game.GamePhase.LINEUP && player.State == Player.PlayState.FOCUSING)
         {
-            player.lineupSpell(player.Deck[pageIndex]);
+            player.lineupSpell(spell);
         }
     }
 }

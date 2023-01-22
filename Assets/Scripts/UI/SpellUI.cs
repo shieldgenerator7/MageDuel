@@ -10,7 +10,7 @@ public class SpellUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        spellControllerUI.spellContext = spellDisplayer.spellContext;
+        spellControllerUI.spellContext = spellDisplayer.SpellContext;
         spellControllerUI.setPlayer(spellDisplayer.Player, spellDisplayer.UIVars);
     }
 }

@@ -100,7 +100,7 @@ public class TargetArrowManager : MonoBehaviour
     private Vector2 getPosition(SpellContext spellContext)
     {
         return FindObjectsOfType<SpellDisplayer>()
-                .First(so => so.spellContext == spellContext)
+                .First(so => so.SpellContext == spellContext)
                 .transform.position;
     }
     private Vector2 getPosition(Player player)

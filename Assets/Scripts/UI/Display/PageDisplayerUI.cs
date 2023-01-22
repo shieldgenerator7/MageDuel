@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 using static Player;
 
@@ -21,26 +22,26 @@ public class PageDisplayerUI : PlayerDisplayUI
     {
         this.spellContext = spellContext;
         this.spell = spellContext.spell;
-        forceUpdate();
     }
     public void init(Spell spell)
     {
         this.spellContext = null;
         this.spell = spell;
-        forceUpdate();
     }
 
     protected override void _registerDelegates(bool register)
     {
         if (spellContext != null)
         {
-
+            spellContext.onAuraChanged -= updateCircle;
+            spellContext.onFocusChanged -= updateCircle;
         }
         if (register)
         {
             if (spellContext != null)
             {
-
+                spellContext.onAuraChanged += updateCircle;
+                spellContext.onFocusChanged += updateCircle;
             }
         }
     }
@@ -56,14 +57,14 @@ public class PageDisplayerUI : PlayerDisplayUI
         gameObject.SetActive(show);
     }
 
-    private void updateCircle()
+    private void updateCircle(int value = 0)
     {
-        imgColors.ForEach(img => img.color = spell.element.color);
-        txtName.text = spell.name;
-        imgIcon.sprite = spell.icon;
-        txtDescription.text = spellContext?.Description ?? spell.Description;
-        txtCost.text = $"{spell.cost}";
-        txtSpeed.text = $"{spellContext?.Speed ?? spell.speed}";
+        imgColors.ForEach(img => img.color = spell?.element.color ?? Color.white);
+        txtName.text = spell?.name ?? "no spell";
+        imgIcon.sprite = spell?.icon;
+        txtDescription.text = spellContext?.Description ?? spell?.Description ?? "no spell desc";
+        txtCost.text = $"{spell?.cost ?? 0}";
+        txtSpeed.text = $"{spellContext?.Speed ?? spell?.speed ?? 0}";
     }
 
 }

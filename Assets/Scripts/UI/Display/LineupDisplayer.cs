@@ -65,7 +65,7 @@ public class LineupDisplayer : PlayerDisplayUI
             SpellDisplayer spellDisplayer = spellObject.GetComponent<SpellDisplayer>();
             spellDisplayer.setUIVars(uiVars);
             spellGOMap.Add(spell, spellDisplayer);
-            spellDisplayer.init(spell, player);
+            spellDisplayer.init(spell);
             callOnDisplayerCreated(spellDisplayer);
         }
         //Generate empties
