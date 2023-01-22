@@ -1,16 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
+using System.Linq;
 using UnityEngine;
 
 [DisallowMultipleComponent]
 public class PlacematDisplayer : MonoBehaviour
 {
 
-    public List<PlayerDisplayUI> uiElements;
+    private List<PlayerDisplayUI> uiElements = new List<PlayerDisplayUI>();
 
     private Player player;
     private UIVariables uiVars;
+
+    private void Start()
+    {
+        refreshChildren();
+    }
 
     public void setPlayer(Player player, UIVariables uiVars)
     {
@@ -34,6 +39,12 @@ public class PlacematDisplayer : MonoBehaviour
         {
             registerDelegates(true);
         }
+    }
+
+    public void refreshChildren()
+    {
+        uiElements = GetComponentsInChildren<PlayerDisplayUI>().ToList();
+        setPlayer(player, uiVars);
     }
 
     void OnEnable()
@@ -74,30 +85,18 @@ public class PlacematDisplayer : MonoBehaviour
     }
     private void registerUIChange(PlayerDisplayUI playerDisplayUI)
     {
-        playerDisplayUI.onDisplayerCreated -= onUICreated;
-        playerDisplayUI.onDisplayerCreated += onUICreated;
-        playerDisplayUI.onDisplayerDestroyed -= onUIDestroyed;
-        playerDisplayUI.onDisplayerDestroyed += onUIDestroyed;
+        playerDisplayUI.onDisplayerCreated -= updateUIAfterChange;
+        playerDisplayUI.onDisplayerCreated += updateUIAfterChange;
+        playerDisplayUI.onDisplayerDestroyed -= updateUIAfterChange;
+        playerDisplayUI.onDisplayerDestroyed += updateUIAfterChange;
     }
 
-    private void onUICreated(PlayerDisplayUI playerDisplayUI)
+    private void updateUIAfterChange(PlayerDisplayUI playerDisplayUI)
     {
-        if (!uiElements.Contains(playerDisplayUI))
-        {
-            uiElements.Add(playerDisplayUI);
-        }
-        registerUIChange(playerDisplayUI);
-        if (player)
-        {
-            playerDisplayUI.registerDelegates(player, true);
-        }
+        refreshChildren();
+        registerUIChanges();
+        onUIChanged?.Invoke();
     }
-    private void onUIDestroyed(PlayerDisplayUI playerDisplayUI)
-    {
-        uiElements.Remove(playerDisplayUI);
-        if (player)
-        {
-            playerDisplayUI.registerDelegates(player, false);
-        }
-    }
+    public delegate void OnUIChanged();
+    public event OnUIChanged onUIChanged;
 }

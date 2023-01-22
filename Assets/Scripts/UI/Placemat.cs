@@ -13,6 +13,13 @@ public class Placemat : MonoBehaviour
     private PlacematController placematController;
     private PlacematDisplayer placematDisplayer;
 
+    private void Start()
+    {
+        placematController ??= GetComponent<PlacematController>();
+        placematDisplayer ??= GetComponent<PlacematDisplayer>();
+        placematDisplayer.onUIChanged += placematController.refreshChildren;
+    }
+
     // Start is called before the first frame update
     public void setPlayer(Player player, UIVariables uiVars)
     {
