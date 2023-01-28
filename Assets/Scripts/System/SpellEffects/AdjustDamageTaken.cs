@@ -24,7 +24,7 @@ public class AdjustDamageTaken : SpellEffect
         spellContext.target.onDamageReceived += onDamageReceived;
         spellContext.target.applyEffect(this, true);
         //Register matchup delegate
-        spellContext.target.game.onMatchUpChanged += onMatchUpEnded;
+        spellContext.target.game.onMatchUpChanged += onMatchUpStarted;
     }
 
     private int onDamageReceived(int damage)
@@ -43,11 +43,20 @@ public class AdjustDamageTaken : SpellEffect
         //unregister
         spellContext.target.onDamageReceived -= onDamageReceived;
         spellContext.target.applyEffect(this, false);
-        spellContext.target.game.onMatchUpChanged -= onMatchUpEnded;
+        spellContext.target.game.onMatchUpChanged -= onMatchUpStarted;
     }
 
-    private void onMatchUpEnded(int index)
+    private void onMatchUpStarted(int index)
     {
+        //Don't count the starting of the first matchup of a round
+        //bc the end of the last matchup also triggers this delegate,
+        //round transition calls this twice,
+        //so ignore one of them so round transition only counts once
+        if (index == 0)
+        {
+            return;
+        }
+        //
         matchupsLeft--;
         if (matchupsLeft <= 0)
         {
