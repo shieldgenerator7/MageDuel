@@ -5,15 +5,11 @@ public class Dodge : SpellEffect
 {
     public override void activate()
     {
-        spellContext.caster.onTargetedByPlayer += onTargetedByPlayer;
-        spellContext.caster.game.onMatchUpChanged += stopDodging;
-        spellContext.caster.applyEffect(this, true);
-    }
+        if (!checkTarget(true)) { return; }
 
-    private void onTargetedByPlayer(Player player, SpellContext otherSpell)
-    {
+        SpellContext otherSpell = spellContext.getTarget(getParameter(0));
         //Early exit
-        if (player == this.spellContext.caster)
+        if (otherSpell.caster == this.spellContext.caster)
         {
             //don't dodge self-casted spells
             return;
@@ -22,7 +18,7 @@ public class Dodge : SpellEffect
         if (onAboutToDodge != null)
         {
             bool allowDodge = true;
-            foreach(OnAboutToDodge delgt in onAboutToDodge.GetInvocationList())
+            foreach (OnAboutToDodge delgt in onAboutToDodge.GetInvocationList())
             {
                 if (!delgt(otherSpell))
                 {
@@ -40,12 +36,4 @@ public class Dodge : SpellEffect
     }
     public delegate bool OnAboutToDodge(SpellContext otherSpell);
     public event OnAboutToDodge onAboutToDodge;
-
-    private void stopDodging(int index)
-    {
-        //unregister
-        spellContext.caster.onTargetedByPlayer -= onTargetedByPlayer;
-        spellContext.caster.game.onMatchUpChanged -= stopDodging;
-        spellContext.caster.applyEffect(this, false);
-    }
 }

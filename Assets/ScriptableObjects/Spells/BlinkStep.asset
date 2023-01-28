@@ -24,4 +24,4 @@ MonoBehaviour:
   attributes:
     attributes: []
   spellTargets: []
-  script: dodge()
+  script: "onTargetedByPlayer{\n\tdodge(onTargetedByPlayer)\n}"

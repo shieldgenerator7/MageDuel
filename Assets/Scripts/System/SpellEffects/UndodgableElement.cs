@@ -21,6 +21,7 @@ public class UndodgableElement : SpellEffect
 
     private void searchForDodges(List<ScriptToken> effects, bool register)
     {
+        //TODO: refactor so dodges in delegate registrars get effected as well
         spellContext.target.SpellEffects
             .FindAll(effect => effect is Dodge)
             .ForEach(effect => registerUnDodge((Dodge)effect, register));
