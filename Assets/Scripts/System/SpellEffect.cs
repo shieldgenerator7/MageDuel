@@ -1,15 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
-public abstract class SpellEffect
+public abstract class SpellEffect : ScriptToken
 {
-    protected SpellContext spellContext;
     private string[] parameters;
 
-    public void init(SpellContext spellContext)
-    {
-        this.spellContext = spellContext;
-    }
     public void setArgs(string[] args)
     {
         this.parameters = args;
@@ -32,6 +27,11 @@ public abstract class SpellEffect
 
     protected int Parameter0 => spellContext.getAttribute(getParameter(0));
     protected int Parameter1 => spellContext.getAttribute(getParameter(1));
+
+    public override void evaluate()
+    {
+        activate();
+    }
 
     public abstract void activate();
 

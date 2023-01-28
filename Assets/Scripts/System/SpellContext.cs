@@ -38,7 +38,7 @@ public class SpellContext : Target
     private Dictionary<string, SpellContext> spellTargets = new Dictionary<string, SpellContext>();
     public List<SpellContext> SpellTargets => new List<SpellContext>(spellTargets.Values);
 
-    private List<SpellEffect> spellEffects;
+    private List<ScriptToken> scriptTokens;
 
     private List<SpellEffectMod> mods = new List<SpellEffectMod>();
 
@@ -236,9 +236,9 @@ public class SpellContext : Target
 
     public bool Flash => spell.keywords.Contains(Spell.Keyword.FLASH);
 
-    public void acceptCompile(List<SpellEffect> spellEffects)
+    public void acceptCompile(List<ScriptToken> spellEffects)
     {
-        this.spellEffects = spellEffects;
+        this.scriptTokens = spellEffects;
     }
 
     public void activate()
@@ -255,10 +255,10 @@ public class SpellContext : Target
             caster.targetPlayer(target, this);
         }
         //Activate spell
-        spellEffects.ForEach(effect =>
+        scriptTokens.ForEach(effect =>
         {
             effect.init(this);
-            effect.activate();
+            effect.evaluate();
         });
         //Mark this spell resolved
         state = State.RESOLVED;

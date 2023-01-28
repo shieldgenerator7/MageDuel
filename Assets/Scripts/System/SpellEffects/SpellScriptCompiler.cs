@@ -25,9 +25,9 @@ public static class SpellScriptCompiler
         spellContext.acceptCompile(compile(spellContext.spell.script));
     }
 
-    public static List<SpellEffect> compile(string spellScript)
+    public static List<ScriptToken> compile(string spellScript)
     {
-        List<SpellEffect> spellEffects = new List<SpellEffect>();
+        List<ScriptToken> scriptTokens = new List<ScriptToken>();
         string[] lines = spellScript.Trim().Split('\n');
         foreach (string line in lines)
         {
@@ -48,9 +48,9 @@ public static class SpellScriptCompiler
             {
                 args[i] = args[i].Trim();
             }
-            spellEffects.Add(createSpellEffect(command, args));
+            scriptTokens.Add(createSpellEffect(command, args));
         }
-        return spellEffects;
+        return scriptTokens;
     }
 
     private static SpellEffect createSpellEffect(string command, string[] args)
