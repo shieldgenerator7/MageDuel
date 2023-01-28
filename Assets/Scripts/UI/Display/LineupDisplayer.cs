@@ -48,9 +48,9 @@ public class LineupDisplayer : PlayerDisplayUI
         spellsToRemove.ForEach(spell =>
         {
             SpellDisplayer so = spellGOMap[spell];
-            callOnDisplayerDestroyed(so);
             Destroy(so.gameObject);
             spellGOMap.Remove(spell);
+            callOnDisplayerDestroyed(so);
         });
         //Hide empties
         empties.ForEach(empty => empty.gameObject.SetActive(false));
