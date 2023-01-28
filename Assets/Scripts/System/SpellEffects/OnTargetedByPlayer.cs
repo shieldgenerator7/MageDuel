@@ -16,7 +16,7 @@ public class OnTargetedByPlayer : DelegateRegistrar
 
     private void onTargetedByPlayer(Player player, SpellContext spellContext)
     {
-        spellContext.setTarget("onTargetedByPlayer", spellContext);
+        this.spellContext.setTarget("onTargetedByPlayer", spellContext);
         foreach(ScriptToken token in scriptTokens)
         {
             token.init(this.spellContext);

@@ -70,6 +70,8 @@ public static class SpellScriptCompiler
                                 delegateName,
                                 compile(text)
                                 ));
+                            i = j;
+                            break;
                         }
                     }
                     //add a line of code
@@ -78,6 +80,11 @@ public static class SpellScriptCompiler
                         text += lineJ + "\n";
                     }
                 }
+            }
+            else if (line.Contains("}"))
+            {
+                //do nothing
+                Debug.LogError($"Shouldn't be able to process {line} here; it should already be processed");
             }
             //Spell Effect Compiling
             else
@@ -129,7 +136,7 @@ public static class SpellScriptCompiler
         {
             Debug.LogError($"Unknown delegate registrar {delegateName}!");
         }
-        Type delegateType = spellEffectTypes[delegateName];
+        Type delegateType = delegateRegistrarTypes[delegateName];
         DelegateRegistrar delgt = (DelegateRegistrar)delegateType
             .GetConstructor(new Type[] { })
             .Invoke(new object[] { });

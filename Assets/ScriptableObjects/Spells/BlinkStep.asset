@@ -19,7 +19,7 @@ MonoBehaviour:
   cost: 1
   speed: 5
   autoTargetEnemy: 0
-  autoTargetSelf: 0
+  autoTargetSelf: 1
   keywords: 00000000
   attributes:
     attributes: []
