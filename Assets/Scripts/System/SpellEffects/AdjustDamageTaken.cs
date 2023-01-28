@@ -30,7 +30,12 @@ public class AdjustDamageTaken : SpellEffect
     private int onDamageReceived(int damage)
     {
         //adjust damage
-        return damage += damageAdjust;
+        damage += damageAdjust;
+        if (damage < 0)
+        {
+            damage = 0;
+        }
+        return damage;
     }
 
     public void breakDefense()
