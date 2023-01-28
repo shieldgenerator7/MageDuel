@@ -18,6 +18,8 @@ public static class SpellScriptCompiler
         {"undodgableElement",typeof(UndodgableElement) },
         {"breakDefense",typeof(BreakDefense) },
         {"spellSpeed",typeof(SpellSpeedAdjust) },
+        {"adjustDamageTaken",typeof(AdjustDamageTaken) },
+        {"flipSign",typeof(FlipSign) },
     };
 
     public static void compile(SpellContext spellContext)
