@@ -53,6 +53,10 @@ public class SpellDisplayer : SpellDisplayUI
         uiVars.game.onSubPhaseChanged -= onGameSubPhaseChanged;
         uiVars.onValidTargetsChanged -= onValidTargetsChanged;
         uiVars.onCurrentCastingSpellChanged -= checkShowPulse;
+        if (player)
+        {
+            player.onDeckChanged -= onDeckChanged;
+        }
         if (register)
         {
             if (spellContext != null)
@@ -67,6 +71,7 @@ public class SpellDisplayer : SpellDisplayUI
             uiVars.game.onSubPhaseChanged += onGameSubPhaseChanged;
             uiVars.onValidTargetsChanged += onValidTargetsChanged;
             uiVars.onCurrentCastingSpellChanged += checkShowPulse;
+            player.onDeckChanged += onDeckChanged;
         }
     }
 
@@ -180,6 +185,11 @@ public class SpellDisplayer : SpellDisplayUI
     public void onValidTargetsChanged(List<Target> targets)
     {
         checkShowPulse();
+    }
+
+    private void onDeckChanged(Deck deck)
+    {
+        forceUpdate();
     }
 
 }
