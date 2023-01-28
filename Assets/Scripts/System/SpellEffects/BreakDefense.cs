@@ -11,5 +11,11 @@ public class BreakDefense : SpellEffect
         BlockSpellEffect block = (BlockSpellEffect)spellContext.target.SpellEffects
             .Find(effect => effect is BlockSpellEffect);
         block?.breakDefense();
+        if (block == null)
+        {
+            AdjustDamageTaken adt = (AdjustDamageTaken)spellContext.target.SpellEffects
+                .Find(effect => effect is AdjustDamageTaken);
+            adt?.breakDefense();
+        }
     }
 }

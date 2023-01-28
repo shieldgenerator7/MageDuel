@@ -34,7 +34,7 @@ public class SpellEffectDisplayer : PlayerDisplayUI
 
     private void showEffects(List<SpellEffect> effects)
     {
-        showShield(effects.Any(effect => effect is BlockSpellEffect));
+        showShield(effects.Any(effect => effect is BlockSpellEffect || effect is AdjustDamageTaken));
         showDodge(effects.Any(effect => effect is Dodge));
         showStatic(effects.Any(effect => effect is UndodgableElement));
     }
