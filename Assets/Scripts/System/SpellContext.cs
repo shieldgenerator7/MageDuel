@@ -190,18 +190,17 @@ public class SpellContext : Target
         //Redirect spells
         List<SpellContext> oldLineup = oldTarget.Lineup;
         List<SpellContext> newLineup = newTarget.Lineup;
-        List<string> targetNames = spellTargets.Keys.ToList();
+        List<string> targetNames = spell.spellTargets.ConvertAll(target => target.name);
         foreach (string targetName in targetNames)
         {
-            //don't redirect "this" target
-            if (targetName == "this")
-            {
-                continue;
-            }
-            //
             SpellContext spell = spellTargets[targetName];
             int index = oldLineup.IndexOf(spell);
             //TODO: check to make sure new spell target is a valid target
+            if (index < 0 || index >= newLineup.Count)
+            {
+                Debug.LogError($"Index out of bounds! targetName: {targetName}, index: {index}, spell: {spell.spell.name}");
+                continue;
+            }
             setTarget(targetName, newLineup[index]);
         }
     }
