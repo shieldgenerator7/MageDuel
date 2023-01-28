@@ -55,6 +55,8 @@ public class SpellContext : Target
             this.target = caster;
         }
         variables = new AttributeSet(spell.attributes);
+        //
+        spellTargets["this"] = this;
     }
 
     public Spell Spell => spell;
@@ -191,6 +193,12 @@ public class SpellContext : Target
         List<string> targetNames = spellTargets.Keys.ToList();
         foreach (string targetName in targetNames)
         {
+            //don't redirect "this" target
+            if (targetName == "this")
+            {
+                continue;
+            }
+            //
             SpellContext spell = spellTargets[targetName];
             int index = oldLineup.IndexOf(spell);
             //TODO: check to make sure new spell target is a valid target
