@@ -21,6 +21,10 @@ public static class SpellScriptCompiler
         {"adjustDamageTaken",typeof(AdjustDamageTaken) },
         {"flipSign",typeof(FlipSign) },
     };
+    private static Dictionary<string, Type> delegateRegistrarTypes = new Dictionary<string, Type>()
+    {
+        {"onTargetedByPlayer", typeof(OnTargetedByPlayer) },
+    };
 
     public static void compile(SpellContext spellContext)
     {
@@ -31,10 +35,55 @@ public static class SpellScriptCompiler
     {
         List<ScriptToken> scriptTokens = new List<ScriptToken>();
         string[] lines = spellScript.Trim().Split('\n');
-        foreach (string line in lines)
+        int braceLevels = 0;
+        for (int i = 0; i < lines.Length; i++)
         {
-            string lineT = line.Trim();           
-            scriptTokens.Add(compileSpellEffect(lineT));
+            string line = lines[i].Trim();
+            //Delegate Registrar Compiling
+            if (line.Contains("{"))
+            {
+                string delegateName = line.Split('{')[0].Trim();
+                braceLevels++;
+                string text = "";
+                for (int j = i + 1; j < lines.Length; j++)
+                {
+                    string lineJ = lines[j];
+                    //begin a sub brace
+                    if (lineJ.Contains("{"))
+                    {
+                        braceLevels++;
+                        text += lineJ + "\n";
+                    }
+                    //end a brace
+                    else if (lineJ.Contains("}"))
+                    {
+                        braceLevels--;
+                        //end a sub brace
+                        if (braceLevels > 0)
+                        {
+                            text += lineJ + "\n";
+                        }
+                        //end this registrar's brace
+                        else
+                        {
+                            scriptTokens.Add(createDelegateRegistrar(
+                                delegateName,
+                                compile(text)
+                                ));
+                        }
+                    }
+                    //add a line of code
+                    else
+                    {
+                        text += lineJ + "\n";
+                    }
+                }
+            }
+            //Spell Effect Compiling
+            else
+            {
+                scriptTokens.Add(compileSpellEffect(line));
+            }
         }
         return scriptTokens;
     }
@@ -72,6 +121,20 @@ public static class SpellScriptCompiler
             .Invoke(new object[] { });
         spellEffect.setArgs(args);
         return spellEffect;
+    }
+
+    private static DelegateRegistrar createDelegateRegistrar(string delegateName, List<ScriptToken> tokens)
+    {
+        if (!delegateRegistrarTypes.ContainsKey(delegateName))
+        {
+            Debug.LogError($"Unknown delegate registrar {delegateName}!");
+        }
+        Type delegateType = spellEffectTypes[delegateName];
+        DelegateRegistrar delgt = (DelegateRegistrar)delegateType
+            .GetConstructor(new Type[] { })
+            .Invoke(new object[] { });
+        delgt.init(tokens);
+        return delgt;
     }
 
 
