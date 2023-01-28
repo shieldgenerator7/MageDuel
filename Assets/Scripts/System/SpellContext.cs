@@ -209,10 +209,7 @@ public class SpellContext : Target
     {
         if (add)
         {
-            if (!mods.Contains(mod))
-            {
-                mods.Add(mod);
-            }
+            mods.Add(mod);
         }
         else
         {

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d49c370a0c1c39047b788d86a7e07400, type: 3}
+  m_Name: Flight
+  m_EditorClassIdentifier: 
+  name: Flight
+  icon: {fileID: 21300000, guid: d3d66619b8f4ff843929940c400a1a69, type: 3}
+  description: Dodge spells and increase spellspeed by [speed] for each spell dodged
+  element: {fileID: 11400000, guid: 7ad5d788ba9db78438ccc54681007fbd, type: 2}
+  cost: 2
+  speed: 5
+  autoTargetEnemy: 0
+  autoTargetSelf: 1
+  keywords: 00000000
+  attributes:
+    attributes:
+    - name: speed
+      value: 1
+      rampable: 0
+  spellTargets: []
+  script: "onTargetedByPlayer{\n\tspellSpeed(speed)\n\tdodge(onTargetedByPlayer)\n}"
