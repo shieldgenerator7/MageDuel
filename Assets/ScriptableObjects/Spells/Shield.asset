@@ -27,8 +27,8 @@ MonoBehaviour:
       value: 1
       rampable: 1
     - name: duration
-      value: 1
-      rampable: 1
+      value: 5
+      rampable: 0
   spellTargets: []
   script: 'flipSign(threshold)
 
