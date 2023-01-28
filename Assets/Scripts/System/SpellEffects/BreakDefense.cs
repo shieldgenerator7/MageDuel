@@ -8,13 +8,15 @@ public class BreakDefense : SpellEffect
     {
         if (!checkTarget()) { return; }
 
-        BlockSpellEffect block = (BlockSpellEffect)spellContext.target.SpellEffects
-            .Find(effect => effect is BlockSpellEffect);
+        BlockSpellEffect block = spellContext.target.SpellEffects
+            .Find(effect => effect.isType<BlockSpellEffect>())
+            .asType<BlockSpellEffect>();
         block?.breakDefense();
         if (block == null)
         {
-            AdjustDamageTaken adt = (AdjustDamageTaken)spellContext.target.SpellEffects
-                .Find(effect => effect is AdjustDamageTaken);
+            AdjustDamageTaken adt = spellContext.target.SpellEffects
+                .Find(effect => effect.isType<AdjustDamageTaken>())
+                .asType<AdjustDamageTaken>();
             adt?.breakDefense();
         }
     }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class DelegateRegistrar : ScriptToken
@@ -24,5 +25,19 @@ public abstract class DelegateRegistrar : ScriptToken
     {
         registerDelegates(false);
         spellContext.caster.game.onMatchUpChanged -= onMatchupChanged;
+    }
+
+    public override bool isType<T>()
+    {
+        return base.isType<T>() || scriptTokens.Any(token => token.isType<T>());
+    }
+
+    public override T asType<T>()
+    {
+        if (base.isType<T>())
+        {
+            return base.asType<T>();
+        }
+        return scriptTokens.First(token => token.isType<T>()).asType<T>();
     }
 }

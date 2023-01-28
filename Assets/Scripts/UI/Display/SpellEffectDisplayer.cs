@@ -34,9 +34,9 @@ public class SpellEffectDisplayer : PlayerDisplayUI
 
     private void showEffects(List<ScriptToken> effects)
     {
-        showShield(effects.Any(effect => effect is BlockSpellEffect || effect is AdjustDamageTaken));
-        showDodge(effects.Any(effect => effect is Dodge));
-        showStatic(effects.Any(effect => effect is UndodgableElement));
+        showShield(effects.Any(effect => effect.isType<BlockSpellEffect>() || effect.isType<AdjustDamageTaken>()));
+        showDodge(effects.Any(effect => effect.isType<Dodge>()));
+        showStatic(effects.Any(effect => effect.isType<UndodgableElement>()));
     }
 
     private void showShield(bool show)
