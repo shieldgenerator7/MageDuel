@@ -32,7 +32,7 @@ public class SpellEffectDisplayer : PlayerDisplayUI
         showEffects(player.SpellEffects);
     }
 
-    private void showEffects(List<SpellEffect> effects)
+    private void showEffects(List<ScriptToken> effects)
     {
         showShield(effects.Any(effect => effect is BlockSpellEffect || effect is AdjustDamageTaken));
         showDodge(effects.Any(effect => effect is Dodge));

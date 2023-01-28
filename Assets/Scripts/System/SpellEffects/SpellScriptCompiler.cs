@@ -33,26 +33,31 @@ public static class SpellScriptCompiler
         string[] lines = spellScript.Trim().Split('\n');
         foreach (string line in lines)
         {
-            string lineT = line.Trim();
-            int firstParen = lineT.IndexOf('(');
-            if (firstParen < 0)
-            {
-                firstParen = lineT.IndexOf(' ');
-            }
-            string command = (firstParen >= 0) ? lineT.Substring(0, firstParen).Trim() : lineT;
-            int secondParen = lineT.IndexOf(')');
-            if (secondParen < 0)
-            {
-                secondParen = lineT.Length - 1;
-            }
-            string[] args = lineT.Substring(firstParen + 1, secondParen - firstParen - 1).Split(',');
-            for (int i = 0; i < args.Length; i++)
-            {
-                args[i] = args[i].Trim();
-            }
-            scriptTokens.Add(createSpellEffect(command, args));
+            string lineT = line.Trim();           
+            scriptTokens.Add(compileSpellEffect(lineT));
         }
         return scriptTokens;
+    }
+
+    private static SpellEffect compileSpellEffect(string lineT)
+    {
+        int firstParen = lineT.IndexOf('(');
+        if (firstParen < 0)
+        {
+            firstParen = lineT.IndexOf(' ');
+        }
+        string command = (firstParen >= 0) ? lineT.Substring(0, firstParen).Trim() : lineT;
+        int secondParen = lineT.IndexOf(')');
+        if (secondParen < 0)
+        {
+            secondParen = lineT.Length - 1;
+        }
+        string[] args = lineT.Substring(firstParen + 1, secondParen - firstParen - 1).Split(',');
+        for (int i = 0; i < args.Length; i++)
+        {
+            args[i] = args[i].Trim();
+        }
+        return createSpellEffect(command, args);
     }
 
     private static SpellEffect createSpellEffect(string command, string[] args)
@@ -68,4 +73,6 @@ public static class SpellScriptCompiler
         spellEffect.setArgs(args);
         return spellEffect;
     }
+
+
 }

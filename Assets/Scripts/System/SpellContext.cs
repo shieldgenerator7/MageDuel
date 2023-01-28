@@ -157,7 +157,7 @@ public class SpellContext : Target
         }
         return target;
     }
-    private void setTarget(string name, SpellContext spellContext)
+    public void setTarget(string name, SpellContext spellContext)
     {
         spellTargets[name] = spellContext;
         onTargetChanged?.Invoke(SpellTargets);

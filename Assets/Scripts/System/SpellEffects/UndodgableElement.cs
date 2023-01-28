@@ -14,12 +14,12 @@ public class UndodgableElement : SpellEffect
         spellContext.caster.game.onPhaseChanged += endEffect;
     }
 
-    private void searchForDodges(List<SpellEffect> effects)
+    private void searchForDodges(List<ScriptToken> effects)
     {
         searchForDodges(effects, true);
     }
 
-    private void searchForDodges(List<SpellEffect> effects, bool register)
+    private void searchForDodges(List<ScriptToken> effects, bool register)
     {
         spellContext.target.SpellEffects
             .FindAll(effect => effect is Dodge)

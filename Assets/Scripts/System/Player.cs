@@ -54,8 +54,8 @@ public class Player : Entity
     /// <summary>
     /// The spell effects that are currently on the player
     /// </summary>
-    private List<SpellEffect> spellEffects = new List<SpellEffect>();
-    public List<SpellEffect> SpellEffects => spellEffects.ToList();
+    private List<ScriptToken> scriptTokens = new List<ScriptToken>();
+    public List<ScriptToken> SpellEffects => scriptTokens.ToList();
 
     public Player(string name) : base(3, 5)
     {
@@ -169,23 +169,23 @@ public class Player : Entity
         aura.refill();
     }
 
-    public void applyEffect(SpellEffect spellEffect, bool apply)
+    public void applyEffect(ScriptToken spellEffect, bool apply)
     {
         if (apply)
         {
-            if (!spellEffects.Contains(spellEffect))
+            if (!scriptTokens.Contains(spellEffect))
             {
-                spellEffects.Add(spellEffect);
+                scriptTokens.Add(spellEffect);
             }
         }
         else
         {
-            spellEffects.Remove(spellEffect);
+            scriptTokens.Remove(spellEffect);
         }
-        onSpellEffectsChanged?.Invoke(spellEffects.ToList());
+        onSpellEffectsChanged?.Invoke(scriptTokens.ToList());
     }
-    public delegate void OnSpellEffectsChanged(List<SpellEffect> spellEffects);
-    public event OnSpellEffectsChanged onSpellEffectsChanged;
+    public delegate void OnScriptTokensChanged(List<ScriptToken> spellEffects);
+    public event OnScriptTokensChanged onSpellEffectsChanged;
 
     public static implicit operator bool(Player player) => player != null;
     public override string ToString()
