@@ -32,6 +32,12 @@ public class SpellDisplayer : SpellDisplayUI
         tooltip.setUIVars(uiVars);
         tooltip.init(this.spellContext);
     }
+    public override void init(Spell spell)
+    {
+        base.init(spell);
+        tooltip.setUIVars(uiVars);
+        tooltip.init(this.spell);
+    }
 
     protected override void _registerDelegates(bool register)
     {
