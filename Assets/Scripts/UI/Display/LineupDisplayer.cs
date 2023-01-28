@@ -50,10 +50,17 @@ public class LineupDisplayer : PlayerDisplayUI
         }
         spellsToRemove.ForEach(spell =>
         {
-            SpellDisplayer so = spellGOMap[spell];
-            Destroy(so.gameObject);
-            spellGOMap.Remove(spell);
-            callOnDisplayerDestroyed(so);
+            if (spellGOMap.ContainsKey(spell))
+            {
+                SpellDisplayer so = spellGOMap[spell];
+                spellGOMap.Remove(spell);
+                Destroy(so.gameObject);
+                callOnDisplayerDestroyed(so);
+            }
+            else
+            {
+                Debug.LogError($"spell {spell.spell.name} not found in spellGOMap");
+            }
         });
         //Hide empties
         empties.ForEach(empty => empty.gameObject.SetActive(false));
