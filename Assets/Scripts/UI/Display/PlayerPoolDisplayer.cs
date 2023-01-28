@@ -16,9 +16,12 @@ public class PlayerPoolDisplayer : PlayerDisplayUI
 
     protected override void _registerDelegates(bool register)
     {
-        player.health.onValueChanged -= updateHealthBar;
-        player.aura.onValueChanged -= updateAuraBar;
-        player.focus.onValueChanged -= updateFocusBar;
+        if (player)
+        {
+            player.health.onValueChanged -= updateHealthBar;
+            player.aura.onValueChanged -= updateAuraBar;
+            player.focus.onValueChanged -= updateFocusBar;
+        }
         if (register)
         {
             player.health.onValueChanged += updateHealthBar;

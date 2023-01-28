@@ -17,7 +17,10 @@ public class SpellEffectDisplayer : PlayerDisplayUI
 
     protected override void _registerDelegates(bool register)
     {
-        player.onSpellEffectsChanged -= showEffects;
+        if (player)
+        {
+            player.onSpellEffectsChanged -= showEffects;
+        }
         if (register)
         {
             player.onSpellEffectsChanged += showEffects;

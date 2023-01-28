@@ -119,7 +119,14 @@ public class SpellDisplayer : SpellDisplayUI
 
     public void showPulse(bool show)
     {
-        imgPulse.gameObject.SetActive(show);
+        if (imgPulse)
+        {
+            imgPulse.gameObject.SetActive(show);
+        }
+        else
+        {
+            Debug.LogError($"imgPulse {imgPulse}");
+        }
     }
 
     public void checkShowPulse(bool alwaysTrue = true)

@@ -34,11 +34,8 @@ public abstract class PlayerDisplayUI : MonoBehaviour
 
     public void registerDelegates(Player player, bool register = true)
     {
-        if (this.player)
-        {
-            _registerDelegates(false);
-            this.player = null;
-        }
+        _registerDelegates(false);
+        this.player = null;
         if (register)
         {
             this.player = player;

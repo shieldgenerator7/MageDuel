@@ -15,7 +15,10 @@ public class SpellButton : PlayerDisplayUI
 
     protected override void _registerDelegates(bool register)
     {
-        player.onDeckChanged -= onDeckChanged;
+        if (player)
+        {
+            player.onDeckChanged -= onDeckChanged;
+        }
         if (register)
         {
             player.onDeckChanged += onDeckChanged;

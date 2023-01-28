@@ -18,7 +18,10 @@ public class LineupDisplayer : PlayerDisplayUI
 
     protected override void _registerDelegates(bool register)
     {
-        player.onLineupChanged -= layoutSpells;
+        if (player)
+        {
+            player.onLineupChanged -= layoutSpells;
+        }
         if (register)
         {
             player.onLineupChanged += layoutSpells;

@@ -11,7 +11,10 @@ public class MageHoodCoinDisplayer : PlayerDisplayUI
 
     protected override void _registerDelegates(bool register)
     {
-        player.onStateChanged -= updateState;
+        if (player)
+        {
+            player.onStateChanged -= updateState;
+        }
         if (register)
         {
             player.onStateChanged += updateState;
