@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class SpellContext : Target
+public sealed class SpellContext : Target
 {
     public Spell spell;
     public Player target;
@@ -281,4 +281,6 @@ public class SpellContext : Target
         state = State.FIZZLED;
         OnSpellProcessed?.Invoke(this);
     }
+
+    public override string ToString() => spell.name;
 }
