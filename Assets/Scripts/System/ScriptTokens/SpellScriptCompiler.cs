@@ -20,6 +20,7 @@ public static class SpellScriptCompiler
         {"spellSpeed",typeof(SpellSpeedAdjust) },
         {"adjustDamageTaken",typeof(AdjustDamageTaken) },
         {"flipSign",typeof(FlipSign) },
+        {"dispell",typeof(Dispell) },
     };
     private static Dictionary<string, Type> delegateRegistrarTypes = new Dictionary<string, Type>()
     {
