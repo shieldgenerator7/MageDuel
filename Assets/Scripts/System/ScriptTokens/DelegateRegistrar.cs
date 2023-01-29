@@ -29,7 +29,7 @@ public abstract class DelegateRegistrar : ScriptToken
         }
     }
 
-    public void dispell()
+    public override void dispell()
     {
         registerDelegates(false);
         spellContext.target.applyEffect(this, false);

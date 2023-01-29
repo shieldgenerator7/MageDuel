@@ -14,6 +14,11 @@ public abstract class ScriptToken
 
     public abstract void evaluate();
 
+    public virtual void dispell()
+    {
+        Debug.LogError($"dispell not implemented! token: {this}");
+    }
+
     public virtual bool isType<T>()
     {
         return this is T;

@@ -294,14 +294,7 @@ public sealed class SpellContext : Target
         {
             if (token.spellContext == this)
             {
-                if (token is DelegateRegistrar)
-                {
-                    ((DelegateRegistrar)token).dispell();
-                }
-                else
-                {
-                    Debug.LogError($"Token is not a DelegateRegistrar! token: {token}");
-                }
+                token.dispell();
             }
         }
     }
