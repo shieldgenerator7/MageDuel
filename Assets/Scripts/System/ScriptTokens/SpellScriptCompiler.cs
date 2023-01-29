@@ -29,6 +29,7 @@ public static class SpellScriptCompiler
         {"onTargetedByPlayer", typeof(OnTargetedByPlayer) },
         {"onMatchUpChanged", typeof(OnMatchUpChanged) },
         {"onDamageReceived", typeof(OnDamageReceived) },
+        {"onRoundEnded", typeof(OnRoundEnded) },
     };
 
     public static void compile(SpellContext spellContext)
