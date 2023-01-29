@@ -22,6 +22,7 @@ public static class SpellScriptCompiler
         {"flipSign",typeof(FlipSign) },
         {"dispell",typeof(Dispell) },
         {"checkTimeLeft",typeof(CheckTimeLeft) },
+        {"damageHealth",typeof(DamageHealth) },
     };
     private static Dictionary<string, Type> delegateRegistrarTypes = new Dictionary<string, Type>()
     {
