@@ -24,6 +24,7 @@ public static class SpellScriptCompiler
     private static Dictionary<string, Type> delegateRegistrarTypes = new Dictionary<string, Type>()
     {
         {"onTargetedByPlayer", typeof(OnTargetedByPlayer) },
+        {"onMatchUpChanged", typeof(OnMatchUpChanged) },
     };
 
     public static void compile(SpellContext spellContext)
