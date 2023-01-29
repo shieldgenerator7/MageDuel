@@ -24,4 +24,4 @@ MonoBehaviour:
   attributes:
     attributes: []
   spellTargets: []
-  script: "onTargetedByPlayer{\n\tdodge(onTargetedByPlayer)\n}"
+  script: "onTargetedByPlayer{\n\tdodge(onTargetedByPlayer)\n}\nonMatchUpChanged{\n\tdispell(this)\n}"

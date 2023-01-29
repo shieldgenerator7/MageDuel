@@ -27,4 +27,4 @@ MonoBehaviour:
       value: 1
       rampable: 0
   spellTargets: []
-  script: "onTargetedByPlayer{\n\tredirect(this)\n\tdamage(damage)\n\tredirect(this)\n\tdodge(onTargetedByPlayer)\n}"
+  script: "onTargetedByPlayer{\n\tredirect(this)\n\tdamage(damage)\n\tredirect(this)\n\tdodge(onTargetedByPlayer)\n}\nonMatchUpChanged{\n\tdispell(this)\n}"

@@ -27,4 +27,4 @@ MonoBehaviour:
       value: 1
       rampable: 0
   spellTargets: []
-  script: "onTargetedByPlayer{\n\tspellSpeed(speed)\n\tdodge(onTargetedByPlayer)\n}"
+  script: "onTargetedByPlayer{\n\tspellSpeed(speed)\n\tdodge(onTargetedByPlayer)\n}\nonMatchUpChanged{\n\tdispell(this)\n}"

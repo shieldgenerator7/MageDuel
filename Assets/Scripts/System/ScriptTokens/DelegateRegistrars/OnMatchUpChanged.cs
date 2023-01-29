@@ -15,5 +15,6 @@ public class OnMatchUpChanged : DelegateRegistrar
 
     private void onMatchUpChanged(int index) {
         spellContext.setAttribute("onMatchUpChanged", index);
+        processTokens();
     }
 }
