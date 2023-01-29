@@ -14,10 +14,14 @@ public class GameUI : MonoBehaviour
 
     public TargetArrowManager targetArrowManager;
 
+    public SwapPlayerController swapPlayerController;
+
     private Game game;
     private UIVariables uiVars;
 
     private Timer processQueueTimer;
+
+    private int playerIndexOffset = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +52,17 @@ public class GameUI : MonoBehaviour
         }
         //Target Arrow Displayer
         targetArrowManager.uiVars = uiVars;
+        //Swap Player Controller
+        swapPlayerController.onActivated += () =>
+        {
+            playerIndexOffset++;
+            for (int i = 0; i < game.players.Count; i++)
+            {
+                int index = (i + playerIndexOffset) % game.players.Count;
+                Player p = game.players[index];
+                placemats[i].setPlayer(p, uiVars);
+            }
+        };
     }
 
     void onPhaseChanged(Game.GamePhase phase)
