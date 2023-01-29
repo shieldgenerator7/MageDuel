@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d49c370a0c1c39047b788d86a7e07400, type: 3}
+  m_Name: DodgeRoll
+  m_EditorClassIdentifier: 
+  name: Dodge Roll
+  icon: {fileID: 21300000, guid: 82eb276ec04d5b54488537a95b48cd1e, type: 3}
+  description: Dodge target spell and reduce the speed of another target spell by
+    [slow]
+  element: {fileID: 11400000, guid: 3347f6e73112a8c4ea76271f58b61f16, type: 2}
+  cost: 0
+  speed: 3
+  autoTargetEnemy: 1
+  autoTargetSelf: 0
+  keywords: 00000000
+  attributes:
+    attributes:
+    - name: slow
+      value: 1
+      rampable: 1
+  spellTargets:
+  - name: dodge
+    requireUnique: 0
+  - name: slow
+    requireUnique: 0
+  script: 'dodge(dodge)
+
+    flipSign(slow)
+
+    spellSpeed(slow, slow)'
