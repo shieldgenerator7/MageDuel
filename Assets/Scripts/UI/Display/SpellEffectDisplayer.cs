@@ -29,7 +29,7 @@ public class SpellEffectDisplayer : PlayerDisplayUI
 
     public override void forceUpdate()
     {
-        showEffects(player.SpellEffects);
+        showEffects(player.ScriptTokens);
     }
 
     private void showEffects(List<ScriptToken> effects)

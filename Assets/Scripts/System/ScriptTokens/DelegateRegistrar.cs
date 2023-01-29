@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class DelegateRegistrar : ScriptToken
 {
-    protected List<ScriptToken> scriptTokens { get; private set; } = new List<ScriptToken>();
+    private List<ScriptToken> scriptTokens = new List<ScriptToken>();
 
     public void init(List<ScriptToken> scriptTokens)
     {
@@ -15,16 +15,24 @@ public abstract class DelegateRegistrar : ScriptToken
     public override void evaluate()
     {
         registerDelegates(true);
-        spellContext.caster.game.onMatchUpChanged += onMatchupChanged;
+        spellContext.target.applyEffect(this, true);
     }
 
     protected abstract void registerDelegates(bool register);
 
-    //TEST CODE: make a system (or another delegate registrar) to make it unregister more flexibly
-    private void onMatchupChanged(int index)
+    protected void processTokens()
+    {
+        foreach (ScriptToken token in scriptTokens)
+        {
+            token.init(this.spellContext);
+            token.evaluate();
+        }
+    }
+
+    public void dispell()
     {
         registerDelegates(false);
-        spellContext.caster.game.onMatchUpChanged -= onMatchupChanged;
+        spellContext.target.applyEffect(this, false);
     }
 
     public override bool isType<T>()

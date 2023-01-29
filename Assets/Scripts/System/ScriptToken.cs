@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class ScriptToken
 {
-    protected SpellContext spellContext;
+    public SpellContext spellContext { get; private set; }
 
     public void init(SpellContext spellContext)
     {

@@ -55,7 +55,7 @@ public class Player : Entity
     /// The spell effects that are currently on the player
     /// </summary>
     private List<ScriptToken> scriptTokens = new List<ScriptToken>();
-    public List<ScriptToken> SpellEffects => scriptTokens.ToList();
+    public List<ScriptToken> ScriptTokens => scriptTokens.ToList();
 
     public Player(string name) : base(3, 5)
     {

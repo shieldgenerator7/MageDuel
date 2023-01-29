@@ -8,13 +8,13 @@ public class BreakDefense : SpellEffect
     {
         if (!checkTarget()) { return; }
 
-        BlockSpellEffect block = spellContext.target.SpellEffects
+        BlockSpellEffect block = spellContext.target.ScriptTokens
             .Find(effect => effect.isType<BlockSpellEffect>())
             .asType<BlockSpellEffect>();
         block?.breakDefense();
         if (block == null)
         {
-            AdjustDamageTaken adt = spellContext.target.SpellEffects
+            AdjustDamageTaken adt = spellContext.target.ScriptTokens
                 .Find(effect => effect.isType<AdjustDamageTaken>())
                 .asType<AdjustDamageTaken>();
             adt?.breakDefense();

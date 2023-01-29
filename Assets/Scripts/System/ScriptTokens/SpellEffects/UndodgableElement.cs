@@ -10,7 +10,7 @@ public class UndodgableElement : SpellEffect
 
         spellContext.target.onSpellEffectsChanged += searchForDodges;
         spellContext.target.applyEffect(this, true);
-        searchForDodges(spellContext.target.SpellEffects);
+        searchForDodges(spellContext.target.ScriptTokens);
         spellContext.caster.game.onPhaseChanged += endEffect;
     }
 
@@ -21,7 +21,7 @@ public class UndodgableElement : SpellEffect
 
     private void searchForDodges(List<ScriptToken> effects, bool register)
     {
-        spellContext.target.SpellEffects
+        spellContext.target.ScriptTokens
             .FindAll(effect => effect.isType<Dodge>())
             .ForEach(effect => registerUnDodge(effect.asType<Dodge>(), register));
     }
@@ -50,7 +50,7 @@ public class UndodgableElement : SpellEffect
     {
         if (phase == Game.GamePhase.CLEANUP)
         {
-            searchForDodges(spellContext.target.SpellEffects, false);
+            searchForDodges(spellContext.target.ScriptTokens, false);
             spellContext.target.onSpellEffectsChanged -= searchForDodges;
             spellContext.target.applyEffect(this, false);
             spellContext.caster.game.onPhaseChanged -= endEffect;
