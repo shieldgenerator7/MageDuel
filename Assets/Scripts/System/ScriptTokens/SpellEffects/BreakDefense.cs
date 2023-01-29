@@ -10,13 +10,13 @@ public class BreakDefense : SpellEffect
 
         BlockSpellEffect block = spellContext.target.ScriptTokens
             .Find(effect => effect.isType<BlockSpellEffect>())
-            .asType<BlockSpellEffect>();
+            ?.asType<BlockSpellEffect>();
         block?.breakDefense();
         if (block == null)
         {
             AdjustDamageTaken adt = spellContext.target.ScriptTokens
                 .Find(effect => effect.isType<AdjustDamageTaken>())
-                .asType<AdjustDamageTaken>();
+                ?.asType<AdjustDamageTaken>();
             adt?.breakDefense();
         }
     }
