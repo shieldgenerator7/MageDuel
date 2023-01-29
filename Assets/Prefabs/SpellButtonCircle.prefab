@@ -124,6 +124,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpellButtonCircle
       objectReference: {fileID: 0}
+    - target: {fileID: 8744471260376711844, guid: e10f84a0b03b4e84f804ea9664374ebb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

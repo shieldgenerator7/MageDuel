@@ -8,8 +8,6 @@ public class LineupDisplayer : PlayerDisplayUI
     public int buffer = 250;
     public bool flipped = false;
 
-    public GameObject mageHoodCoin;
-
     public GameObject spellPrefab;
     public GameObject emptyPrefab;
 
@@ -119,9 +117,7 @@ public class LineupDisplayer : PlayerDisplayUI
         //Arrange the spell objects
         int flip = (flipped) ? -1 : 1;
         int maxCastingSpeed = Mathf.Max(player.castingSpeed, player.opponent.castingSpeed);
-        int x = flip * -1 * (maxCastingSpeed) * buffer / 2;
-        mageHoodCoin.GetComponent<RectTransform>().localPosition = new Vector2(x, 0);
-        x += flip * buffer;
+        int x = flip * -1 * (maxCastingSpeed - 1) * buffer / 2;
         foreach (SpellDisplayer so in spellGOList)
         {
             so.GetComponent<RectTransform>().localPosition = new Vector2(x, 0);
