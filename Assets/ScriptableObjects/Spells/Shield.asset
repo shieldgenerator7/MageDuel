@@ -30,6 +30,4 @@ MonoBehaviour:
       value: 5
       rampable: 0
   spellTargets: []
-  script: 'flipSign(threshold)
-
-    adjustDamageTaken(threshold,duration)'
+  script: "flipSign(threshold)\nonDamageReceived{\n\tadjustDamageTaken(onDamageReceived,threshold)\n}\nonMatchUpChanged{\n\tcheckTimeLeft(duration)\n}"

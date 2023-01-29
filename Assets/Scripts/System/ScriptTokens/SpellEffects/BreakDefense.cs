@@ -17,7 +17,7 @@ public class BreakDefense : SpellEffect
             AdjustDamageTaken adt = spellContext.target.ScriptTokens
                 .Find(effect => effect.isType<AdjustDamageTaken>())
                 ?.asType<AdjustDamageTaken>();
-            adt?.breakDefense();
+            adt?.dispell();
         }
     }
 }
