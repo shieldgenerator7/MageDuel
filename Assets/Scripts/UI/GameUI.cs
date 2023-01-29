@@ -27,6 +27,7 @@ public class GameUI : MonoBehaviour
         for (int i = 0; i < gameSettings.playerNames.Count; i++)
         {
             Player p = new Player(gameSettings.playerNames[i]);
+            p.color = gameSettings.playerColors[i];
             p.Deck ??= ((gameSettings.decks.Count > 0)
                     ? gameSettings.decks[Random.Range(0, gameSettings.decks.Count)]
                     : null

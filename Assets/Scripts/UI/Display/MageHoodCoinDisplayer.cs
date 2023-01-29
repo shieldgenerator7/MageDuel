@@ -8,6 +8,7 @@ public class MageHoodCoinDisplayer : PlayerDisplayUI
     public Sprite eyeClosed;
     public Sprite eyeOpened;
     public Image imgEyes;
+    public Image imgHood;
 
     protected override void _registerDelegates(bool register)
     {
@@ -23,6 +24,7 @@ public class MageHoodCoinDisplayer : PlayerDisplayUI
 
     public override void forceUpdate()
     {
+        imgHood.color = player.color;
         updateState(player.State);
     }
 

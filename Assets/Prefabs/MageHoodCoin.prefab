@@ -400,6 +400,7 @@ MonoBehaviour:
   eyeClosed: {fileID: 21300000, guid: 99e28fe70d8f1db49a0d7e67b760359d, type: 3}
   eyeOpened: {fileID: 21300000, guid: ca5660220de662b44b52f09180b4a90b, type: 3}
   imgEyes: {fileID: 656123365278839327}
+  imgHood: {fileID: 1701435483946660369}
 --- !u!1 &7279589502921674370
 GameObject:
   m_ObjectHideFlags: 0

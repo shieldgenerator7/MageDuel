@@ -16,6 +16,9 @@ MonoBehaviour:
   playerNames:
   - Player1
   - Player2
+  playerColors:
+  - {r: 0.06666667, g: 0.23137255, b: 0.6117647, a: 1}
+  - {r: 0, g: 0.25490198, b: 0.039215688, a: 1}
   decks:
   - {fileID: 11400000, guid: 5ba571233dcc55547bb28ca0865ee953, type: 2}
   - {fileID: 11400000, guid: 998b02aa3e915e043a56cf1b7ff0f3ec, type: 2}

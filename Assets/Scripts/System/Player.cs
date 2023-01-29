@@ -7,6 +7,7 @@ using UnityEngine;
 public class Player : Entity
 {
     public string name;
+    public Color color;
     public Pool focus = new Pool(7);
     /// <summary>
     /// The spells that the player knows
