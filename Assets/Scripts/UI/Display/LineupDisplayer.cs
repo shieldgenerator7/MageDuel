@@ -28,7 +28,9 @@ public class LineupDisplayer : PlayerDisplayUI
 
     public override void forceUpdate()
     {
+        //Layout spells
         layoutSpells(player.Lineup);
+        //Update spell displayers
         foreach (SpellDisplayer so in spellGOMap.Values)
         {
             so.forceUpdate();
@@ -53,7 +55,6 @@ public class LineupDisplayer : PlayerDisplayUI
                 SpellDisplayer so = spellGOMap[spell];
                 spellGOMap.Remove(spell);
                 Destroy(so.gameObject);
-                callOnDisplayerDestroyed(so);
             }
             else
             {
@@ -74,7 +75,6 @@ public class LineupDisplayer : PlayerDisplayUI
             spellDisplayer.setUIVars(uiVars);
             spellGOMap.Add(spell, spellDisplayer);
             spellDisplayer.init(spell);
-            callOnDisplayerCreated(spellDisplayer);
         }
         //Generate empties
         int emptiesNeeded = player.castingSpeed - spells.Count(spell => spell != null);
