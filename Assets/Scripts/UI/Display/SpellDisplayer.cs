@@ -84,6 +84,11 @@ public class SpellDisplayer : SpellDisplayUI
         }
         imgIcon.sprite = spellContext?.spell.icon ?? spell.icon;
         updateColor();
+        if (!imgFocus || !imgAura)
+        {
+            Debug.LogError($"imgFocus {imgFocus}, imgAura {imgAura}");
+            return;
+        }
         updateFocus(spellContext?.Focus ?? -1);
         updateAura(spellContext?.Aura ?? -1);
         showTooltip(false);
