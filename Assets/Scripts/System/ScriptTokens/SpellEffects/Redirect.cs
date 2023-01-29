@@ -7,7 +7,7 @@ public class Redirect : SpellEffect
     public override void activate()
     {
         if (!checkTarget(true)) { return; }
-        SpellContext target = spellContext.getTarget(getParameter(0));
+        SpellContext target = Target0;
         //Redirect self-targeting spell
         if (target.target == target.caster)
         {

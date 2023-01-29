@@ -7,7 +7,7 @@ public class FocusSpellSpellEffect : SpellEffect
     public override void activate()
     {
         if (!checkTarget(true)) { return; }
-        SpellContext spell = spellContext.getTarget(getParameter(0));
+        SpellContext spell = Target0;
         int focusDelta = Parameter1;
         spell.Focus += focusDelta;
     }

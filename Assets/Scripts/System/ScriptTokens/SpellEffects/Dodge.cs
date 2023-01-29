@@ -7,7 +7,7 @@ public class Dodge : SpellEffect
     {
         if (!checkTarget(true)) { return; }
 
-        SpellContext otherSpell = spellContext.getTarget(getParameter(0));
+        SpellContext otherSpell = Target0;
         //Early exit
         if (otherSpell.caster == this.spellContext.caster)
         {

@@ -7,7 +7,7 @@ public class Dispell : SpellEffect
     {
         if (!checkTarget(true)) { return; }
 
-        SpellContext target = spellContext.getTarget(getParameter(0));
+        SpellContext target = Target0;
         foreach(ScriptToken token in target.target.ScriptTokens)
         {
             if (token.spellContext == target)

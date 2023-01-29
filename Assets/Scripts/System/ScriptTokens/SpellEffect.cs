@@ -28,6 +28,9 @@ public abstract class SpellEffect : ScriptToken
     protected int Parameter0 => spellContext.getAttribute(getParameter(0));
     protected int Parameter1 => spellContext.getAttribute(getParameter(1));
 
+    protected SpellContext Target0 => spellContext.getTarget(getParameter(0));
+    protected SpellContext Target1 => spellContext.getTarget(getParameter(1));
+
     public override void evaluate()
     {
         activate();
