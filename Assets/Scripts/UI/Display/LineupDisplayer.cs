@@ -75,6 +75,8 @@ public class LineupDisplayer : PlayerDisplayUI
             spellDisplayer.setUIVars(uiVars);
             spellGOMap.Add(spell, spellDisplayer);
             spellDisplayer.init(spell);
+            spellDisplayer.registerDelegates(player, true);
+            spellDisplayer.forceUpdate();
         }
         //Generate empties
         int emptiesNeeded = player.castingSpeed - spells.Count(spell => spell != null);

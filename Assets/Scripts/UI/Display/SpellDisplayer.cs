@@ -73,6 +73,7 @@ public class SpellDisplayer : SpellDisplayUI
             uiVars.onCurrentCastingSpellChanged += checkShowPulse;
             player.onDeckChanged += onDeckChanged;
         }
+        tooltip.registerDelegates(player, register);
     }
 
     public override void forceUpdate()
@@ -94,6 +95,7 @@ public class SpellDisplayer : SpellDisplayUI
         showTooltip(false);
         checkShowPulse();
         checkShowSelectRing(spellContext?.state ?? SpellContext.State.LINEDUP);
+        tooltip.forceUpdate();
     }
 
     private void updateColor()
