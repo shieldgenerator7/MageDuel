@@ -276,10 +276,34 @@ public sealed class SpellContext : Target
         State.FIZZLED,
     }).Contains(state);
 
+    /// <summary>
+    /// Fizzle: prevent the spell from casting
+    /// </summary>
     public void fizzle()
     {
         state = State.FIZZLED;
         OnSpellProcessed?.Invoke(this);
+    }
+
+    /// <summary>
+    /// Dispell: remove the spell's effects after it has been cast
+    /// </summary>
+    public void dispell()
+    {
+        foreach (ScriptToken token in target.ScriptTokens)
+        {
+            if (token.spellContext == this)
+            {
+                if (token is DelegateRegistrar)
+                {
+                    ((DelegateRegistrar)token).dispell();
+                }
+                else
+                {
+                    Debug.LogError($"Token is not a DelegateRegistrar! token: {token}");
+                }
+            }
+        }
     }
 
     public override string ToString() => spell.name;
