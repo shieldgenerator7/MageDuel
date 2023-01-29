@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fac8951a24b41424da4249694703611b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  imgIcon: {fileID: 0}
   focusSprites: []
   auraSprites: []
   imgFocus: {fileID: 0}
@@ -133,6 +134,7 @@ MonoBehaviour:
   imagesToColor: []
   tooltip: {fileID: 0}
   imgPulse: {fileID: 0}
+  imgSelectRing: {fileID: 0}
   cmpToDestroyOnResolveList: []
   imgToRecolorOnResolve: []
   resolveColor: {r: 1, g: 1, b: 1, a: 1}
