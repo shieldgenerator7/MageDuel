@@ -96,10 +96,7 @@ public class SpellDisplayer : SpellDisplayUI
         checkShowPulse();
         checkShowSelectRing(spellContext?.state ?? SpellContext.State.LINEDUP);
         tooltip.forceUpdate();
-        if (spellContext?.state == SpellContext.State.RESOLVED)
-        {
-            onSpellResolved(spellContext);
-        }
+        checkSpellResolved();
     }
 
     private void updateIcon()
@@ -169,10 +166,7 @@ public class SpellDisplayer : SpellDisplayUI
             );
         updateIcon();
         updateColor();
-        if (spellContext?.state == SpellContext.State.RESOLVED)
-        {
-            onSpellResolved(spellContext);
-        }
+        checkSpellResolved();
     }
     public void checkShowPulse(SpellContext spellContext)
     {
@@ -208,6 +202,16 @@ public class SpellDisplayer : SpellDisplayUI
             c.a = resolveAlpha;
             img.color = c;
         });
+    }
+
+    public void checkSpellResolved()
+    {
+        if (spellContext?.state == SpellContext.State.RESOLVED
+            || spellContext?.state == SpellContext.State.FIZZLED
+        )
+        {
+            onSpellResolved(spellContext);
+        }
     }
 
     public void onValidTargetsChanged(List<Target> targets)
