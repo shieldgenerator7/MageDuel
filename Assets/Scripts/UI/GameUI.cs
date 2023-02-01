@@ -121,6 +121,17 @@ public class GameUI : MonoBehaviour
                 }
                 processQueue();
             }
+            //TEST CODE: press tab to immediately go to next matchup
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                if (processQueueTimer != null)
+                {
+                    processQueueTimer.canceled = true;
+                    processQueueTimer = null;
+                }
+                game.clearQueue();
+                game.MatchupIndex++;
+            }
         }
         if (Input.GetKeyUp(KeyCode.Escape) && !Input.GetKey(KeyCode.Space))
         {

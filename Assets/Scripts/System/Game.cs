@@ -305,6 +305,14 @@ public class Game
         }
     }
 
+    //TEST METHOD
+    public void clearQueue()
+    {
+        Debug.LogWarning("Game.clearQueue() called!");
+        castingQueue.Clear();
+        onQueueChanged?.Invoke(castingQueue);
+    }
+
     /// <summary>
     /// Processes one spell from the front of the queue
     /// </summary>
