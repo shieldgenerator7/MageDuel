@@ -63,6 +63,17 @@ public class Player : Entity
         this.name = name;
     }
 
+    public bool canView(SpellContext spellContext)
+        //any player can view a null spellcontext
+        => spellContext == null
+        //player can view their own spells
+        || spellContext.caster == this
+        //any player can view a spell that has been cast
+        || spellContext.state == SpellContext.State.RESOLVED
+        //any player can view a spell that is up next
+        || spellContext.BinDran
+        ;
+
     public void focusSpell(SpellContext spellContext, int focus, int aura = 0, bool toSpell = true)
     {
         if (focus < 0)

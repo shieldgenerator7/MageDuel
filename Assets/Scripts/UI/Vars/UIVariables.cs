@@ -7,10 +7,13 @@ public class UIVariables
     public GameSettings gameSettings;
     public List<PlayerUIVariables> playerVars { get; private set; }
 
+    public Player viewPlayer;
+
     public UIVariables(Game game)
     {
         this.game = game;
         playerVars = game.players.ConvertAll(player => new PlayerUIVariables(player));
+        viewPlayer = game.players[0];
     }
 
     public PlayerUIVariables getPlayerVariables(Player player)

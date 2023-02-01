@@ -56,6 +56,7 @@ public class GameUI : MonoBehaviour
         swapPlayerController.onActivated += () =>
         {
             playerIndexOffset++;
+            uiVars.viewPlayer = game.players[playerIndexOffset % game.players.Count];
             for (int i = 0; i < game.players.Count; i++)
             {
                 int index = (i + playerIndexOffset) % game.players.Count;

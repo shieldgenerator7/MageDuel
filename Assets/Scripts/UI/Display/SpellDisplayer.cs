@@ -83,7 +83,7 @@ public class SpellDisplayer : SpellDisplayUI
             Debug.Log($"No spell! {spellContext}, {spell}");
             return;
         }
-        imgIcon.sprite = spellContext?.spell.icon ?? spell.icon;
+        updateIcon();
         updateColor();
         if (!imgFocus || !imgAura)
         {
@@ -96,11 +96,26 @@ public class SpellDisplayer : SpellDisplayUI
         checkShowPulse();
         checkShowSelectRing(spellContext?.state ?? SpellContext.State.LINEDUP);
         tooltip.forceUpdate();
+        if (spellContext?.state == SpellContext.State.RESOLVED)
+        {
+            onSpellResolved(spellContext);
+        }
+    }
+
+    private void updateIcon()
+    {
+        bool revealed = Revealed;
+        imgIcon.enabled = revealed;
+        imgIcon.sprite = (revealed)
+            ? spellContext?.spell.icon ?? spell.icon
+            : null;
     }
 
     private void updateColor()
     {
-        Color color = spellContext?.element.color ?? spell.element.color;
+        Color color = (Revealed)
+            ? spellContext?.element.color ?? spell.element.color
+            : Color.white;
         imagesToColor.ForEach(img => img.color = color);
     }
 
@@ -152,6 +167,12 @@ public class SpellDisplayer : SpellDisplayUI
                     && spellContext.canBeCastNext
                 )
             );
+        updateIcon();
+        updateColor();
+        if (spellContext?.state == SpellContext.State.RESOLVED)
+        {
+            onSpellResolved(spellContext);
+        }
     }
     public void checkShowPulse(SpellContext spellContext)
     {

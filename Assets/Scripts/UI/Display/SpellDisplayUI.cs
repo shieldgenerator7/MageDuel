@@ -22,4 +22,6 @@ public abstract class SpellDisplayUI : PlayerDisplayUI
         this.spellContext = null;
         this.spell = spell;
     }
+
+    protected bool Revealed => uiVars?.viewPlayer.canView(spellContext) ?? false;
 }
